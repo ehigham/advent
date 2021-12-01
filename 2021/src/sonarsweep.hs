@@ -71,6 +71,5 @@ main = do
     let measurements = map read (words contents) :: [Int]
         timesDeeper  = count GT $ zipWith compare (tail measurements) measurements
     printf "There are %d measurements larger than the previous.\n" timesDeeper
-    return ()
   where
     count = (length .) . filter . (==)
