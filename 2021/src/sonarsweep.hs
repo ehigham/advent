@@ -1,3 +1,6 @@
+import System.Environment as Env
+import Text.Printf (printf)
+
 -- | Day 1: Sonar Sweep
 -- You're minding your own business on a ship at sea when the overboard alarm
 -- goes off! You rush to see if you can help. Apparently, one of the Elves
@@ -15,7 +18,7 @@
 -- Collect stars by solving puzzles. Two puzzles will be made available on each
 -- day in the Advent calendar; the second puzzle is unlocked when you complete
 -- the first. Each puzzle grants one star. Good luck!
-
+--
 -- As the submarine drops below the surface of the ocean, it automatically
 -- performs a sonar sweep of the nearby sea floor. On a small screen, the sonar
 -- sweep report (your puzzle input) appears: each line is a measurement of the
@@ -61,6 +64,13 @@
 -- measurement.
 --
 -- How many measurements are larger than the previous measurement?
-
 main :: IO ()
-main = putStrLn "Sonar Sweep"
+main = do
+    [inputFile] <- Env.getArgs
+    contents <- readFile inputFile
+    let measurements = map read (words contents) :: [Int]
+        timesDeeper  = count GT $ zipWith compare (tail measurements) measurements
+    printf "There are %d measurements larger than the previous.\n" timesDeeper
+    return ()
+  where
+    count = (length .) . filter . (==)
