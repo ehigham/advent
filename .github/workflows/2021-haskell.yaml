@@ -32,7 +32,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.stack
-        key: ${{ runner.os }}-stack-global-${{ hashFiles('**/*.yaml') }}
+        key: ${{ runner.os }}-stack-global-${{ hashFiles('**.yaml') }}
         restore-keys: |
           ${{ runner.os }}-stack-global
 
@@ -40,7 +40,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: 2021/.stack-work
-        key: ${{ runner.os }}-stack-work-${{ hashFiles('*.yaml') }}
+        key: ${{ runner.os }}-stack-work-${{ hashFiles('**.yaml') }}
         restore-keys: |
           ${{ runner.os }}-stack-work
 
