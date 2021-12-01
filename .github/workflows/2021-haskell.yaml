@@ -28,6 +28,13 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+
+    - name: Install Dependencies
+      working-directory: 2021/
+      run: |
+       stack update  
+       stack setup
+       stack install hlint
     
     - name: HLint
       working-directory: 2021/
