@@ -1,0 +1,31 @@
+name: Advent 2021 Haskell CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Prepare Sources
+    - uses: actions/checkout@v2
+
+    - name: Setup Hs
+    - working-directory: 2021/
+    - uses: haskell/actions/setup@v1
+      with:
+        ghc-version: '8.10.7'
+        enable-stack: true
+        stack-version: 'latest'
+
+    - name: Hs Lint
+    - working-directory: 2021/
+      uses: domdere/haskell-lint-action@v1.0.2
+
+    - name: Build
+    - working-directory: 2021/
+      run: stack build
+
+    - name: Test
+    - working-directory: 2021/ 
+      run: stack test

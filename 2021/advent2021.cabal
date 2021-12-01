@@ -6,7 +6,7 @@ cabal-version: 1.12
 
 name:           advent2021
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/ehigham/advent2021#readme>
+description:    Please see the README on GitHub at <https://github.com/ehigham/advent/blob/main/2021/README.md>
 homepage:       https://github.com/ehigham/advent#readme
 bug-reports:    https://github.com/ehigham/advent/issues
 author:         Edmund Higham
