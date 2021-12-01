@@ -34,7 +34,7 @@ library
       base >=4.7 && <5
   default-language: Haskell2010
 
-executable advent2021-exe
+executable advent2021
   main-is: Main.hs
   other-modules:
       Paths_advent2021
@@ -46,7 +46,7 @@ executable advent2021-exe
     , base >=4.7 && <5
   default-language: Haskell2010
 
-test-suite advent2021-test
+test-suite unittest
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:

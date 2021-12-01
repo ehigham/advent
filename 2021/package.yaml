@@ -26,7 +26,7 @@ library:
   source-dirs: src
 
 executables:
-  advent2021-exe:
+  advent2021:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -37,7 +37,7 @@ executables:
     - advent2021
 
 tests:
-  advent2021-test:
+  unittest:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
