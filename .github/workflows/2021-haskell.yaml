@@ -40,7 +40,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: 2021/.stack-work
-        key: ${{ runner.os }}-stack-work-${{ hashFiles('2021/*.yaml') }}
+        key: ${{ runner.os }}-stack-work-${{ hashFiles('*.yaml') }}
         restore-keys: |
           ${{ runner.os }}-stack-work
 
