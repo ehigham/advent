@@ -1,4 +1,4 @@
-# Advent of Code 2021 
+# Advent of Code 2021
 Solutions to Advent of Code 2021 in Haskell
 
 [![Advent 2021 Haskell CI](https://github.com/ehigham/advent/actions/workflows/2021-haskell.yaml/badge.svg)](https://github.com/ehigham/advent/actions/workflows/2021-haskell.yaml)
@@ -7,7 +7,7 @@ Solutions to Advent of Code 2021 in Haskell
 
 Ensure you have `ghc` and `stack` installed and on your path.
 
-To build the source: 
+To build the source:
 ```bash
 $ stack build
 ```

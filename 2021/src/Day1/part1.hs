@@ -1,7 +1,7 @@
 import System.Environment as Env
 import Text.Printf (printf)
 
--- | Day 1: Sonar Sweep
+-- | Day 1: Sonar Sweep - Part 1
 -- You're minding your own business on a ship at sea when the overboard alarm
 -- goes off! You rush to see if you can help. Apparently, one of the Elves
 -- tripped and accidentally sent the sleigh keys flying into the ocean!
@@ -72,4 +72,5 @@ main = do
         timesDeeper  = count GT $ zipWith compare (tail measurements) measurements
     printf "There are %d measurements larger than the previous.\n" timesDeeper
   where
-    count = (length .) . filter . (==)
+      count :: Eq a => a -> [a] -> Int
+      count = (length .) . filter . (==)
