@@ -50,15 +50,8 @@ main = do
     [inputFile] <- Env.getArgs
     contents <- readFile inputFile
     let measurements = map read (words contents) :: [Int]
-        windowed     = map sum (window 3 measurements)
-        timesDeeper  = count GT $ zipWith compare (tail windowed) windowed
+        timesDeeper  = count GT $ zipWith compare (drop 3 measurements) measurements
     printf "There are %d measurements larger than the previous.\n" timesDeeper
   where
     count :: Eq a => a -> [a] -> Int
     count = (length .) . filter . (==)
-
-    window :: Int -> [a] -> [[a]]
-    window n xs = let w = take n xs in
-        if length w < n
-            then []
-            else w : window n (tail xs)
