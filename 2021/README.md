@@ -1,5 +1,5 @@
 # Advent of Code 2021
-Solutions to Advent of Code 2021 in Haskell
+Solutions to [Advent of Code 2021](https://adventofcode.com/2021) in Haskell
 
 [![Advent 2021 Haskell CI](https://github.com/ehigham/advent/actions/workflows/2021-haskell.yaml/badge.svg)](https://github.com/ehigham/advent/actions/workflows/2021-haskell.yaml)
 
