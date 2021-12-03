@@ -24,6 +24,7 @@ ghc-options:
   - -Wno-missing-local-signatures
   - -Wno-missing-import-lists
   - -Wno-safe
+  - -Wno-unsafe
   - -Wno-missing-safe-haskell-mode
   - -Wno-implicit-prelude
   - -Wno-prepositive-qualified-module
