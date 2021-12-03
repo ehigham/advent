@@ -49,9 +49,9 @@ import Text.Read
 -- the planned course. What do you get if you multiply your final horizontal
 -- position by your final depth?
 part1 :: Command -> (Horizontal, Depth) -> (Horizontal, Depth)
-part1 (Command Forward n) (x, y) = (x + n, y)
-part1 (Command Up      n) (x, y) = (x, y - n)
-part1 (Command Down    n) (x, y) = (x, y + n)
+part1 (Command Forward x) (h, d) = (h + x, d)
+part1 (Command Up      x) (h, d) = (h, d - x)
+part1 (Command Down    x) (h, d) = (h, d + x)
 
 
 type Horizontal = Int
@@ -61,7 +61,7 @@ data Command = Command Direction Int
 
 
 instance Show Command where
-    show (Command direction n) = show direction ++ show n
+    show (Command direction x) = show direction ++ show x
 
 
 instance Read Command where
@@ -126,8 +126,8 @@ instance Read Direction where
 -- do you get if you multiply your final horizontal position by your final
 -- depth?
 part2 :: Command -> (Horizontal, Depth, Aim) -> (Horizontal, Depth, Aim)
-part2 (Command Forward n) (x, y, a) = (x + n, y + a * n, a    )
-part2 (Command Up      n) (x, y, a) = (x    , y        , a - n)
-part2 (Command Down    n) (x, y, a) = (x    , y        , a + n)
+part2 (Command Forward x) (h, d, a) = (h + x, d + a * x, a    )
+part2 (Command Up      x) (h, d, a) = (h    , d        , a - x)
+part2 (Command Down    x) (h, d, a) = (h    , d        , a + x)
 
 type Aim = Int
