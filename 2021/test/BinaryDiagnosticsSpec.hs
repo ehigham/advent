@@ -29,7 +29,7 @@ testMcb = testGroup "Testing most common bit"
     ,   testCase "tie"       $ mcb [Zero, One]        @?= One
     ]
 
-testLcb = testGroup "Testing lease common bit"
+testLcb = testGroup "Testing least common bit"
     [   testCase "All Zeros" $ lcb [Zero, Zero, Zero] @?= One
     ,   testCase "All Ones"  $ lcb [One,  One,  One]  @?= Zero
     ,   testCase "A Zero"    $ lcb [Zero, One,  One]  @?= Zero
