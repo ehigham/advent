@@ -1,6 +1,7 @@
-module Day3.BinaryDiagnostic ( BinaryDigit ( .. ), xor, toInt ) where
+module Day3.BinaryDiagnostic ( BinaryDigit ( .. ), toInt ) where
 
-import  Data.Bits   (shiftL)
+import  Data.Bits             (shiftL)
+import  Data.Boolean
 import  Text.Read
 
 
@@ -19,11 +20,19 @@ instance Read BinaryDigit where
         '1' -> return One
         _   -> pfail
 
+instance Boolean BinaryDigit where
+    true  = One
+    false = Zero
 
-xor :: BinaryDigit -> BinaryDigit -> BinaryDigit
-xor One  One  = Zero
-xor Zero Zero = Zero
-xor _    _    = One
+    notB One  = Zero
+    notB Zero = One
+
+    (&&*) One One = One
+    (&&*) _   _   = Zero
+
+    (||*) One _   = One
+    (||*) _   One = One
+    (||*) _   _   = Zero
 
 
 toInt :: [BinaryDigit] -> Int

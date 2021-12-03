@@ -1,10 +1,11 @@
 import           Control.Arrow             ( (***) )
-import           Control.Monad             ( join )
+import           Control.Monad             ( ap, join )
+import           Data.Boolean              ( notB )
 import           Data.List                 ( transpose )
 import qualified System.Environment as Env
 import           Text.Printf               ( printf )
 
-import           Day3.BinaryDiagnostic     ( BinaryDigit ( .. ), xor, toInt )
+import           Day3.BinaryDiagnostic     ( BinaryDigit ( .. ), toInt )
 
 
 -- | Day 3: Binary Diagnostic
@@ -60,7 +61,7 @@ import           Day3.BinaryDiagnostic     ( BinaryDigit ( .. ), xor, toInt )
 -- of the submarine? (Be sure to represent your answer in decimal, not binary)
 diagnostic :: [[BinaryDigit]] -> (Gamma, Epsilon)
 diagnostic = join (***) toInt
-           . (\x -> (x, zipWith xor x (repeat One)))
+           . ap (,) (map notB)
            . map mode
            . transpose
   where

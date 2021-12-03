@@ -36,10 +36,8 @@ default-extensions:
   - LambdaCase
 
 dependencies:
-- base >= 4.7 && < 5
-
-library:
-  source-dirs: src
+  - base >= 4.7 && < 5
+  - Boolean >= 0.2
 
 executables:
   sonarsweep1:
