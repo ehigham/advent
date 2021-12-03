@@ -26,11 +26,25 @@ source-repository head
 library
   exposed-modules:
       Day1.SonarSweep
+      Day2.Dive
   other-modules:
       Paths_advent2021
   hs-source-dirs:
       src
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -XDerivingStrategies -XRankNTypes
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable dive1
+  main-is: Day2/part1.hs
+  other-modules:
+      Day1.SonarSweep
+      Day2.Dive
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -XDerivingStrategies -XRankNTypes -O2
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -39,10 +53,11 @@ executable sonarsweep1
   main-is: Day1/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day2.Dive
       Paths_advent2021
   hs-source-dirs:
       src
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -XDerivingStrategies -XRankNTypes -O2
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -51,10 +66,11 @@ executable sonarsweep2
   main-is: Day1/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day2.Dive
       Paths_advent2021
   hs-source-dirs:
       src
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -XDerivingStrategies -XRankNTypes -O2
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -63,10 +79,14 @@ test-suite unittest
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      DiveSpec
       Paths_advent2021
   hs-source-dirs:
       test
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O0 -g
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -XDerivingStrategies -XRankNTypes -O0 -g -Wno-unsafe
   build-depends:
-      base >=4.7 && <5
+      advent2021
+    , base >=4.7 && <5
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
