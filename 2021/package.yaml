@@ -28,8 +28,10 @@ ghc-options:
   - -Wno-implicit-prelude
   - -Wno-prepositive-qualified-module
   - -Werror
-  - -XDerivingStrategies
-  - -XRankNTypes
+
+default-extensions:
+  - DerivingStrategies
+  - RankNTypes
 
 dependencies:
 - base >= 4.7 && < 5
