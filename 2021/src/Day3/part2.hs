@@ -1,6 +1,7 @@
-import           Day3.BinaryDiagnostics        ( Bit ( .. ), toInt, mcb, lcb )
+import           Data.List                     ( transpose )
 import qualified System.Environment     as Env
 import           Text.Printf                   ( printf )
+import           Day3.BinaryDiagnostics        ( Bit ( .. ), toInt, mcb, lcb )
 
 -- | Part Two
 -- Next, you should verify the life support rating, which can be determined by
@@ -73,11 +74,12 @@ import           Text.Printf                   ( printf )
 -- generator rating and CO2 scrubber rating, then multiply them together. What
 -- is the life support rating of the submarine? (Be sure to represent your
 -- answer in decimal, not binary.)
-rating :: ([[Bit]] -> [Bit]) -> [[Bit]] -> Int
-rating mask = go 0
+rating :: ([Bit] -> Bit) -> [[Bit]] -> Int
+rating criteria = go 0
   where
     go _ [x] = toInt x
-    go n xs  = go (n + 1) $ let m = mask xs in filter ((m !! n ==) . (!! n)) xs
+    go n xs  = go (n + 1) $ let m = criteria $ (transpose xs) !! n in
+                                filter ((m ==) . (!! n)) xs
 
 
 o2GenRating, co2ScrubRating :: [[Bit]] -> Int
