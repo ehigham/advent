@@ -1,8 +1,15 @@
-module Day3.BinaryDiagnostics ( Bit ( .. ), toInt, mcb, lcb ) where
+module Day3.BinaryDiagnostics (
+      Bit ( .. )
+    , BinaryNumber ( .. )
+    , toInt
+    , mcb
+    , lcb
+    ) where
 
-import  Data.Bits    ( shiftL )
-import  Data.Boolean
-import  Text.Read
+import Control.Applicative ( many )
+import Data.Bits           ( shiftL )
+import Data.Boolean
+import Text.Read
 
 
 data Bit = Zero | One
@@ -15,10 +22,7 @@ instance Show Bit where
 
 
 instance Read Bit where
-    readPrec = get >>= \case
-        '0' -> return Zero
-        '1' -> return One
-        _   -> pfail
+    readPrec = bit
 
 
 instance Boolean Bit where
@@ -35,6 +39,12 @@ instance Boolean Bit where
     (||*) _   One = One
     (||*) _   _   = Zero
 
+
+bit :: ReadPrec Bit
+bit = get >>= \case
+    '0' -> return Zero
+    '1' -> return One
+    _   -> pfail
 
 
 toInt :: [Bit] -> Int
@@ -55,3 +65,16 @@ mcb digits = let (zeros, ones) = foldl counts (0, 0) digits in
 
 lcb :: [Bit] -> Bit
 lcb = notB . mcb
+
+
+newtype BinaryNumber = BinaryNumber { toBitList :: [Bit] }
+    deriving stock Eq
+
+
+instance Show BinaryNumber where
+    show = foldl ((. show) . (++)) "" . toBitList
+
+
+instance Read BinaryNumber where
+    readPrec = many bit >>= return . BinaryNumber
+

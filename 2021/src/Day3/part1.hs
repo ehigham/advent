@@ -1,7 +1,11 @@
 import           Data.List                     ( transpose )
 import qualified System.Environment     as Env
 import           Text.Printf                   ( printf )
-import           Day3.BinaryDiagnostics        ( Bit ( .. ), toInt, mcb, lcb )
+import           Day3.BinaryDiagnostics        ( BinaryNumber ( .. )
+                                               , toInt
+                                               , mcb
+                                               , lcb
+                                               )
 
 
 -- | Day 3: Binary Diagnostic
@@ -55,16 +59,16 @@ import           Day3.BinaryDiagnostics        ( Bit ( .. ), toInt, mcb, lcb )
 -- Use the binary numbers in your diagnostic report to calculate the gamma rate
 -- and epsilon rate, then multiply them together. What is the power consumption
 -- of the submarine? (Be sure to represent your answer in decimal, not binary)
-gamma, epsilon :: [[Bit]] -> Int
-gamma   = toInt . map mcb . transpose
-epsilon = toInt . map lcb . transpose
+gamma, epsilon :: [BinaryNumber] -> Int
+gamma   = toInt . map mcb . transpose . map toBitList
+epsilon = toInt . map lcb . transpose . map toBitList
 
 
 main :: IO ()
 main = do
     [input]  <- Env.getArgs
     contents <- readFile input
-    let digits  = map (map (read . (:[]))) (lines contents) :: [[Bit]]
+    let digits  =  map read (lines contents) :: [BinaryNumber]
         (g, e)  = (gamma digits, epsilon digits)
     printf "Diagnostic report:\n\tgamma = %d\n\tepsilon = %d\n\tgamma * epsilon = %d\n"
         g

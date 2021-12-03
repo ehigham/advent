@@ -1,7 +1,12 @@
 import           Data.List                     ( transpose )
 import qualified System.Environment     as Env
 import           Text.Printf                   ( printf )
-import           Day3.BinaryDiagnostics        ( Bit ( .. ), toInt, mcb, lcb )
+import           Day3.BinaryDiagnostics        ( Bit
+                                               , BinaryNumber ( .. )
+                                               , toInt
+                                               , mcb
+                                               , lcb
+                                               )
 
 -- | Part Two
 -- Next, you should verify the life support rating, which can be determined by
@@ -74,15 +79,15 @@ import           Day3.BinaryDiagnostics        ( Bit ( .. ), toInt, mcb, lcb )
 -- generator rating and CO2 scrubber rating, then multiply them together. What
 -- is the life support rating of the submarine? (Be sure to represent your
 -- answer in decimal, not binary.)
-rating :: ([Bit] -> Bit) -> [[Bit]] -> Int
-rating criteria = go 0
+rating :: ([Bit] -> Bit) -> [BinaryNumber] -> Int
+rating criteria = go 0 . map toBitList
   where
     go _ [x] = toInt x
     go n xs  = go (n + 1) $ let m = criteria $ (transpose xs) !! n in
                                 filter ((m ==) . (!! n)) xs
 
 
-o2GenRating, co2ScrubRating :: [[Bit]] -> Int
+o2GenRating, co2ScrubRating :: [BinaryNumber] -> Int
 o2GenRating    = rating mcb
 co2ScrubRating = rating lcb
 
@@ -91,7 +96,7 @@ main :: IO ()
 main = do
     [input]  <- Env.getArgs
     contents <- readFile input
-    let digits    = map (map (read . (:[]))) (lines contents) :: [[Bit]]
+    let digits    = map read (lines contents) :: [BinaryNumber]
         (o2, co2) = (o2GenRating digits, co2ScrubRating digits)
     printf "Diagnostic report:\n\tO2 Generator = %d\n\tCO2 Scrubber = %d\n\tO2 * CO2 = %d\n"
         o2
