@@ -1,3 +1,5 @@
+import           Control.Arrow             ( (***) )
+import           Control.Monad             ( join )
 import           Data.List                 ( transpose )
 import qualified System.Environment as Env
 import           Text.Printf               ( printf )
@@ -57,14 +59,17 @@ import           Day3.BinaryDiagnostic     ( BinaryDigit ( .. ), xor, toInt )
 -- and epsilon rate, then multiply them together. What is the power consumption
 -- of the submarine? (Be sure to represent your answer in decimal, not binary)
 diagnostic :: [[BinaryDigit]] -> (Gamma, Epsilon)
-diagnostic = (\x -> (toInt x,toInt $ zipWith xor x (repeat One)))
-           . foldr (:) []
-           . map (emit . foldl counts (0, 0))
+diagnostic = join (***) toInt
+           . (\x -> (x, zipWith xor x (repeat One)))
+           . map mode
            . transpose
   where
-    counts :: (Int, Int) -> BinaryDigit -> (Int, Int)
-    counts (zeros, ones) Zero = (zeros + 1, ones)
-    counts (zeros, ones) One  = (zeros, ones + 1)
+    mode :: [BinaryDigit] -> BinaryDigit
+    mode = emit . foldl countDigits (0, 0)
+
+    countDigits :: (Int, Int) -> BinaryDigit -> (Int, Int)
+    countDigits (zeros, ones) Zero = (zeros + 1, ones)
+    countDigits (zeros, ones) One  = (zeros, ones + 1)
 
     emit (zeros, ones) = if zeros > ones then Zero else One
 
