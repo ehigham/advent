@@ -28,6 +28,7 @@ ghc-options:
   - -Wno-implicit-prelude
   - -Wno-prepositive-qualified-module
   - -Werror
+  - -XDeriveDataTypeable
   - -XDerivingStrategies
   - -XRankNTypes
 
@@ -52,6 +53,12 @@ executables:
 
   dive1:
     main:                Day2/part1.hs
+    source-dirs:         src
+    ghc-options:
+      - -O2
+
+  dive2:
+    main:                Day2/part2.hs
     source-dirs:         src
     ghc-options:
       - -O2
