@@ -5,7 +5,7 @@ import           Data.List                 ( transpose )
 import qualified System.Environment as Env
 import           Text.Printf               ( printf )
 
-import           Day3.BinaryDiagnostic     ( BinaryDigit ( .. ), toInt )
+import           Day3.BinaryDiagnostics    ( BinaryDigit ( .. ), toInt )
 
 
 -- | Day 3: Binary Diagnostic
@@ -66,13 +66,12 @@ diagnostic = join (***) toInt
            . transpose
   where
     mode :: [BinaryDigit] -> BinaryDigit
-    mode = emit . foldl countDigits (0, 0)
+    mode digits = let (zeros, ones) = foldl countDigits (0, 0) digits in
+        if zeros > ones then Zero else One
 
     countDigits :: (Int, Int) -> BinaryDigit -> (Int, Int)
     countDigits (zeros, ones) Zero = (zeros + 1, ones)
     countDigits (zeros, ones) One  = (zeros, ones + 1)
-
-    emit (zeros, ones) = if zeros > ones then Zero else One
 
 
 type Gamma   = Int

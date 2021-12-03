@@ -1,6 +1,10 @@
-import DiveSpec (tests)
-
 import Test.Tasty
 
+import qualified DiveSpec              (tests)
+import qualified BinaryDiagnosticsSpec (tests)
+
 main :: IO ()
-main = defaultMain tests
+main = defaultMain $ testGroup "unit tests"
+    [   DiveSpec.tests
+    ,   BinaryDiagnosticsSpec.tests
+    ]

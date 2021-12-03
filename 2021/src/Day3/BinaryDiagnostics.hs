@@ -1,4 +1,4 @@
-module Day3.BinaryDiagnostic ( BinaryDigit ( .. ), toInt ) where
+module Day3.BinaryDiagnostics ( BinaryDigit ( .. ), toInt ) where
 
 import  Data.Bits             (shiftL)
 import  Data.Boolean

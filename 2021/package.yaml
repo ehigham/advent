@@ -39,6 +39,9 @@ dependencies:
   - base >= 4.7 && < 5
   - Boolean >= 0.2
 
+library:
+  source-dirs: src
+
 executables:
   sonarsweep1:
     main:                Day1/part1.hs
