@@ -28,7 +28,6 @@ ghc-options:
   - -Wno-implicit-prelude
   - -Wno-prepositive-qualified-module
   - -Werror
-  - -XDeriveDataTypeable
   - -XDerivingStrategies
   - -XRankNTypes
 

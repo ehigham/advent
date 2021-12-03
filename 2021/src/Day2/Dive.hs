@@ -1,12 +1,5 @@
-module Day2.Dive (
-        Command ( .. )
-    ,   Direction ( .. )
-    ,   part1
-    ,   part2
-    ) where
+module Day2.Dive ( Command ( .. ), part1, part2) where
 
-import Data.Char ( toLower )
-import Data.Data
 import Text.Read
 
 
@@ -49,43 +42,33 @@ import Text.Read
 -- the planned course. What do you get if you multiply your final horizontal
 -- position by your final depth?
 part1 :: Command -> (Horizontal, Depth) -> (Horizontal, Depth)
-part1 (Command Forward x) (h, d) = (h + x, d)
-part1 (Command Up      x) (h, d) = (h, d - x)
-part1 (Command Down    x) (h, d) = (h, d + x)
+part1 (Forward x) (h, d) = (h + x, d)
+part1 (Up      x) (h, d) = (h, d - x)
+part1 (Down    x) (h, d) = (h, d + x)
 
 
 type Horizontal = Int
 type Depth      = Int
-data Command = Command Direction Int
+data Command = Forward Int
+             | Up Int
+             | Down Int
     deriving stock Eq
 
 
 instance Show Command where
-    show (Command direction x) = show direction ++ show x
+    show (Forward x) = "forward " ++ show x
+    show (Up x)      = "up " ++ show x
+    show (Down x)    = "down " ++ show x
 
 
 instance Read Command where
     readPrec = do
-        direction <- readPrec
-        n <- step readPrec
-        return $ Command direction n
-
-
-data Direction = Forward | Up | Down
-  deriving stock (Eq, Data)
-
-
-instance Show Direction where
-    show = map toLower . showConstr . toConstr
-
-
-instance Read Direction where
-    readPrec = do
         Ident direction <- lexP
+        x <- step readPrec
         case direction of
-            "forward" -> return Forward
-            "up"      -> return Up
-            "down"    -> return Down
+            "forward" -> return $ Forward x
+            "up"      -> return $ Up x
+            "down"    -> return $ Down x
             _         -> pfail
 
 
@@ -126,8 +109,8 @@ instance Read Direction where
 -- do you get if you multiply your final horizontal position by your final
 -- depth?
 part2 :: Command -> (Horizontal, Depth, Aim) -> (Horizontal, Depth, Aim)
-part2 (Command Forward x) (h, d, a) = (h + x, d + a * x, a    )
-part2 (Command Up      x) (h, d, a) = (h    , d        , a - x)
-part2 (Command Down    x) (h, d, a) = (h    , d        , a + x)
+part2 (Forward x) (h, d, a) = (h + x, d + a * x, a    )
+part2 (Up      x) (h, d, a) = (h    , d        , a - x)
+part2 (Down    x) (h, d, a) = (h    , d        , a + x)
 
 type Aim = Int
