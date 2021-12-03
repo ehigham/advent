@@ -83,7 +83,7 @@ rating :: ([Bit] -> Bit) -> [BinaryNumber] -> Int
 rating criteria = go 0 . map toBitList
   where
     go _ [x] = toInt x
-    go n xs  = go (n + 1) $ let m = criteria $ (transpose xs) !! n in
+    go n xs  = go (n + 1) $ let m = criteria $ transpose xs !! n in
                                 filter ((m ==) . (!! n)) xs
 
 
