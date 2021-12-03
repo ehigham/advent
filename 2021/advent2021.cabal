@@ -61,6 +61,25 @@ executable binarydiagnostic1
     , base >=4.7 && <5
   default-language: Haskell2010
 
+executable binarydiagnostic2
+  main-is: Day3/part2.hs
+  other-modules:
+      Day1.SonarSweep
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      RankNTypes
+      LambdaCase
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean >=0.2
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
 executable dive1
   main-is: Day2/part1.hs
   other-modules:

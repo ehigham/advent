@@ -1,11 +1,6 @@
-import           Control.Arrow             ( (***) )
-import           Control.Monad             ( ap, join )
-import           Data.Boolean              ( notB )
-import           Data.List                 ( transpose )
-import qualified System.Environment as Env
-import           Text.Printf               ( printf )
-
-import           Day3.BinaryDiagnostics    ( BinaryDigit ( .. ), toInt )
+import           Text.Printf                   ( printf )
+import qualified System.Environment     as Env
+import           Day3.BinaryDiagnostics        ( Bit ( .. ), toInt, mcb, lcb )
 
 
 -- | Day 3: Binary Diagnostic
@@ -59,32 +54,19 @@ import           Day3.BinaryDiagnostics    ( BinaryDigit ( .. ), toInt )
 -- Use the binary numbers in your diagnostic report to calculate the gamma rate
 -- and epsilon rate, then multiply them together. What is the power consumption
 -- of the submarine? (Be sure to represent your answer in decimal, not binary)
-diagnostic :: [[BinaryDigit]] -> (Gamma, Epsilon)
-diagnostic = join (***) toInt
-           . ap (,) (map notB)
-           . map mode
-           . transpose
-  where
-    mode :: [BinaryDigit] -> BinaryDigit
-    mode digits = let (zeros, ones) = foldl countDigits (0, 0) digits in
-        if zeros > ones then Zero else One
 
-    countDigits :: (Int, Int) -> BinaryDigit -> (Int, Int)
-    countDigits (zeros, ones) Zero = (zeros + 1, ones)
-    countDigits (zeros, ones) One  = (zeros, ones + 1)
-
-
-type Gamma   = Int
-type Epsilon = Int
+gamma, epsilon :: [[Bit]] -> Int
+gamma   = toInt . mcb
+epsilon = toInt . lcb
 
 
 main :: IO ()
 main = do
     [input]  <- Env.getArgs
     contents <- readFile input
-    let digits           = map (map (read . (:[]))) (lines contents) :: [[BinaryDigit]]
-        (gamma, epsilon) = diagnostic digits
+    let digits  = map (map (read . (:[]))) (lines contents) :: [[Bit]]
+        (g, e)  = (gamma digits, epsilon digits)
     printf "Diagnostic report:\n\tgamma = %d\n\tepsilon = %d\n\tgamma * epsilon = %d\n"
-        gamma
-        epsilon
-        (gamma * epsilon)
+        g
+        e
+        (g * e)

@@ -1,0 +1,21 @@
+2021-12-03 17:00:05.530977828000 [116577(ThreadId 37)] ERROR APP - start debugging failed. user error (ExecResult not found.) : Left "user error (ExecResult not found.)"
+2021-12-03 17:01:16.081506093000 [116872(ThreadId 37)] ERROR APP - start debugging failed. user error (ExecResult not found.) : Left "user error (ExecResult not found.)"
+2021-12-03 17:01:25.561138392000 [117064(ThreadId 37)] ERROR APP - start debugging failed. user error (ExecResult not found.) : Left "user error (ExecResult not found.)"
+2021-12-03 17:02:25.216201004000 [117369(ThreadId 37)] ERROR APP - start debugging failed. user error (ExecResult not found.) : Left "user error (ExecResult not found.)"
+2021-12-03 17:03:24.717865518000 [117820(ThreadId 37)] ERROR APP - user error (variable id:10 not found.)
+2021-12-03 17:03:54.980852672000 [117820(ThreadId 36)] WARNING REQUEST - unsupported request command. {"command":"stepOut","arguments":{"threadId":0},"type":"request","seq":46}
+2021-12-03 17:03:55.947799222000 [117820(ThreadId 36)] WARNING REQUEST - unsupported request command. {"command":"stepOut","arguments":{"threadId":0},"type":"request","seq":47}
+2021-12-03 17:04:00.949760182000 [117820(ThreadId 36)] WARNING REQUEST - unsupported request command. {"command":"stepOut","arguments":{"threadId":0},"type":"request","seq":48}
+2021-12-03 17:04:01.760615893000 [117820(ThreadId 36)] WARNING REQUEST - unsupported request command. {"command":"stepOut","arguments":{"threadId":0},"type":"request","seq":49}
+2021-12-03 17:29:57.144347555000 [122803(ThreadId 37)] CRITICAL APP - invalid dap result from ghci. ["","<interactive>:56:1: warning: [-Wtype-defaults]","    \8226 Defaulting the following constraints to type \8216()\8217","        (Show b0) arising from a use of \8216print\8217 at <interactive>:56:1-6","        (Read b0) arising from a use of \8216it\8217 at <interactive>:56:1-6","    \8226 In a stmt of an interactive GHCi command: print it","[[<<DAP>>Left \"Prelude.read: no parse\"","H>>= "]
+2021-12-03 17:31:26.249606709000 [123440(ThreadId 36)] WARNING REQUEST - unsupported request command. {"command":"stepOut","arguments":{"threadId":0},"type":"request","seq":22}
+2021-12-03 17:31:27.843385614000 [123440(ThreadId 36)] WARNING REQUEST - unsupported request command. {"command":"stepOut","arguments":{"threadId":0},"type":"request","seq":29}
+2021-12-03 17:31:32.655847214000 [123440(ThreadId 36)] WARNING REQUEST - unsupported request command. {"command":"stepOut","arguments":{"threadId":0},"type":"request","seq":41}
+2021-12-03 17:31:37.861594914000 [123440(ThreadId 37)] ERROR APP - user error (no stacktrace found.)
+2021-12-03 17:31:37.907033344000 [123440(ThreadId 37)] ERROR APP - user error (no stacktrace found.)
+2021-12-03 17:31:37.995517028000 [123440(ThreadId 37)] ERROR APP - user error (ExecResult not found.)
+2021-12-03 17:40:08.522458339000 [125428(ThreadId 37)] ERROR APP - user error (<getModule> loaded module can not find from path. </home/edmund/.local/src/advent/2021/src/Day3/part2.hs> [("Day3.BinaryDiagnostics","/home/edmund/.local/src/advent/2021/src/Day3/BinaryDiagnostics.hs")])
+2021-12-03 17:40:08.531545522000 [125428(ThreadId 37)] ERROR APP - start debugging failed. user error (ExecResult not found.) : Left "user error (ExecResult not found.)"
+2021-12-03 17:40:14.049014319000 [125637(ThreadId 37)] ERROR APP - user error (<getModule> loaded module can not find from path. </home/edmund/.local/src/advent/2021/src/Day3/part2.hs> [("Day3.BinaryDiagnostics","/home/edmund/.local/src/advent/2021/src/Day3/BinaryDiagnostics.hs")])
+2021-12-03 17:40:14.057026883000 [125637(ThreadId 37)] ERROR APP - start debugging failed. user error (ExecResult not found.) : Left "user error (ExecResult not found.)"
+2021-12-03 17:43:09.514774198000 [126564(ThreadId 36)] CRITICAL REQUEST - invalid HANDLE. eof.

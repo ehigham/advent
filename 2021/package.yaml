@@ -73,6 +73,12 @@ executables:
     ghc-options:
       - -O2
 
+  binarydiagnostic2:
+    main:                Day3/part2.hs
+    source-dirs:         src
+    ghc-options:
+      - -O2
+
 tests:
   unittest:
     main:                Spec.hs
