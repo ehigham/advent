@@ -1,3 +1,14 @@
+import           Control.Monad.State       ( evalState )
+import           Data.Functor              ( (<&>) )
+import           Data.List                 ( transpose, nub )
+import           Data.List.Split           ( wordsBy )
+import           Data.Set                  ( toList )
+import qualified System.Environment as Env
+import           Text.Printf               ( printf )
+
+import Day4.Bingo ( Bingo ( Bingo ), Board, playBingo, readBoards )
+
+
 -- | Day 4: Giant Squid
 -- You're already almost 1.5km (almost a mile) below the surface of the ocean,
 -- already so deep that you can't see any sunlight. What you can see, however,
@@ -74,6 +85,20 @@
 --
 -- To guarantee victory against the giant squid, figure out which board will win
 -- first. What will your final score be if you choose that board?
+firstWinner :: [Int] -> [Board] -> Maybe (Int, Board)
+firstWinner balls = lookup (Just Bingo)
+                  . concat
+                  . transpose
+                  . map (evalState $ mapM playBingo balls)
 
-main :: IO
-main = return ()
+score :: (Int, Board) -> Int
+score (ball, board) = ball * sum (nub (toList =<< board))
+
+
+main :: IO ()
+main = do
+    [input] <- Env.getArgs
+    (x:xs) <- readFile input <&> lines
+    let balls  = map read (wordsBy (== ',')  x) :: [Int]
+        boards = readBoards xs
+    printf "score = %d\n" $ maybe 0 score (firstWinner balls boards)

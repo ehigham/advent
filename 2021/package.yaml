@@ -29,6 +29,7 @@ ghc-options:
   - -Wno-implicit-prelude
   - -Wno-prepositive-qualified-module
   - -Werror
+  - -O2
 
 default-extensions:
   - DerivingStrategies
@@ -37,7 +38,10 @@ default-extensions:
 
 dependencies:
   - base >= 4.7 && < 5
-  - Boolean >= 0.2
+  - Boolean
+  - containers
+  - mtl
+  - split
 
 library:
   source-dirs: src
@@ -46,46 +50,39 @@ executables:
   sonarsweep1:
     main:                Day1/part1.hs
     source-dirs:         src
-    ghc-options:
-      - -O2
 
   sonarsweep2:
     main:                Day1/part2.hs
     source-dirs:         src
-    ghc-options:
-      - -O2
 
   dive1:
     main:                Day2/part1.hs
     source-dirs:         src
-    ghc-options:
-      - -O2
 
   dive2:
     main:                Day2/part2.hs
     source-dirs:         src
-    ghc-options:
-      - -O2
 
   binarydiagnostic1:
     main:                Day3/part1.hs
     source-dirs:         src
-    ghc-options:
-      - -O2
 
   binarydiagnostic2:
     main:                Day3/part2.hs
     source-dirs:         src
-    ghc-options:
-      - -O2
+
+  bingo1:
+    main:                Day4/part1.hs
+    source-dirs:         src
+
 
 tests:
   unittest:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
-      - -O0
-      - -g
+      - -Wno-all-missed-specialisations
+      - -Wno-unused-packages
     dependencies:
       - advent2021
       - tasty
