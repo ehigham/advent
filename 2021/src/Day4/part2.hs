@@ -28,7 +28,9 @@ lastWinner :: [Int] -> [Board] -> Maybe (Int, Board)
 lastWinner balls = lookup (Just Bingo)
                  . concat
                  . sortOn length
-                 . map (dropWhile (isNothing . fst) . evalState (mapM playBingo balls))
+                 . map ( dropWhile (isNothing . fst)
+                       . evalState (mapM playBingo balls)
+                       )
 
 
 main :: IO ()
