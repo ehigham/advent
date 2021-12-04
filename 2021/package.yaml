@@ -75,6 +75,9 @@ executables:
     main:                Day4/part1.hs
     source-dirs:         src
 
+  bingo2:
+    main:                Day4/part2.hs
+    source-dirs:         src
 
 tests:
   unittest:

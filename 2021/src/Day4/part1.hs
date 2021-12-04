@@ -1,12 +1,11 @@
 import           Control.Monad.State       ( evalState )
 import           Data.Functor              ( (<&>) )
-import           Data.List                 ( transpose, nub )
+import           Data.List                 ( transpose )
 import           Data.List.Split           ( wordsBy )
-import           Data.Set                  ( toList )
 import qualified System.Environment as Env
 import           Text.Printf               ( printf )
 
-import Day4.Bingo ( Bingo ( Bingo ), Board, playBingo, readBoards )
+import Day4.Bingo ( Bingo ( Bingo ), Board, playBingo, readBoards, score )
 
 
 -- | Day 4: Giant Squid
@@ -90,10 +89,6 @@ firstWinner balls = lookup (Just Bingo)
                   . concat
                   . transpose
                   . map (evalState $ mapM playBingo balls)
-
-
-score :: (Int, Board) -> Int
-score (ball, board) = ball * sum (nub (toList =<< board))
 
 
 main :: IO ()
