@@ -169,7 +169,7 @@ test-suite unittest
       DerivingStrategies
       RankNTypes
       LambdaCase
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O0 -g -Wno-unsafe
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O0 -g
   build-depends:
       Boolean >=0.2
     , advent2021
