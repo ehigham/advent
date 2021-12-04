@@ -91,6 +91,7 @@ firstWinner balls = lookup (Just Bingo)
                   . transpose
                   . map (evalState $ mapM playBingo balls)
 
+
 score :: (Int, Board) -> Int
 score (ball, board) = ball * sum (nub (toList =<< board))
 
