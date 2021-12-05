@@ -79,6 +79,10 @@ executables:
     main:                Day4/part2.hs
     source-dirs:         src
 
+  hydro1:
+    main:                Day5/part1.hs
+    source-dirs:         src
+
 tests:
   unittest:
     main:                Spec.hs

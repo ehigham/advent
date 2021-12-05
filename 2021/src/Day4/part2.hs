@@ -8,7 +8,7 @@ import           Text.Printf               ( printf )
 
 import Day4.Bingo ( Bingo ( Bingo ), Board, playBingo, readBoards, score )
 
---- Part Two ---
+--- | Part Two
 -- On the other hand, it might be wise to try a different strategy: let the
 -- giant squid win.
 --
