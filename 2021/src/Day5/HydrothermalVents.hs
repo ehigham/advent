@@ -64,4 +64,4 @@ asPoints l@(Line (Point (x1, y1), Point (x2, y2))) =
             then zipWith ((Point .) . (,)) xs ys
             else [Point (i, j) | i <- xs, j <- ys]
   where
-    range x y = if y > x then [x..y] else reverse [y..x]
+    range x y = if y > x then [x..y] else [y..x]
