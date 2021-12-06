@@ -45,6 +45,7 @@ dependencies:
   - mtl
   - split
   - unordered-containers
+  - vector
 
 library:
   source-dirs: src
@@ -93,6 +94,11 @@ executables:
   lanternfish1:
     main:                Day6/part1.hs
     source-dirs:         src
+
+  lanternfish2:
+    main:                Day6/part2.hs
+    source-dirs:         src
+
 
 tests:
   unittest:

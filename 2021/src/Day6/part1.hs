@@ -83,7 +83,4 @@ main = do
     [input] <- Env.getArgs
     contents <- readFile input
     let fish = map read (splitOn "," contents) :: [Lanternfish]
-    printf "After 80 days, there are %d lanternfish.\n"
-        . length
-        . simulate 80
-        $ fish
+    printf "After 80 days, there are %d lanternfish.\n" (simulate 80 fish)
