@@ -1,13 +1,20 @@
 module Day5.HydrothermalVents (
-        Point ( Point )
-    ,   Line ( Line )
+        Line ( Line )
+    ,   Point ( Point )
+    ,   asPoints
+    ,   countPoints
+    ,   isDiagonal
     ) where
 
-import GHC.Read   ( Read ( readPrec ), expectP )
-import Text.Read  ( Lexeme ( Punc ) )
+import           Data.Hashable            ( Hashable )
+import qualified Data.HashMap.Strict as M
+import           GHC.Read                 ( Read ( readPrec ), expectP )
+import           Text.Read                ( Lexeme ( Punc ) )
+
 
 newtype Point = Point (Int, Int)
-    deriving stock Eq
+    deriving stock   Eq
+    deriving newtype Hashable
 
 
 instance Show Point where
@@ -36,3 +43,21 @@ instance Read Line where
         expectP (Punc "->")
         p2 <- readPrec
         return $ Line (p1, p2)
+
+
+countPoints :: [Line] -> M.HashMap Point Int
+countPoints = foldl upsertCount M.empty . (asPoints =<<)
+  where
+    upsertCount points p = M.insertWith (const succ) p 1 points
+
+
+isDiagonal :: Line -> Bool
+isDiagonal (Line (Point (x1, y1), Point (x2, y2))) = x1 /= x2 && y1 /= y2
+
+
+asPoints :: Line -> [Point]
+asPoints (Line (Point (x1, y1), Point (x2, y2))) =
+    [ Point (i, j) | i <- range x1 x2, j <- range y1 y2 ]
+  where
+    range x y = if y > x then [x..y] else reverse [y..x]
+

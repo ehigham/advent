@@ -1,4 +1,9 @@
-import Day5.HydrothermalVents ( Point )
+import           Data.Functor                  ( (<&>) )
+import qualified Data.HashMap.Strict    as M   ( filter )
+import qualified System.Environment     as Env
+
+import           Day5.HydrothermalVents        ( Line, countPoints, isDiagonal )
+import Text.Printf (printf)
 
 --  | Day 5: Hydrothermal Venture
 -- You come across a field of hydrothermal vents on the ocean floor! These vents
@@ -57,6 +62,12 @@ import Day5.HydrothermalVents ( Point )
 -- two lines overlap?
 main :: IO ()
 main = do
-    let x = read "1,2" :: Point
-    print x
+    [input] <- Env.getArgs
+    ventLines <- readFile input <&> (map read . lines) :: IO [Line]
+    let activeZones = length
+                    . M.filter (> 1)
+                    . countPoints
+                    . filter (not . isDiagonal)
+                    $ ventLines
+    printf "Number of points where at least two lines overlap: %d\n" activeZones
     return ()

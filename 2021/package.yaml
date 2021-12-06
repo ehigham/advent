@@ -33,15 +33,18 @@ ghc-options:
 
 default-extensions:
   - DerivingStrategies
-  - RankNTypes
+  - GeneralizedNewtypeDeriving
   - LambdaCase
+  - RankNTypes
 
 dependencies:
   - base >= 4.7 && < 5
   - Boolean
   - containers
+  - hashable
   - mtl
   - split
+  - unordered-containers
 
 library:
   source-dirs: src
@@ -79,7 +82,7 @@ executables:
     main:                Day4/part2.hs
     source-dirs:         src
 
-  hydro1:
+  vents1:
     main:                Day5/part1.hs
     source-dirs:         src
 
