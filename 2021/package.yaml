@@ -86,6 +86,10 @@ executables:
     main:                Day5/part1.hs
     source-dirs:         src
 
+  vents2:
+    main:                Day5/part2.hs
+    source-dirs:         src
+
 tests:
   unittest:
     main:                Spec.hs

@@ -1,4 +1,5 @@
 module HydrothermalVentsSpec ( tests ) where
+
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -12,10 +13,12 @@ tests = testGroup "Hydrothermal Vents unit tests"
     , testIsDiagonal
     ]
 
+
 testRead = testGroup "test Read"
     [   testCase "Read Point" $ read "1,2"        @?= Point (1, 2)
     ,   testCase "Read Line"  $ read "1,2 -> 2,3" @?= Line (Point (1, 2), Point (2, 3))
     ]
+
 
 testAsPoints = testGroup "test asPoints"
     [   testCase "delta x"  $ asPoints (read "0,0->5,0") @?= [Point(i, 0) | i <- [0..5]]
@@ -23,10 +26,11 @@ testAsPoints = testGroup "test asPoints"
     ,   testCase "negative" $ asPoints (read "5,0->0,0") @?= [Point(i, 0) | i <- [5,4..0]]
     ]
 
+
 testIsDiagonal = testGroup "test isDiagnonal"
     [   testCase "horizontal" . assertBool "" $ not (isDiagonalS "0,0 -> 5,0")
     ,   testCase "vertical"   . assertBool "" $ not (isDiagonalS "0,0 -> 0,5")
-    ,   testCase "diagonal"   . assertBool "" $ isDiagonalS "0,0 -> 5,5"
+    ,   testCase "diagonal"   . assertBool "" $ isDiagonalS "0,0 -> ,5"
     ]
   where
     isDiagonalS = isDiagonal . read

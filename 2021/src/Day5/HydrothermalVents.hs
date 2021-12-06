@@ -56,8 +56,12 @@ isDiagonal (Line (Point (x1, y1), Point (x2, y2))) = x1 /= x2 && y1 /= y2
 
 
 asPoints :: Line -> [Point]
-asPoints (Line (Point (x1, y1), Point (x2, y2))) =
-    [ Point (i, j) | i <- range x1 x2, j <- range y1 y2 ]
+asPoints l@(Line (Point (x1, y1), Point (x2, y2))) =
+    let xs = range x1 x2
+        ys = range y1 y2
+    in
+        if isDiagonal l
+            then zipWith ((Point .) . (,)) xs ys
+            else [Point (i, j) | i <- xs, j <- ys]
   where
     range x y = if y > x then [x..y] else reverse [y..x]
-

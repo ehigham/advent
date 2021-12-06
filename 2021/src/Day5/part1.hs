@@ -1,9 +1,10 @@
 import           Data.Functor                  ( (<&>) )
 import qualified Data.HashMap.Strict    as M   ( filter )
 import qualified System.Environment     as Env
+import           Text.Printf                   ( printf )
 
 import           Day5.HydrothermalVents        ( Line, countPoints, isDiagonal )
-import Text.Printf (printf)
+
 
 --  | Day 5: Hydrothermal Venture
 -- You come across a field of hydrothermal vents on the ocean floor! These vents
