@@ -13,7 +13,7 @@ import Day4.Bingo ( readBoards )
 
 
 tests :: TestTree
-tests = testGroup "Bingo unit tests"
+tests = testGroup "Bingo (Day4)"
     [ testReadBoards
     ]
 

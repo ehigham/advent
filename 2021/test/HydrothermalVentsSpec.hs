@@ -7,7 +7,7 @@ import Day5.HydrothermalVents
 
 
 tests :: TestTree
-tests = testGroup "Hydrothermal Vents unit tests"
+tests = testGroup "Hydrothermal Vents (Day5)"
     [ testRead
     , testAsPoints
     , testIsDiagonal
@@ -24,13 +24,14 @@ testAsPoints = testGroup "test asPoints"
     [   testCase "delta x"  $ asPoints (read "0,0->5,0") @?= [Point(i, 0) | i <- [0..5]]
     ,   testCase "delta y"  $ asPoints (read "0,0->0,5") @?= [Point(0, j) | j <- [0..5]]
     ,   testCase "negative" $ asPoints (read "5,0->0,0") @?= [Point(i, 0) | i <- [5,4..0]]
+    ,   testCase "diagonal" $ asPoints (read "0,0->3,3") @?= [Point(i, i) | i <- [0..3]]
     ]
 
 
 testIsDiagonal = testGroup "test isDiagnonal"
     [   testCase "horizontal" . assertBool "" $ not (isDiagonalS "0,0 -> 5,0")
     ,   testCase "vertical"   . assertBool "" $ not (isDiagonalS "0,0 -> 0,5")
-    ,   testCase "diagonal"   . assertBool "" $ isDiagonalS "0,0 -> ,5"
+    ,   testCase "diagonal"   . assertBool "" $ isDiagonalS "0,0 -> 5,5"
     ]
   where
     isDiagonalS = isDiagonal . read

@@ -30,6 +30,7 @@ library
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
   other-modules:
       Paths_advent2021
   hs-source-dirs:
@@ -58,6 +59,7 @@ executable binarydiagnostic1
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -85,6 +87,7 @@ executable binarydiagnostic2
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -112,6 +115,7 @@ executable bingo1
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -139,6 +143,7 @@ executable bingo2
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -166,6 +171,7 @@ executable dive1
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -193,6 +199,35 @@ executable dive2
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      LambdaCase
+      RankNTypes
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+  default-language: Haskell2010
+
+executable lanternfish1
+  main-is: Day6/part1.hs
+  other-modules:
+      Day1.SonarSweep
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -220,6 +255,7 @@ executable sonarsweep1
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -247,6 +283,7 @@ executable sonarsweep2
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -274,6 +311,7 @@ executable vents1
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -301,6 +339,7 @@ executable vents2
       Day3.BinaryDiagnostics
       Day4.Bingo
       Day5.HydrothermalVents
+      Day6.Lanternfish
       Paths_advent2021
   hs-source-dirs:
       src
@@ -328,6 +367,7 @@ test-suite unittest
       BingoSpec
       DiveSpec
       HydrothermalVentsSpec
+      LanternfishSpec
       Paths_advent2021
   hs-source-dirs:
       test

@@ -7,7 +7,7 @@ import Test.Tasty.HUnit
 import Day3.BinaryDiagnostics ( Bit ( .. ), mcb, lcb )
 
 tests :: TestTree
-tests = testGroup "BinaryDiagnositcs unit tests"
+tests = testGroup "BinaryDiagnositcs (Day3)"
     [ testBoolean
     , testMcb
     , testLcb

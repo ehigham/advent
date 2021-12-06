@@ -90,6 +90,10 @@ executables:
     main:                Day5/part2.hs
     source-dirs:         src
 
+  lanternfish1:
+    main:                Day6/part1.hs
+    source-dirs:         src
+
 tests:
   unittest:
     main:                Spec.hs

@@ -13,8 +13,7 @@ import           Text.Read                ( Lexeme ( Punc ) )
 
 
 newtype Point = Point (Int, Int)
-    deriving stock   Eq
-    deriving newtype Hashable
+    deriving newtype (Eq, Hashable)
 
 
 instance Show Point where
@@ -30,7 +29,7 @@ instance Read Point where
 
 
 newtype Line = Line (Point, Point)
-    deriving stock Eq
+    deriving newtype Eq
 
 
 instance Show Line where
@@ -64,4 +63,4 @@ asPoints l@(Line (Point (x1, y1), Point (x2, y2))) =
             then zipWith ((Point .) . (,)) xs ys
             else [Point (i, j) | i <- xs, j <- ys]
   where
-    range x y = if y > x then [x..y] else [y..x]
+    range x y = if y > x then [x..y] else reverse [y..x]

@@ -6,7 +6,7 @@ import Test.Tasty.HUnit
 import Day2.Dive ( Command ( .. ) )
 
 tests :: TestTree
-tests = testGroup "Dive unit tests" [ testRead, testReadId ]
+tests = testGroup "Dive (Day2)" [ testRead, testReadId ]
 
 testRead = testGroup "Testing instance Read Command"
     [   testCase "forward" $ read "forward 5" @?= Forward 5
