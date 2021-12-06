@@ -101,13 +101,27 @@ executables:
 
 
 tests:
-  unittest:
+  spec:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
       - -Wno-all-missed-specialisations
       - -Wno-unused-packages
+      - -threaded
+      - -with-rtsopts=-N
     dependencies:
       - advent2021
       - tasty
       - tasty-hunit
+
+benchmarks:
+  baselines:
+    main:                Baselines.hs
+    source-dirs:         bench
+    ghc-options:
+      - -Wno-unused-packages
+      - -threaded
+      - -with-rtsopts=-N
+    dependencies:
+      - advent2021
+      - criterion
