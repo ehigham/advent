@@ -1,4 +1,3 @@
-{-# LANGUAGE TupleSections #-}
 module Day6.Lanternfish ( Lanternfish, simulate ) where
 
 import           Data.Vector      ( Vector, (//), (!) )
