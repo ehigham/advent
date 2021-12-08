@@ -99,6 +99,10 @@ executables:
     main:                Day6/part2.hs
     source-dirs:         src
 
+  whales1:
+    main:                Day7/part1.hs
+    source-dirs:         src
+
 
 tests:
   spec:
