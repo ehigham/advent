@@ -64,8 +64,8 @@ median = liftA2 pick length sort
               | even n    = Just $ average (xs !! (midpoint - 1)) (xs !! midpoint)
               | otherwise = Just $ xs !! midpoint
       where
-        midpoint    = n `div` 2
-        average x y = (x + y) `div` 2
+        midpoint    = n `quot` 2
+        average x y = (x + y) `quot` 2
 
 
 main :: IO ()
