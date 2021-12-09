@@ -99,8 +99,12 @@ executables:
     main:                Day6/part2.hs
     source-dirs:         src
 
-  whales1:
+  crabs1:
     main:                Day7/part1.hs
+    source-dirs:         src
+
+  crabs2:
+    main:                Day7/part2.hs
     source-dirs:         src
 
 
