@@ -1,14 +1,10 @@
-{-# LANGUAGE RecordWildCards #-}
-import           Control.Monad                   ( replicateM )
-import qualified Data.HashSet        as S        ( fromList, member )
-import           Data.HashSet                    ( HashSet )
-import           GHC.Read                        ( expectP )
-import qualified System.Environment  as Env      ( getArgs )
-import           Text.ParserCombinators.ReadP    ( munch1, skipSpaces )
-import           Text.ParserCombinators.ReadPrec ( lift )
-import           Text.Printf                     ( printf )
-import           Text.Read                       ( readPrec, Lexeme ( Punc ) )
 
+import qualified Data.HashSet        as S   ( fromList, member )
+import           Data.HashSet               ( HashSet )
+import qualified System.Environment  as Env ( getArgs )
+import           Text.Printf                ( printf )
+
+import           Day8.SegmentDisplay        ( Entry ( output ) )
 
 -- | Day 8: Seven Segment Search
 -- You barely reach the safety of the cave when the whale smashes into the cave
@@ -116,28 +112,6 @@ import           Text.Read                       ( readPrec, Lexeme ( Punc ) )
 -- sunique number of segments (highlighted above).
 --
 -- In the output values, how many times do digits 1, 4, 7, or 8 appear?
-
-segments :: HashSet Char
-segments = S.fromList ['a'..'g']
-
-
-data Entry = Entry { signals :: [String], output :: [String] }
-    deriving stock Eq
-
-
-instance Show Entry where
-    show Entry{..} = unwords signals ++ " | " ++ unwords output
-
-
-instance Read Entry where
-    readPrec = do
-        signals' <- lift $ replicateM 10 readSegment
-        expectP (Punc "|")
-        output' <- lift $ replicateM 4 readSegment
-        return $ Entry signals' output'
-      where
-        readSegment = skipSpaces >> munch1 (`S.member` segments)
-
 
 main :: IO ()
 main = do

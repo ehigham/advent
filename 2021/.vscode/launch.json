@@ -10,7 +10,7 @@
             "name": "haskell(stack)",
             "internalConsoleOptions": "openOnSessionStart",
             "workspace": "${workspaceFolder}",
-            "startup": "${workspaceFolder}/src/Day8/part1.hs",
+            "startup": "${workspaceFolder}/src/Day8/part2.hs",
             "startupFunc": "",
             "startupArgs": "",
             "stopOnEntry": false,

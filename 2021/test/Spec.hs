@@ -5,6 +5,7 @@ import qualified BinaryDiagnosticsSpec ( tests )
 import qualified BingoSpec             ( tests )
 import qualified HydrothermalVentsSpec ( tests )
 import qualified LanternfishSpec       ( tests )
+import qualified SegmentDisplaySpec    ( tests )
 
 main :: IO ()
 main = defaultMain $ testGroup "unit tests"
@@ -13,4 +14,5 @@ main = defaultMain $ testGroup "unit tests"
     , BingoSpec.tests
     , HydrothermalVentsSpec.tests
     , LanternfishSpec.tests
+    , SegmentDisplaySpec.tests
     ]
