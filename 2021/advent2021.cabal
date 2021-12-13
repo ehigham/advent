@@ -32,6 +32,7 @@ library
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
   other-modules:
       Paths_advent2021
   hs-source-dirs:
@@ -46,6 +47,7 @@ library
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -65,6 +67,7 @@ executable binarydiagnostic1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -78,6 +81,7 @@ executable binarydiagnostic1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -97,6 +101,7 @@ executable binarydiagnostic2
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -110,6 +115,7 @@ executable binarydiagnostic2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -129,6 +135,7 @@ executable bingo1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -142,6 +149,7 @@ executable bingo1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -161,6 +169,7 @@ executable bingo2
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -174,6 +183,7 @@ executable bingo2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -193,6 +203,7 @@ executable crabs1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -206,6 +217,7 @@ executable crabs1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -225,6 +237,7 @@ executable crabs2
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -238,6 +251,7 @@ executable crabs2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -257,6 +271,7 @@ executable dive1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -270,6 +285,7 @@ executable dive1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -289,6 +305,7 @@ executable dive2
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -302,6 +319,7 @@ executable dive2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -321,6 +339,7 @@ executable lanternfish1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -334,6 +353,7 @@ executable lanternfish1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -353,6 +373,7 @@ executable lanternfish2
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -366,6 +387,7 @@ executable lanternfish2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -385,6 +407,7 @@ executable segment1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -398,6 +421,41 @@ executable segment1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable smoke1
+  main-is: Day9/part1.hs
+  other-modules:
+      Day1.SonarSweep
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -417,6 +475,7 @@ executable sonarsweep1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -430,6 +489,7 @@ executable sonarsweep1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -449,6 +509,7 @@ executable sonarsweep2
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -462,6 +523,7 @@ executable sonarsweep2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -481,6 +543,7 @@ executable vents1
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -494,6 +557,7 @@ executable vents1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -513,6 +577,7 @@ executable vents2
       Day5.HydrothermalVents
       Day6.Lanternfish
       Day8.SegmentDisplay
+      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -526,6 +591,7 @@ executable vents2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -545,6 +611,7 @@ test-suite spec
       HydrothermalVentsSpec
       LanternfishSpec
       SegmentDisplaySpec
+      SmokeBasinSpec
       Paths_advent2021
   hs-source-dirs:
       test
@@ -559,6 +626,7 @@ test-suite spec
   build-depends:
       Boolean
     , advent2021
+    , array
     , base >=4.7 && <5
     , containers
     , hashable
@@ -588,6 +656,7 @@ benchmark baselines
   build-depends:
       Boolean
     , advent2021
+    , array
     , base >=4.7 && <5
     , containers
     , criterion

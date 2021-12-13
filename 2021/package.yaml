@@ -40,6 +40,7 @@ default-extensions:
   - TupleSections
 
 dependencies:
+  - array
   - base >= 4.7 && < 5
   - Boolean
   - containers
@@ -112,6 +113,11 @@ executables:
   segment1:
     main:                Day8/part1.hs
     source-dirs:         src
+
+  smoke1:
+    main:                Day9/part1.hs
+    source-dirs:         src
+
 
 tests:
   spec:
