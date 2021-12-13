@@ -1,9 +1,10 @@
+import           Control.Monad             ( ap )
 import           Data.Char                 ( digitToInt )
 import           Data.Functor              ( (<&>) )
 import qualified System.Environment as Env ( getArgs )
 import           Text.Printf               ( printf )
 
-import           Day9.SmokeBasin           ( toHeightMap, riskLevel )
+import           Day9.SmokeBasin           ( lowPoints, toHeightMap, riskLevel )
 
 -- | Day 9: Smoke Basin
 -- These caves seem to be lava tubes. Parts are even still volcanically active;
@@ -43,9 +44,10 @@ import           Day9.SmokeBasin           ( toHeightMap, riskLevel )
 --
 -- Find all of the low points on your heightmap. What is the sum of the risk
 -- levels of all low points on your heightmap?
+sumOfRiskLevels = ap ((sum .) . map . riskLevel) lowPoints
 
 main :: IO ()
 main = do
     [input] <- Env.getArgs
-    heights <- readFile input <&> (map (map digitToInt) . lines) <&> toHeightMap
-    printf "Risk level: %d.\n" (riskLevel heights)
+    heights <- readFile input <&> lines <&> map (map digitToInt) <&> toHeightMap
+    printf "Risk level: %d.\n" (sumOfRiskLevels heights)

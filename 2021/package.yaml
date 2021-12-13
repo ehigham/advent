@@ -118,6 +118,10 @@ executables:
     main:                Day9/part1.hs
     source-dirs:         src
 
+  smoke2:
+    main:                Day9/part2.hs
+    source-dirs:         src
+
 
 tests:
   spec:
