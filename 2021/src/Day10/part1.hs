@@ -1,21 +1,12 @@
-import           Control.Applicative       ( (<|>) )
-import           Control.Monad             ( (>=>) )
-import           Data.Function             ( on )
-import           Data.HashMap.Strict       ( HashMap )
-import qualified Data.HashMap.Strict as M  ( fromList, lookup )
-import           Data.Maybe                ( fromMaybe )
-import qualified System.Environment as Env ( getArgs )
-import           Text.Parsec               ( Parsec
-                                           , between
-                                           , char
-                                           , eof
-                                           , errorPos
-                                           , parse
-                                           , skipMany
-                                           , sourceColumn
-                                           )
-import           Text.Printf               ( printf )
-
+import           Control.Monad              ( (>=>) )
+import           Data.HashMap.Strict        ( HashMap )
+import qualified Data.HashMap.Strict as M
+import           Data.Maybe                 ( fromMaybe )
+import qualified System.Environment  as Env
+import           Text.Printf                ( printf )
+import           Day10.SyntaxScoring        ( ParseError ( Expected )
+                                            , parseChunks
+                                            )
 
 -- | Day 10: Syntax Scoring
 -- You ask the submarine to determine the best route out of the deep-sea cave,
@@ -102,25 +93,16 @@ illegalCharScore = M.fromList
     ,   ('>', 25137)
     ]
 
-
-chunks :: Parsec String () ()
-chunks = skipMany $ (between `on` char) '(' ')' chunks
-                <|> (between `on` char) '[' ']' chunks
-                <|> (between `on` char) '{' '}' chunks
-                <|> (between `on` char) '<' '>' chunks
-
-
 firstIllegalChar :: String -> Maybe Char
-firstIllegalChar input = case parse (chunks >> eof) "" input of
-    Left err -> let column = sourceColumn (errorPos err) in
-                    if column < length input
-                        then Just $ input !! (column - 1)
-                        else Nothing
-    _        -> Nothing
+firstIllegalChar input = case parseChunks input of
+    Left (Expected _ got) -> Just got
+    _                     -> Nothing
 
 
 score :: [String] -> Int
-score = sum . map (fromMaybe 0 . (firstIllegalChar >=> (`M.lookup` illegalCharScore)))
+score = sum . map ( fromMaybe 0
+                  . (firstIllegalChar >=> (`M.lookup` illegalCharScore))
+                  )
 
 
 main :: IO ()

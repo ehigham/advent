@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -47,6 +48,7 @@ library
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -61,6 +63,7 @@ executable binarydiagnostic1
   main-is: Day3/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -81,6 +84,7 @@ executable binarydiagnostic1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -95,6 +99,7 @@ executable binarydiagnostic2
   main-is: Day3/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -115,6 +120,7 @@ executable binarydiagnostic2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -129,6 +135,7 @@ executable bingo1
   main-is: Day4/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -149,6 +156,7 @@ executable bingo1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -163,6 +171,7 @@ executable bingo2
   main-is: Day4/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -183,6 +192,7 @@ executable bingo2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -197,6 +207,7 @@ executable crabs1
   main-is: Day7/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -217,6 +228,7 @@ executable crabs1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -231,6 +243,7 @@ executable crabs2
   main-is: Day7/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -251,6 +264,7 @@ executable crabs2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -265,6 +279,7 @@ executable dive1
   main-is: Day2/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -285,6 +300,7 @@ executable dive1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -299,6 +315,7 @@ executable dive2
   main-is: Day2/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -319,6 +336,7 @@ executable dive2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -333,6 +351,7 @@ executable lanternfish1
   main-is: Day6/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -353,6 +372,7 @@ executable lanternfish1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -367,6 +387,7 @@ executable lanternfish2
   main-is: Day6/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -387,6 +408,7 @@ executable lanternfish2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -401,6 +423,7 @@ executable segment1
   main-is: Day8/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -421,6 +444,7 @@ executable segment1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -435,6 +459,7 @@ executable smoke1
   main-is: Day9/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -455,6 +480,7 @@ executable smoke1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -469,6 +495,7 @@ executable smoke2
   main-is: Day9/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -489,6 +516,7 @@ executable smoke2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -503,6 +531,7 @@ executable sonarsweep1
   main-is: Day1/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -523,6 +552,7 @@ executable sonarsweep1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -537,6 +567,7 @@ executable sonarsweep2
   main-is: Day1/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -557,6 +588,7 @@ executable sonarsweep2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -571,6 +603,7 @@ executable syntax1
   main-is: Day10/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -591,12 +624,48 @@ executable syntax1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
     , hashable
     , mtl
-    , parsec
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable syntax2
+  main-is: Day10/part2.hs
+  other-modules:
+      Day1.SonarSweep
+      Day10.SyntaxScoring
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
     , split
     , unordered-containers
     , vector
@@ -606,6 +675,7 @@ executable vents1
   main-is: Day5/part1.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -626,6 +696,7 @@ executable vents1
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -640,6 +711,7 @@ executable vents2
   main-is: Day5/part2.hs
   other-modules:
       Day1.SonarSweep
+      Day10.SyntaxScoring
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -660,6 +732,7 @@ executable vents2
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
   build-depends:
       Boolean
+    , Stack
     , array
     , base >=4.7 && <5
     , containers
@@ -681,6 +754,7 @@ test-suite spec
       LanternfishSpec
       SegmentDisplaySpec
       SmokeBasinSpec
+      SyntaxScoringSpec
       Paths_advent2021
   hs-source-dirs:
       test
@@ -694,6 +768,7 @@ test-suite spec
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2 -Wno-all-missed-specialisations -Wno-unused-packages -threaded -with-rtsopts=-N
   build-depends:
       Boolean
+    , Stack
     , advent2021
     , array
     , base >=4.7 && <5
@@ -724,6 +799,7 @@ benchmark baselines
   ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2 -Wno-unused-packages -threaded -with-rtsopts=-N
   build-depends:
       Boolean
+    , Stack
     , advent2021
     , array
     , base >=4.7 && <5

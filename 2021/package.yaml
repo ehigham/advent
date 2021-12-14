@@ -47,6 +47,7 @@ dependencies:
   - hashable
   - mtl
   - split
+  - Stack
   - unordered-containers
   - vector
 
@@ -125,8 +126,10 @@ executables:
   syntax1:
     main:                Day10/part1.hs
     source-dirs:         src
-    dependencies:
-      - parsec
+
+  syntax2:
+    main:                Day10/part2.hs
+    source-dirs:         src
 
 tests:
   spec:
