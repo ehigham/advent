@@ -419,6 +419,42 @@ executable lanternfish2
     , vector
   default-language: Haskell2010
 
+executable octopus1
+  main-is: Day11/part1.hs
+  other-modules:
+      Day1.SonarSweep
+      Day10.SyntaxScoring
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
 executable segment1
   main-is: Day8/part1.hs
   other-modules:
