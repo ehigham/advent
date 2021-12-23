@@ -1,11 +1,17 @@
 import           Control.Monad.State       ( evalState )
 import           Data.Functor              ( (<&>) )
-import           Data.List                 ( transpose )
+import           Data.List                 ( sortOn, transpose )
 import           Data.List.Split           ( wordsBy )
+import           Data.Maybe                ( isNothing )
 import qualified System.Environment as Env
 import           Text.Printf               ( printf )
 
-import Day4.Bingo ( Bingo ( Bingo ), Board, playBingo, readBoards, score )
+import Day4.Bingo                          ( Bingo ( Bingo )
+                                           , Board
+                                           , playBingo
+                                           , readBoards
+                                           , score
+                                           )
 
 
 -- | Day 4: Giant Squid
@@ -82,13 +88,45 @@ import Day4.Bingo ( Bingo ( Bingo ), Board, playBingo, readBoards, score )
 -- Then, multiply that sum by the number that was just called when the board
 -- won, 24, to get the final score, 188 * 24 = 4512.
 --
--- To guarantee victory against the giant squid, figure out which board will win
--- first. What will your final score be if you choose that board?
-firstWinner :: [Int] -> [Board] -> Maybe (Int, Board)
-firstWinner balls = lookup (Just Bingo)
-                  . concat
-                  . transpose
-                  . map (evalState $ mapM playBingo balls)
+-- To guarantee victory against the giant squid, figure out which board will
+-- win first. What will your final score be if you choose that board?
+part1 :: [Int] -> [Board] -> IO ()
+part1 balls boards =
+    printf "Winning board score = %d.\n" (maybe 0 score winningBoard)
+  where
+    winningBoard = lookup (Just Bingo)
+                 . concat
+                 . transpose
+                 . map (evalState $ mapM playBingo balls)
+                 $ boards
+
+--- | Part Two
+-- On the other hand, it might be wise to try a different strategy: let the
+-- giant squid win.
+--
+-- You aren't sure how many bingo boards a giant squid could play at once,
+-- so rather than waste time counting its arms, the safe thing to do is to
+-- figure out which board will win last and choose that one. That way, no matter
+-- which boards it picks, it will win for sure.
+--
+-- In the above example, the second board is the last to win, which happens
+-- after 13 is eventually called and its middle column is completely marked.
+-- If you were to keep playing until this point, the second board would have a
+-- sum of unmarked numbers equal to 148 for a final score of 148 * 13 = 1924.
+--
+-- Figure out which board will win last. Once it wins, what would its final
+-- score be?
+part2 :: [Int] -> [Board] -> IO ()
+part2 balls boards =
+    printf "Winning board score = %d.\n" (maybe 0 score lastWinner)
+  where
+    lastWinner = lookup (Just Bingo)
+               . concat
+               . sortOn length
+               . map ( dropWhile (isNothing . fst)
+                     . evalState (mapM playBingo balls)
+                     )
+               $ boards
 
 
 main :: IO ()
@@ -97,4 +135,5 @@ main = do
     (x:xs) <- readFile input <&> lines
     let balls  = map read (wordsBy (== ',')  x) :: [Int]
         boards = readBoards xs
-    printf "score = %d\n" $ maybe 0 score (firstWinner balls boards)
+    putStr "Part 1: " >> part1 balls boards
+    putStr "Part 2: " >> part2 balls boards

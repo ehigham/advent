@@ -3,7 +3,7 @@ import qualified System.Environment as Env
 import           Text.Printf               ( printf )
 import           Day6.Lanternfish          ( Lanternfish, simulate )
 
--- | Day 6: Lanternfish
+-- | Day 6: Lanternfish - Part 1
 -- The sea floor is getting steeper. Maybe the sleigh keys got carried this way?
 --
 -- A massive school of glowing lanternfish swims past. They must spawn quickly
@@ -77,10 +77,26 @@ import           Day6.Lanternfish          ( Lanternfish, simulate )
 --
 -- Find a way to simulate lanternfish. How many lanternfish would there be after
 -- 80 days?
+part1 :: [Lanternfish] -> IO ()
+part1 = printf "After 80 days, there are %d lanternfish.\n" . simulate 80
+
+
+-- | Part Two
+-- Suppose the lanternfish live forever and have unlimited food and space.
+-- Would they take over the entire ocean?
+--
+-- After 256 days in the example above, there would be a total of 26984457539
+-- lanternfish!
+--
+-- How many lanternfish would there be after 256 days?
+part2 :: [Lanternfish] -> IO ()
+part2 = printf "After 256 days, there are %d lanternfish.\n" . simulate 257
+
 
 main :: IO ()
 main = do
     [input] <- Env.getArgs
     contents <- readFile input
     let fish = map read (splitOn "," contents) :: [Lanternfish]
-    printf "After 80 days, there are %d lanternfish.\n" (simulate 80 fish)
+    putStr "Part 1: " >> part1 fish
+    putStr "Part 2: " >> part2 fish

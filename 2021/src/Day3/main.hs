@@ -1,12 +1,70 @@
 import           Data.List                     ( transpose )
 import qualified System.Environment     as Env
 import           Text.Printf                   ( printf )
-import           Day3.BinaryDiagnostics        ( Bit
-                                               , BinaryNumber ( .. )
+import           Day3.BinaryDiagnostics        ( BinaryNumber ( .. )
                                                , toInt
                                                , mcb
                                                , lcb
                                                )
+
+
+-- | Day 3: Binary Diagnostic - Part 1
+-- The submarine has been making some odd creaking noises, so you ask it to
+-- produce a diagnostic report just in case.
+--
+-- The diagnostic report (your puzzle input) consists of a list of binary
+-- numbers which, when decoded properly, can tell you many useful things about
+-- the conditions of the submarine. The first parameter to check is the power
+-- consumption.
+--
+-- You need to use the binary numbers in the diagnostic report to generate two
+-- new binary numbers (called the gamma rate and the epsilon rate). The power
+-- consumption can then be found by multiplying the gamma rate by the epsilon
+-- rate.
+--
+-- Each bit in the gamma rate can be determined by finding the most common bit
+-- in the corresponding position of all numbers in the diagnostic report. For
+-- example, given the following diagnostic report:
+--
+-- 00100
+-- 11110
+-- 10110
+-- 10111
+-- 10101
+-- 01111
+-- 00111
+-- 11100
+-- 10000
+-- 11001
+-- 00010
+-- 01010
+--
+-- Considering only the first bit of each number, there are five 0 bits and
+-- seven 1 bits. Since the most common bit is 1, the first bit of the gamma
+-- rate is 1.
+--
+-- The most common second bit of the numbers in the diagnostic report is 0, so
+-- the second bit of the gamma rate is 0.
+--
+-- The most common value of the third, fourth, and fifth bits are 1, 1, and 0,
+-- respectively, and so the final three bits of the gamma rate are 110.
+--
+-- So, the gamma rate is the binary number 10110, or 22 in decimal.
+--
+-- The epsilon rate is calculated in a similar way; rather than use the most
+-- common bit, the least common bit from each position is used. So, the epsilon
+-- rate is 01001, or 9 in decimal. Multiplying the gamma rate (22) by the
+-- epsilon rate (9) produces the power consumption, 198.
+--
+-- Use the binary numbers in your diagnostic report to calculate the gamma rate
+-- and epsilon rate, then multiply them together. What is the power consumption
+-- of the submarine? (Be sure to represent your answer in decimal, not binary)
+part1 :: [BinaryNumber] -> IO ()
+part1 digits = printf "Power consumption = %d.\n" (gamma * epsilon)
+  where
+    gamma   = toInt . map mcb . transpose . map toBitList $ digits
+    epsilon = toInt . map lcb . transpose . map toBitList $ digits
+
 
 -- | Part Two
 -- Next, you should verify the life support rating, which can be determined by
@@ -79,26 +137,24 @@ import           Day3.BinaryDiagnostics        ( Bit
 -- generator rating and CO2 scrubber rating, then multiply them together. What
 -- is the life support rating of the submarine? (Be sure to represent your
 -- answer in decimal, not binary.)
-rating :: ([Bit] -> Bit) -> [BinaryNumber] -> Int
-rating criteria = go 0 . map toBitList
+part2 :: [BinaryNumber] -> IO ()
+part2 digits = printf "Life support rating = %d.\n" (o2Rating * co2Rating)
   where
-    go _ [x] = toInt x
-    go n xs  = go (n + 1) $ let m = criteria $ transpose xs !! n in
-                                filter ((m ==) . (!! n)) xs
+    o2Rating = rating mcb digits
+    co2Rating = rating lcb digits
 
+    rating criteria = go 0 . map toBitList
+      where
+        go _ [x] = toInt x
+        go n xs  = go (n + 1) $ let m = criteria $ transpose xs !! n in
+                                    filter ((m ==) . (!! n)) xs
 
-o2GenRating, co2ScrubRating :: [BinaryNumber] -> Int
-o2GenRating    = rating mcb
-co2ScrubRating = rating lcb
 
 
 main :: IO ()
 main = do
     [input]  <- Env.getArgs
     contents <- readFile input
-    let digits    = map read (lines contents) :: [BinaryNumber]
-        (o2, co2) = (o2GenRating digits, co2ScrubRating digits)
-    printf "Diagnostic report:\n\tO2 Generator = %d\n\tCO2 Scrubber = %d\n\tO2 * CO2 = %d\n"
-        o2
-        co2
-        (o2 * co2)
+    let digits  =  map read (lines contents) :: [BinaryNumber]
+    putStr "Part 1: " >> part1 digits
+    putStr "Part 2: " >> part2 digits

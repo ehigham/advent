@@ -6,7 +6,7 @@ import           Text.Printf                   ( printf )
 import           Day5.HydrothermalVents        ( Line, countPoints, isDiagonal )
 
 
---  | Day 5: Hydrothermal Venture
+--  | Day 5: Hydrothermal Venture - Part 1
 -- You come across a field of hydrothermal vents on the ocean floor! These vents
 -- constantly produce large, opaque clouds, so it would be best to avoid them if
 -- possible.
@@ -61,14 +61,53 @@ import           Day5.HydrothermalVents        ( Line, countPoints, isDiagonal )
 --
 -- Consider only horizontal and vertical lines. At how many points do at least
 -- two lines overlap?
+part1 :: [Line] -> IO ()
+part1 = printf "Number of points where at least two lines overlap: %d\n"
+      . length
+      . M.filter (> 1)
+      . countPoints
+      . filter (not . isDiagonal)
+
+
+-- | Part Two
+-- Unfortunately, considering only horizontal and vertical lines doesn't give
+-- you the full picture; you need to also consider diagonal lines.
+--
+-- Because of the limits of the hydrothermal vent mapping system, the lines in
+-- your list will only ever be horizontal, vertical, or a diagonal line at
+-- exactly 45 degrees. In other words:
+--
+-- An entry like 1,1 -> 3,3 covers points 1,1, 2,2, and 3,3.
+-- An entry like 9,7 -> 7,9 covers points 9,7, 8,8, and 7,9.
+--
+-- Considering all lines from the above example would now produce the following diagram:
+--
+-- 1.1....11.
+-- .111...2..
+-- ..2.1.111.
+-- ...1.2.2..
+-- .112313211
+-- ...1.2....
+-- ..1...1...
+-- .1.....1..
+-- 1.......1.
+-- 222111....
+--
+-- You still need to determine the number of points where at least two lines
+-- overlap. In the above example, this is still anywhere in the diagram with a 2
+-- or larger - now a total of 12 points.
+--
+-- Consider all of the lines. At how many points do at least two lines overlap?
+part2 :: [Line] -> IO ()
+part2 = printf "Number of points where at least two lines overlap: %d\n"
+    . length
+    . M.filter (> 1)
+    . countPoints
+
+
 main :: IO ()
 main = do
     [input] <- Env.getArgs
     ventLines <- readFile input <&> (map read . lines) :: IO [Line]
-    let activeZones = length
-                    . M.filter (> 1)
-                    . countPoints
-                    . filter (not . isDiagonal)
-                    $ ventLines
-    printf "Number of points where at least two lines overlap: %d\n" activeZones
-    return ()
+    putStr "Part 1: " >> part1 ventLines
+    putStr "Part 2: " >> part2 ventLines

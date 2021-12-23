@@ -56,52 +56,28 @@ library:
   source-dirs: src
 
 executables:
-  sonarsweep1:
-    main:                Day1/part1.hs
+  day1:
+    main:                Day1/main.hs
     source-dirs:         src
 
-  sonarsweep2:
-    main:                Day1/part2.hs
+  day2:
+    main:                Day2/main.hs
     source-dirs:         src
 
-  dive1:
-    main:                Day2/part1.hs
+  day3:
+    main:                Day3/main.hs
     source-dirs:         src
 
-  dive2:
-    main:                Day2/part2.hs
+  day4:
+    main:                Day4/main.hs
     source-dirs:         src
 
-  binarydiagnostic1:
-    main:                Day3/part1.hs
+  day5:
+    main:                Day5/main.hs
     source-dirs:         src
 
-  binarydiagnostic2:
-    main:                Day3/part2.hs
-    source-dirs:         src
-
-  bingo1:
-    main:                Day4/part1.hs
-    source-dirs:         src
-
-  bingo2:
-    main:                Day4/part2.hs
-    source-dirs:         src
-
-  vents1:
-    main:                Day5/part1.hs
-    source-dirs:         src
-
-  vents2:
-    main:                Day5/part2.hs
-    source-dirs:         src
-
-  lanternfish1:
-    main:                Day6/part1.hs
-    source-dirs:         src
-
-  lanternfish2:
-    main:                Day6/part2.hs
+  day6:
+    main:                Day6/main.hs
     source-dirs:         src
 
   crabs1:
@@ -138,6 +114,10 @@ executables:
 
   octopus2:
     main:                Day11/part2.hs
+    source-dirs:         src
+
+  day12:
+    main:                Day12/main.hs
     source-dirs:         src
 
 tests:

@@ -8,9 +8,9 @@ module Day3.BinaryDiagnostics (
 
 import Control.Applicative ( many )
 import Data.Bits           ( shiftL )
-import Data.Boolean
+import Data.Boolean        ( Boolean(..) )
 import Data.Functor        ( (<&>) )
-import Text.Read
+import Text.Read           ( Read ( readPrec ), ReadPrec, get, pfail )
 
 
 data Bit = Zero | One
@@ -78,4 +78,3 @@ instance Show BinaryNumber where
 
 instance Read BinaryNumber where
     readPrec = many bit <&> BinaryNumber
-

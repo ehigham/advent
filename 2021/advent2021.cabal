@@ -25,7 +25,6 @@ source-repository head
 
 library
   exposed-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -36,158 +35,6 @@ library
       Day8.SegmentDisplay
       Day9.SmokeBasin
   other-modules:
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable binarydiagnostic1
-  main-is: Day3/part1.hs
-  other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable binarydiagnostic2
-  main-is: Day3/part2.hs
-  other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable bingo1
-  main-is: Day4/part1.hs
-  other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable bingo2
-  main-is: Day4/part2.hs
-  other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
       Paths_advent2021
   hs-source-dirs:
       src
@@ -216,7 +63,6 @@ executable bingo2
 executable crabs1
   main-is: Day7/part1.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -254,7 +100,6 @@ executable crabs1
 executable crabs2
   main-is: Day7/part2.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -289,10 +134,9 @@ executable crabs2
     , vector
   default-language: Haskell2010
 
-executable dive1
-  main-is: Day2/part1.hs
+executable day1
+  main-is: Day1/main.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -327,10 +171,9 @@ executable dive1
     , vector
   default-language: Haskell2010
 
-executable dive2
-  main-is: Day2/part2.hs
+executable day12
+  main-is: Day12/main.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -365,10 +208,9 @@ executable dive2
     , vector
   default-language: Haskell2010
 
-executable lanternfish1
-  main-is: Day6/part1.hs
+executable day2
+  main-is: Day2/main.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -403,10 +245,120 @@ executable lanternfish1
     , vector
   default-language: Haskell2010
 
-executable lanternfish2
-  main-is: Day6/part2.hs
+executable day3
+  main-is: Day3/main.hs
   other-modules:
-      Day1.SonarSweep
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable day4
+  main-is: Day4/main.hs
+  other-modules:
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable day5
+  main-is: Day5/main.hs
+  other-modules:
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable day6
+  main-is: Day6/main.hs
+  other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -444,7 +396,6 @@ executable lanternfish2
 executable octopus1
   main-is: Day11/part1.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -482,7 +433,6 @@ executable octopus1
 executable octopus2
   main-is: Day11/part2.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -520,7 +470,6 @@ executable octopus2
 executable segment1
   main-is: Day8/part1.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -558,7 +507,6 @@ executable segment1
 executable smoke1
   main-is: Day9/part1.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -596,83 +544,6 @@ executable smoke1
 executable smoke2
   main-is: Day9/part2.hs
   other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable sonarsweep1
-  main-is: Day1/part1.hs
-  other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable sonarsweep2
-  main-is: Day1/part2.hs
-  other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -710,7 +581,6 @@ executable sonarsweep2
 executable syntax1
   main-is: Day10/part1.hs
   other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
@@ -748,83 +618,6 @@ executable syntax1
 executable syntax2
   main-is: Day10/part2.hs
   other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable vents1
-  main-is: Day5/part1.hs
-  other-modules:
-      Day1.SonarSweep
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable vents2
-  main-is: Day5/part2.hs
-  other-modules:
-      Day1.SonarSweep
       Day10.SyntaxScoring
       Day11.Octopus
       Day2.Dive
