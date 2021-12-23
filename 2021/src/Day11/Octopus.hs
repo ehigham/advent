@@ -5,7 +5,6 @@ module Day11.Octopus (
     ,   toOctopusArray
     ) where
 
-import Control.Monad              ( (>=>), filterM, when )
 import Control.Monad.ST           ( ST, runST )
 import Control.Monad.State        ( State, get, put )
 import Data.Array.MArray          ( Ix
@@ -37,13 +36,14 @@ update f array i = do
     return y
 
 
-grow :: STArray s Octopus EnergyLevel -> Octopus -> ST s ()
+grow :: STArray s Octopus EnergyLevel -> Octopus -> ST s [Octopus]
 grow octopuses o = do
     level <- update (+1) octopuses o
-    when (level > 9) $ do
-        writeArray octopuses o (-1000)
-        neighbours <- getNeighbours octopuses o
-        mapM_ (grow octopuses) neighbours
+    if level <= 9 then return [] else do
+            writeArray octopuses o (-1000)
+            neighbours <- getNeighbours octopuses o
+            flashed <- mapM (grow octopuses) neighbours
+            return (o : concat flashed)
 
 
 getNeighbours :: MArray a e m => a Octopus e -> Octopus -> m [Octopus]
@@ -61,8 +61,7 @@ step = do
     let idxs = indices octopuses
         (flashes, octopuses') = runST $ do
             stOctopuses <- thaw octopuses
-            mapM_ (grow stOctopuses) idxs
-            flashed <- filterM (readArray stOctopuses >=> return . (< 0)) idxs
+            flashed <- concat <$> mapM (grow stOctopuses) idxs
             mapM_ (\i -> writeArray stOctopuses i 0) flashed
             fmap (length flashed,) (unsafeFreezeSTArray stOctopuses)
 
