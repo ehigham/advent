@@ -136,6 +136,10 @@ executables:
     main:                Day11/part1.hs
     source-dirs:         src
 
+  octopus2:
+    main:                Day11/part2.hs
+    source-dirs:         src
+
 tests:
   spec:
     main:                Spec.hs
