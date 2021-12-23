@@ -40,10 +40,10 @@ grow :: STArray s Octopus EnergyLevel -> Octopus -> ST s [Octopus]
 grow octopuses o = do
     level <- update (+1) octopuses o
     if level <= 9 then return [] else do
-            writeArray octopuses o (-1000)
-            neighbours <- getNeighbours octopuses o
-            flashed <- mapM (grow octopuses) neighbours
-            return (o : concat flashed)
+        writeArray octopuses o (-1000)
+        neighbours <- getNeighbours octopuses o
+        flashes <- concat <$> mapM (grow octopuses) neighbours
+        return $ o : flashes
 
 
 getNeighbours :: MArray a e m => a Octopus e -> Octopus -> m [Octopus]

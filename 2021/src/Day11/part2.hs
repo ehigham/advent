@@ -80,4 +80,4 @@ main = do
     [input] <- Env.getArgs
     octopuses <- readFile input <&> lines <&> map (map digitToInt) <&> toOctopusArray
     let n = fromJust $ firstFlash octopuses
-    printf "Number of flashes after 100 steps %d.\n" n
+    printf "Number of steps before every octopus flashes: %d.\n" n
