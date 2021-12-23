@@ -34,6 +34,7 @@ ghc-options:
 default-extensions:
   - DerivingStrategies
   - GeneralizedNewtypeDeriving
+  - FlexibleContexts
   - LambdaCase
   - RankNTypes
   - RecordWildCards

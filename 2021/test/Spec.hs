@@ -8,6 +8,7 @@ import qualified LanternfishSpec       ( tests )
 import qualified SegmentDisplaySpec    ( tests )
 import qualified SmokeBasinSpec        ( tests )
 import qualified SyntaxScoringSpec     ( tests )
+import qualified OctopusSpec         ( tests )
 
 main :: IO ()
 main = defaultMain $ testGroup "unit tests"
@@ -19,4 +20,5 @@ main = defaultMain $ testGroup "unit tests"
     , SegmentDisplaySpec.tests
     , SmokeBasinSpec.tests
     , SyntaxScoringSpec.tests
+    , OctopusSpec.tests
     ]

@@ -1,12 +1,16 @@
-import           Data.Array                 ( Array, (!), indices )
+import           Data.Array                 ( Array )
 import           Data.Char                  ( digitToInt )
 import           Data.Functor               ( (<&>) )
 import           Control.Monad              ( replicateM )
-import           Control.Monad.State        ( State, evalState, get, modify' )
+import           Control.Monad.State        ( evalState )
 import qualified System.Environment  as Env
 import           Text.Printf                ( printf )
 
-import           Day9.SmokeBasin            ( toHeightMap )
+import           Day11.Octopus              ( Octopus
+                                            , EnergyLevel
+                                            , toOctopusArray
+                                            , step
+                                            )
 
 --- Day 11: Dumbo Octopus ---
 -- You enter a large cavern full of rare bioluminescent dumbo octopuses! They
@@ -351,31 +355,12 @@ import           Day9.SmokeBasin            ( toHeightMap )
 -- simulate 100 steps. How many total flashes are there after 100 steps?
 
 
-type Octopus = (Int, Int)
-
-step :: State (Array Octopus Int) Int
-step = do
-    modify' $ fmap (+1)
-
-    -- todo: compute the fixed-point of flashing octopuses
-    -- no idea how to do this, perhaps MonadFix?
-    -- Also might be easier to use mutable arrays here
-    octopuses <- get
-    let highlights = filter ((== 9) . (octopuses !)) $ indices octopuses
-
-
-    return (length highlights)
-
-
-simulate :: Int -> Array Octopus Int -> Int
+simulate :: Int -> Array Octopus EnergyLevel -> Int
 simulate n = sum . evalState (replicateM n step)
-
-
-toOctopusArray = toHeightMap
 
 
 main :: IO ()
 main = do
-    [input]   <- Env.getArgs
+    [input] <- Env.getArgs
     octopuses <- readFile input <&> lines <&> map (map digitToInt) <&> toOctopusArray
     printf "Number of flashes after 100 steps %d.\n" (simulate 100 octopuses)

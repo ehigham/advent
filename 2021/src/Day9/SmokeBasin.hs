@@ -17,15 +17,10 @@ type HeightMap = Array Point Int
 
 
 neighbours :: HeightMap -> Point -> [Point]
-neighbours heights p = adjX p ++ adjY p
+neighbours heights = liftA2 (++) adjX adjY
   where
-    adjX (x, y) | x == x0   = [(x + 1, y)]
-                | x == xN   = [(x - 1, y)]
-                | otherwise = [(x - 1, y), (x + 1, y)]
-
-    adjY (x, y) | y == y0   = [(x, y + 1)]
-                | y == yN   = [(x, y - 1)]
-                | otherwise = [(x, y - 1), (x, y + 1)]
+    adjX (x, y) = [(x + k, y) | k <- [-1 | x > x0] ++ [1 | x < xN]]
+    adjY (x, y) = [(x, y + k) | k <- [-1 | y > y0] ++ [1 | y < yN]]
 
     ((x0, y0), (xN, yN)) = bounds heights
 
