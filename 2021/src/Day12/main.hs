@@ -117,7 +117,7 @@
 -- How many paths through this cave system are there that visit small caves at
 -- most once?
 part1 :: IO ()
-part1 = putStrLn "Not implemented."
+part1 = fail "Not implemented."
 
 
 

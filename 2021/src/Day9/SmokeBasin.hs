@@ -1,5 +1,6 @@
 module Day9.SmokeBasin (
-        basins
+        HeightMap
+    ,   basins
     ,   lowPoints
     ,   isLowPoint
     ,   riskLevel

@@ -80,24 +80,16 @@ executables:
     main:                Day6/main.hs
     source-dirs:         src
 
-  crabs1:
-    main:                Day7/part1.hs
+  day7:
+    main:                Day7/main.hs
     source-dirs:         src
 
-  crabs2:
-    main:                Day7/part2.hs
+  day8:
+    main:                Day8/main.hs
     source-dirs:         src
 
-  segment1:
-    main:                Day8/part1.hs
-    source-dirs:         src
-
-  smoke1:
-    main:                Day9/part1.hs
-    source-dirs:         src
-
-  smoke2:
-    main:                Day9/part2.hs
+  day9:
+    main:                Day9/main.hs
     source-dirs:         src
 
   syntax1:

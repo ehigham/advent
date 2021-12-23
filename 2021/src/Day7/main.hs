@@ -56,6 +56,13 @@ import           Text.Printf               ( printf )
 --
 -- Determine the horizontal position that the crabs can align to using the least
 -- fuel possible. How much fuel must they spend to align to that position?
+part1 :: [Int] -> IO ()
+part1 xs = printf "Minimum amount of fuel required = %d.\n"
+         . sum
+         $ map (abs . distanceFromMedian) xs
+  where
+    distanceFromMedian = maybe (error "Empty input") (-) (median xs)
+
 
 median :: Integral a => [a] -> Maybe a
 median = liftA2 pick length sort
@@ -68,10 +75,49 @@ median = liftA2 pick length sort
         average x y = (x + y) `quot` 2
 
 
+-- | Part Two
+-- The crabs don't seem interested in your proposed solution. Perhaps you
+-- misunderstand crab engineering?
+--
+-- As it turns out, crab submarine engines don't burn fuel at a constant rate.
+-- Instead, each change of 1 step in horizontal position costs 1 more unit of
+-- fuel than the last: the first step costs 1, the second step costs 2, the
+-- third step costs 3, and so on.
+--
+-- As each crab moves, moving further becomes more expensive. This changes the
+-- best horizontal position to align them all on; in the example above, this
+-- becomes 5:
+--
+-- Move from 16 to 5: 66 fuel
+-- Move from 1 to 5: 10 fuel
+-- Move from 2 to 5: 6 fuel
+-- Move from 0 to 5: 15 fuel
+-- Move from 4 to 5: 1 fuel
+-- Move from 2 to 5: 6 fuel
+-- Move from 7 to 5: 3 fuel
+-- Move from 1 to 5: 10 fuel
+-- Move from 2 to 5: 6 fuel
+-- Move from 14 to 5: 45 fuel
+--
+-- This costs a total of 168 fuel. This is the new cheapest possible outcome;
+-- the old alignment position (2) now costs 206 fuel instead.
+--
+-- Determine the horizontal position that the crabs can align to using the least
+-- fuel possible so they can make you an escape route! How much fuel must they
+-- spend to align to that position?
+part2 :: [Int] -> IO ()
+part2 xs = printf "Minimum amount of fuel required = %d.\n"
+         . minimum
+         . map fuel
+         $ [(minimum xs)..(maximum xs)]
+  where
+    fuel     k = sum $ map (triangle . abs . (-) k) xs
+    triangle n = (n + 1) * n `quot` 2
+
+
 main :: IO ()
 main = do
     [input] <- Env.getArgs
     positions <-  readFile input <&> (map read  . splitOn ",") :: IO [Int]
-    let distanceFromMedian = maybe (error "Empty input") (-) (median positions)
-    printf "Minimum amount of fuel required = %d.\n"
-        . sum . map (abs . distanceFromMedian) $ positions
+    putStr "Part 1: " >> part1 positions
+    putStr "Part 2: " >> part2 positions

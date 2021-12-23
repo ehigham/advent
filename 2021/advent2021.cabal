@@ -60,80 +60,6 @@ library
     , vector
   default-language: Haskell2010
 
-executable crabs1
-  main-is: Day7/part1.hs
-  other-modules:
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable crabs2
-  main-is: Day7/part2.hs
-  other-modules:
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
 executable day1
   main-is: Day1/main.hs
   other-modules:
@@ -393,6 +319,117 @@ executable day6
     , vector
   default-language: Haskell2010
 
+executable day7
+  main-is: Day7/main.hs
+  other-modules:
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable day8
+  main-is: Day8/main.hs
+  other-modules:
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable day9
+  main-is: Day9/main.hs
+  other-modules:
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
 executable octopus1
   main-is: Day11/part1.hs
   other-modules:
@@ -432,117 +469,6 @@ executable octopus1
 
 executable octopus2
   main-is: Day11/part2.hs
-  other-modules:
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable segment1
-  main-is: Day8/part1.hs
-  other-modules:
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable smoke1
-  main-is: Day9/part1.hs
-  other-modules:
-      Day10.SyntaxScoring
-      Day11.Octopus
-      Day2.Dive
-      Day3.BinaryDiagnostics
-      Day4.Bingo
-      Day5.HydrothermalVents
-      Day6.Lanternfish
-      Day8.SegmentDisplay
-      Day9.SmokeBasin
-      Paths_advent2021
-  hs-source-dirs:
-      src
-  default-extensions:
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      TupleSections
-  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
-  build-depends:
-      Boolean
-    , Stack
-    , array
-    , base >=4.7 && <5
-    , containers
-    , hashable
-    , mtl
-    , split
-    , unordered-containers
-    , vector
-  default-language: Haskell2010
-
-executable smoke2
-  main-is: Day9/part2.hs
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
