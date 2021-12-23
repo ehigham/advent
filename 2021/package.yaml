@@ -100,12 +100,8 @@ executables:
     main:                Day10/part2.hs
     source-dirs:         src
 
-  octopus1:
-    main:                Day11/part1.hs
-    source-dirs:         src
-
-  octopus2:
-    main:                Day11/part2.hs
+  day11:
+    main:                Day11/main.hs
     source-dirs:         src
 
   day12:

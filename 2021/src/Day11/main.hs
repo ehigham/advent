@@ -1,6 +1,8 @@
 import           Data.Array                 ( Array )
 import           Data.Char                  ( digitToInt )
 import           Data.Functor               ( (<&>) )
+import           Data.List                  ( elemIndex )
+import           Data.Maybe                 ( fromJust )
 import           Control.Monad              ( replicateM )
 import           Control.Monad.State        ( evalState )
 import qualified System.Environment  as Env
@@ -353,10 +355,72 @@ import           Day11.Octopus              ( Octopus
 --
 -- Given the starting energy levels of the dumbo octopuses in your cavern,
 -- simulate 100 steps. How many total flashes are there after 100 steps?
+part1 :: Array Octopus EnergyLevel -> IO ()
+part1 = printf "Number of flashes after 100 steps = %d.\n" . simulate 100
+  where
+    simulate n = sum . evalState (replicateM n step)
 
 
-simulate :: Int -> Array Octopus EnergyLevel -> Int
-simulate n = sum . evalState (replicateM n step)
+-- | Part 2
+-- It seems like the individual flashes aren't bright enough to navigate.
+-- However, you might have a better option: the flashes seem to be
+-- synchronizing!
+--
+-- In the example above, the first time all octopuses flash simultaneously
+-- is step 195:
+--
+-- After step 193:
+--
+-- 5877777777
+-- 8877777777
+-- 7777777777
+-- 7777777777
+-- 7777777777
+-- 7777777777
+-- 7777777777
+-- 7777777777
+-- 7777777777
+-- 7777777777
+--
+-- After step 194:
+--
+-- 6988888888
+-- 9988888888
+-- 8888888888
+-- 8888888888
+-- 8888888888
+-- 8888888888
+-- 8888888888
+-- 8888888888
+-- 8888888888
+-- 8888888888
+--
+-- After step 195:
+--
+-- 0000000000
+-- 0000000000
+-- 0000000000
+-- 0000000000
+-- 0000000000
+-- 0000000000
+-- 0000000000
+-- 0000000000
+-- 0000000000
+-- 0000000000
+--
+-- If you can calculate the exact moments when the octopuses will all flash
+-- simultaneously, you should be able to navigate through the cavern. What
+-- is the first step during which all octopuses flash?
+part2 :: Array Octopus EnergyLevel -> IO ()
+part2 powerLevels = let n = fromJust firstFlash in
+    printf "Number of steps before every octopus flashes = %d.\n" n
+  where
+    firstFlash = fmap (+1)
+               . elemIndex (length powerLevels)
+               $ evalState (repeatM step) powerLevels
+
+    repeatM :: Applicative t => t a -> t [a]
+    repeatM = sequenceA . repeat
 
 
 main :: IO ()
@@ -366,4 +430,5 @@ main = do
                <&> lines
                <&> map (map digitToInt)
                <&> toOctopusPowerLevels
-    printf "Number of flashes after 100 steps %d.\n" (simulate 100 powerLevels)
+    putStr "Part 1: " >> part1 powerLevels
+    putStr "Part 2: " >> part2 powerLevels
