@@ -5,17 +5,18 @@ module Day11.Octopus (
     ,   toOctopusArray
     ) where
 
-import Control.Monad              ( when )
-import Control.Monad.ST           ( ST )
+import Control.Monad              ( (>=>), filterM, when )
+import Control.Monad.ST           ( ST, runST )
 import Control.Monad.State        ( State, get, put )
 import Data.Array.MArray          ( Ix
                                   , MArray ( getBounds )
-                                  , thaw
                                   , readArray
+                                  , thaw
                                   , writeArray
                                   )
-import Data.Array.ST              ( STArray, runSTArray )
-import Data.Array                 ( Array, (!), (//), indices )
+import Data.Array.ST              ( STArray )
+import Data.Array                 ( Array, indices )
+import GHC.Arr                    ( unsafeFreezeSTArray )
 
 import Day9.SmokeBasin            ( toHeightMap )
 
@@ -57,13 +58,13 @@ getNeighbours octopuses (x, y) = getBounds octopuses >>= \((x0, y0), (xN, yN)) -
 step :: State (Array Octopus EnergyLevel) Int
 step = do
     octopuses <- get
-
     let idxs = indices octopuses
-        octopuses' = runSTArray $ do
+        (flashes, octopuses') = runST $ do
             stOctopuses <- thaw octopuses
             mapM_ (grow stOctopuses) idxs
-            return stOctopuses
-        flashed = filter ((< 0) . (octopuses' !)) idxs
+            flashed <- filterM (readArray stOctopuses >=> return . (< 0)) idxs
+            mapM_ (\i -> writeArray stOctopuses i 0) flashed
+            fmap (length flashed,) (unsafeFreezeSTArray stOctopuses)
 
-    put $ octopuses' // fmap (,0) flashed
-    return (length flashed)
+    put octopuses'
+    return flashes

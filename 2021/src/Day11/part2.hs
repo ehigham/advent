@@ -2,9 +2,9 @@ import           Control.Applicative        ( liftA2 )
 import           Control.Monad.State        ( evalState )
 import           Data.Array                 ( Array )
 import           Data.Char                  ( digitToInt )
-import           Data.Function              ( fix )
 import           Data.Functor               ( (<&>) )
 import           Data.List                  ( elemIndex )
+import           Data.Maybe                 ( fromJust )
 import qualified System.Environment  as Env
 import           Text.Printf                ( printf )
 
@@ -13,7 +13,6 @@ import           Day11.Octopus              ( Octopus
                                             , toOctopusArray
                                             , step
                                             )
-import Data.Maybe (fromJust)
 
 
 
@@ -72,7 +71,8 @@ import Data.Maybe (fromJust)
 firstFlash :: Array Octopus EnergyLevel -> Maybe Int
 firstFlash = ((+1) <$>) . liftA2 elemIndex length (evalState (repeatM step))
   where
-    repeatM f = (sequence . fix) (f :)
+    repeatM :: Applicative t => t a -> t [a]
+    repeatM = sequenceA . repeat
 
 
 main :: IO ()
