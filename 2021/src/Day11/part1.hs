@@ -8,7 +8,7 @@ import           Text.Printf                ( printf )
 
 import           Day11.Octopus              ( Octopus
                                             , EnergyLevel
-                                            , toOctopusArray
+                                            , toOctopusPowerLevels
                                             , step
                                             )
 
@@ -362,5 +362,8 @@ simulate n = sum . evalState (replicateM n step)
 main :: IO ()
 main = do
     [input] <- Env.getArgs
-    octopuses <- readFile input <&> lines <&> map (map digitToInt) <&> toOctopusArray
-    printf "Number of flashes after 100 steps %d.\n" (simulate 100 octopuses)
+    powerLevels <- readFile input
+               <&> lines
+               <&> map (map digitToInt)
+               <&> toOctopusPowerLevels
+    printf "Number of flashes after 100 steps %d.\n" (simulate 100 powerLevels)

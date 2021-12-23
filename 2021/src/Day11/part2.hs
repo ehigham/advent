@@ -1,4 +1,3 @@
-import           Control.Applicative        ( liftA2 )
 import           Control.Monad.State        ( evalState )
 import           Data.Array                 ( Array )
 import           Data.Char                  ( digitToInt )
@@ -10,7 +9,7 @@ import           Text.Printf                ( printf )
 
 import           Day11.Octopus              ( Octopus
                                             , EnergyLevel
-                                            , toOctopusArray
+                                            , toOctopusPowerLevels
                                             , step
                                             )
 
@@ -69,7 +68,9 @@ import           Day11.Octopus              ( Octopus
 
 
 firstFlash :: Array Octopus EnergyLevel -> Maybe Int
-firstFlash = ((+1) <$>) . liftA2 elemIndex length (evalState (repeatM step))
+firstFlash powerLevels = fmap (+1)
+                       . elemIndex (length powerLevels)
+                       $ evalState (repeatM step) powerLevels
   where
     repeatM :: Applicative t => t a -> t [a]
     repeatM = sequenceA . repeat
@@ -78,6 +79,9 @@ firstFlash = ((+1) <$>) . liftA2 elemIndex length (evalState (repeatM step))
 main :: IO ()
 main = do
     [input] <- Env.getArgs
-    octopuses <- readFile input <&> lines <&> map (map digitToInt) <&> toOctopusArray
-    let n = fromJust $ firstFlash octopuses
+    powerLevels <- readFile input
+               <&> lines
+               <&> map (map digitToInt)
+               <&> toOctopusPowerLevels
+    let n = fromJust $ firstFlash powerLevels
     printf "Number of steps before every octopus flashes: %d.\n" n

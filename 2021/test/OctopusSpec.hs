@@ -11,17 +11,17 @@ import Day11.Octopus
 
 
 tests :: TestTree
-tests = withResource readExample ignore $ \getOctopuses ->
+tests = withResource readExample ignore $ \getPowerLevels ->
     testGroup "Octopuses (Day11)" [
         testCase "test step" $ do
-            octopuses <- getOctopuses
-            evalState (replicateM 10 step) octopuses
+            powerLevels <- getPowerLevels
+            evalState (replicateM 10 step) powerLevels
                 @?= [0,35,45,16,8,1,7,24,39,29]
     ]
   where
     readExample = readFile "data/Day11/example"
                <&> map (map digitToInt) . lines
-               <&> toOctopusArray
+               <&> toOctopusPowerLevels
 
     ignore :: a -> IO ()
     ignore = const (return ())
