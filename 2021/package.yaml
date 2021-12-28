@@ -92,12 +92,8 @@ executables:
     main:                Day9/main.hs
     source-dirs:         src
 
-  syntax1:
-    main:                Day10/part1.hs
-    source-dirs:         src
-
-  syntax2:
-    main:                Day10/part2.hs
+  day10:
+    main:                Day10/main.hs
     source-dirs:         src
 
   day11:
