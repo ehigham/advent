@@ -27,6 +27,7 @@ library
   exposed-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -65,6 +66,7 @@ executable day1
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -102,6 +104,7 @@ executable day10
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -139,6 +142,7 @@ executable day11
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -176,6 +180,7 @@ executable day12
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -213,6 +218,7 @@ executable day2
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -250,6 +256,7 @@ executable day3
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -287,6 +294,7 @@ executable day4
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -324,6 +332,7 @@ executable day5
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -361,6 +370,7 @@ executable day6
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -398,6 +408,7 @@ executable day7
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -435,6 +446,7 @@ executable day8
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -472,6 +484,7 @@ executable day9
   other-modules:
       Day10.SyntaxScoring
       Day11.Octopus
+      Day12.Caves
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -510,6 +523,7 @@ test-suite spec
   other-modules:
       BinaryDiagnosticsSpec
       BingoSpec
+      CavesSpec
       DiveSpec
       HydrothermalVentsSpec
       LanternfishSpec

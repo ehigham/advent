@@ -1,0 +1,47 @@
+module CavesSpec ( tests ) where
+
+
+import           Data.Functor
+import qualified Data.HashMap.Strict as M
+import           Test.Tasty
+import           Test.Tasty.HUnit
+
+import           Day12.Caves
+
+tests :: TestTree
+tests = testGroup "Caves (Day12)"
+    [   testCase "test read" $ read "start-A" @?= Conn start "A"
+    ,   testCase "test show" $ (show . readC) "start-A" @?= "start-A"
+    ,   testConsCaveSystem
+    ,   testFindPaths
+    ]
+  where
+    readC :: String -> Connection
+    readC = read
+
+
+testConsCaveSystem = testGroup "test consCaveSystem"
+    [   testCase "caves" $ assertEqual ""
+            (consCaveSystem [Conn "a" "b"])
+            (M.fromList [("a", ["b"]), ("b", ["a"])])
+    ,   testCase "merge"       $ assertEqual ""
+            (consCaveSystem [Conn "a" "B", Conn "B" "c"])
+            (M.fromList [("a", ["B"]), ("c", ["B"]), ("B", ["c", "a"])])
+    ]
+
+
+testFindPaths = testGroup "test findPaths"
+    [   testCase "example" $ do
+            system <- readSystem "example"
+            length (findPaths system) @?= 10
+    ,   testCase "19 paths" $ do
+            system <- readSystem "19-path-example"
+            length (findPaths system) @?= 19
+    ,   testCase "226 paths" $ do
+            system <- readSystem "226-path-example"
+            length (findPaths system) @?= 226
+    ]
+  where
+    readSystem :: String -> IO CaveSystem
+    readSystem filename = let inputFile = "data/Day12/" ++ filename in
+      readFile inputFile <&> lines <&> map read <&> consCaveSystem

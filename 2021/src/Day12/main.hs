@@ -1,3 +1,12 @@
+import           Data.Functor               ( (<&>) )
+import qualified System.Environment  as Env
+import           Text.Printf                ( printf )
+
+import           Day12.Caves                ( Connection
+                                            , consCaveSystem
+                                            , findPaths
+                                            )
+
 -- | Day 12: Passage Pathing
 -- With your submarine's subterranean subsystems subsisting suboptimally, the
 -- only way you're getting out of this cave anytime soon is by finding a path
@@ -116,10 +125,16 @@
 --
 -- How many paths through this cave system are there that visit small caves at
 -- most once?
-part1 :: IO ()
-part1 = fail "Not implemented."
 
+part1 :: [Connection] -> IO ()
+part1 = printf "Number of paths through cave system = %d.\n"
+      . length
+      . findPaths
+      . consCaveSystem
 
 
 main :: IO ()
-main = putStr "Part 1: " >> part1
+main = do
+    [input] <- Env.getArgs
+    connections <- readFile input <&> lines <&> map read :: IO [Connection]
+    putStr "Part 1: " >> part1 connections
