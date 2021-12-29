@@ -2,10 +2,15 @@ import Criterion.Main
 import Data.Functor      ( (<&>) )
 import Data.List.Split   ( splitOn )
 import Day6.Lanternfish  ( Lanternfish, simulate )
+import Day12.Caves       ( CaveSystem
+                         , consCaveSystem
+                         , findPaths
+                         , visitingOneSmallCaveTwice
+                         )
 
 
 main :: IO ()
-main = defaultMain [day6]
+main = defaultMain [day6, day12]
 
 
 day6 :: Benchmark
@@ -17,3 +22,19 @@ day6 = env setup $ \fish -> bgroup "day6"
   where
     setup :: IO [Lanternfish]
     setup = readFile "data/Day6/input" <&> (map read . splitOn ",")
+
+
+day12 :: Benchmark
+day12 = bgroup "day12" $ map mkbench [ "example"
+                                     , "larger-example"
+                                     , "largest-example"
+                                     ]
+  where
+    mkbench :: String -> Benchmark
+    mkbench name = env (setup name)
+                 $ bench name . nf (findPaths visitingOneSmallCaveTwice)
+
+
+    setup :: String -> IO CaveSystem
+    setup filename = let inputFile = "data/Day12/" ++ filename in
+                readFile inputFile <&> lines <&> map read <&> consCaveSystem

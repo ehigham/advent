@@ -35,11 +35,11 @@ testFindPathsPart1 = testGroup "test findPaths (part 1)"
     [   testCase "example" $ do
             system <- readSystem "example"
             length (findPaths visitingSmallCavesOnce system) @?= 10
-    ,   testCase "19 paths" $ do
-            system <- readSystem "19-path-example"
+    ,   testCase "larger" $ do
+            system <- readSystem "larger-example"
             length (findPaths visitingSmallCavesOnce system) @?= 19
-    ,   testCase "226 paths" $ do
-            system <- readSystem "226-path-example"
+    ,   testCase "largest" $ do
+            system <- readSystem "largest-example"
             length (findPaths visitingSmallCavesOnce system) @?= 226
     ]
 
@@ -47,11 +47,11 @@ testFindPathsPart2 = testGroup "test findPaths (part 2)"
     [   testCase "example" $ do
             system <- readSystem "example"
             length (findPaths visitingOneSmallCaveTwice system) @?= 36
-    ,   testCase "19 paths" $ do
-            system <- readSystem "19-path-example"
+    ,   testCase "larger" $ do
+            system <- readSystem "larger-example"
             length (findPaths visitingOneSmallCaveTwice system) @?= 103
-    ,   testCase "226 paths" $ do
-            system <- readSystem "226-path-example"
+    ,   testCase "largest" $ do
+            system <- readSystem "largest-example"
             length (findPaths visitingOneSmallCaveTwice system) @?= 3509
     ]
 
