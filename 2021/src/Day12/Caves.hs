@@ -69,9 +69,9 @@ findPaths system = filter ((end ==) . last) $ runReader (go start) S.empty
   where
     go cave = do
         visited <- ask
-        let neighbours = M.lookup cave system
-                         <&> filter (not . (`S.member` visited))
-                         & fromMaybe []
+        let neighbours = M.lookup cave system <&>
+                            filter (not . (`S.member` visited))
+                       & fromMaybe []
 
         subpaths <- traverse (pathsFrom cave) neighbours
         return . map (cave:) $ concat subpaths <|> [[]]
