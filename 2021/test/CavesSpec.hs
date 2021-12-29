@@ -13,7 +13,8 @@ tests = testGroup "Caves (Day12)"
     [   testCase "test read" $ read "start-A" @?= Conn start "A"
     ,   testCase "test show" $ (show . readC) "start-A" @?= "start-A"
     ,   testConsCaveSystem
-    ,   testFindPaths
+    ,   testFindPathsPart1
+    ,   testFindPathsPart2
     ]
   where
     readC :: String -> Connection
@@ -30,18 +31,31 @@ testConsCaveSystem = testGroup "test consCaveSystem"
     ]
 
 
-testFindPaths = testGroup "test findPaths"
+testFindPathsPart1 = testGroup "test findPaths (part 1)"
     [   testCase "example" $ do
             system <- readSystem "example"
-            length (findPaths system) @?= 10
+            length (findPaths visitingSmallCavesOnce system) @?= 10
     ,   testCase "19 paths" $ do
             system <- readSystem "19-path-example"
-            length (findPaths system) @?= 19
+            length (findPaths visitingSmallCavesOnce system) @?= 19
     ,   testCase "226 paths" $ do
             system <- readSystem "226-path-example"
-            length (findPaths system) @?= 226
+            length (findPaths visitingSmallCavesOnce system) @?= 226
     ]
-  where
-    readSystem :: String -> IO CaveSystem
-    readSystem filename = let inputFile = "data/Day12/" ++ filename in
-      readFile inputFile <&> lines <&> map read <&> consCaveSystem
+
+testFindPathsPart2 = testGroup "test findPaths (part 2)"
+    [   testCase "example" $ do
+            system <- readSystem "example"
+            length (findPaths visitingOneSmallCaveTwice system) @?= 36
+    ,   testCase "19 paths" $ do
+            system <- readSystem "19-path-example"
+            length (findPaths visitingOneSmallCaveTwice system) @?= 103
+    ,   testCase "226 paths" $ do
+            system <- readSystem "226-path-example"
+            length (findPaths visitingOneSmallCaveTwice system) @?= 3509
+    ]
+
+
+readSystem :: String -> IO CaveSystem
+readSystem filename = let inputFile = "data/Day12/" ++ filename in
+    readFile inputFile <&> lines <&> map read <&> consCaveSystem

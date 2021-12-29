@@ -5,6 +5,8 @@ import           Text.Printf                ( printf )
 import           Day12.Caves                ( CaveSystem
                                             , consCaveSystem
                                             , findPaths
+                                            , visitingSmallCavesOnce
+                                            , visitingOneSmallCaveTwice
                                             )
 
 -- | Day 12: Passage Pathing
@@ -128,7 +130,7 @@ import           Day12.Caves                ( CaveSystem
 part1 :: CaveSystem -> IO ()
 part1 = printf "Number of paths through cave system = %d.\n"
       . length
-      . findPaths
+      . findPaths visitingSmallCavesOnce
 
 
 -- | Part Two
@@ -184,7 +186,9 @@ part1 = printf "Number of paths through cave system = %d.\n"
 --
 -- Given these new rules, how many paths through this cave system are there?
 part2 :: CaveSystem -> IO ()
-part2 _ = fail "not implemented"
+part2 = printf "Number of paths through cave system revisiting one cave = %d.\n"
+      . length
+      . findPaths visitingOneSmallCaveTwice
 
 
 main :: IO ()
