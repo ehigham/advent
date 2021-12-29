@@ -78,5 +78,7 @@ findPaths system = filter ((end ==) . last) $ runReader (go start) S.empty
         return . map (cave:) $ concat subpaths <|> [[]]
 
 
-    pathsFrom cave next = let paths = go next in
-        if isBigCave cave then paths else local (S.insert cave) paths
+    pathsFrom cave next
+        | end == cave = return mempty
+        | otherwise   = let paths = go next in
+            if isBigCave cave then paths else local (S.insert cave) paths
