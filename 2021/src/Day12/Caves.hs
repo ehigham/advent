@@ -73,12 +73,11 @@ findPaths system = filter ((end ==) . last) $ runReader (go start) S.empty
                          <&> filter (not . (`S.member` visited))
                          & fromMaybe []
 
-
         subpaths <- traverse (pathsFrom cave) neighbours
         return . map (cave:) $ concat subpaths <|> [[]]
 
 
     pathsFrom cave next
-        | end == cave = return mempty
-        | otherwise   = let paths = go next in
-            if isBigCave cave then paths else local (S.insert cave) paths
+        | end == cave    = return mempty
+        | isBigCave cave = go next
+        | otherwise      = local (S.insert cave) (go next)
