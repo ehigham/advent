@@ -28,6 +28,7 @@ library
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -56,6 +57,7 @@ library
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -67,6 +69,7 @@ executable day1
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -94,6 +97,7 @@ executable day1
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -105,6 +109,7 @@ executable day10
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -132,6 +137,7 @@ executable day10
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -143,6 +149,7 @@ executable day11
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -170,6 +177,7 @@ executable day11
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -181,6 +189,7 @@ executable day12
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -208,6 +217,47 @@ executable day12
     , containers
     , hashable
     , mtl
+    , parsec
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable day13
+  main-is: Day13/main.hs
+  other-modules:
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day12.Caves
+      Day13.Origami
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , hashable
+    , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -219,6 +269,7 @@ executable day2
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -246,6 +297,7 @@ executable day2
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -257,6 +309,7 @@ executable day3
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -284,6 +337,7 @@ executable day3
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -295,6 +349,7 @@ executable day4
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -322,6 +377,7 @@ executable day4
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -333,6 +389,7 @@ executable day5
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -360,6 +417,7 @@ executable day5
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -371,6 +429,7 @@ executable day6
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -398,6 +457,7 @@ executable day6
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -409,6 +469,7 @@ executable day7
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -436,6 +497,7 @@ executable day7
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -447,6 +509,7 @@ executable day8
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -474,6 +537,7 @@ executable day8
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -485,6 +549,7 @@ executable day9
       Day10.SyntaxScoring
       Day11.Octopus
       Day12.Caves
+      Day13.Origami
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -512,6 +577,7 @@ executable day9
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector
@@ -528,6 +594,7 @@ test-suite spec
       HydrothermalVentsSpec
       LanternfishSpec
       OctopusSpec
+      OrigamiSpec
       SegmentDisplaySpec
       SmokeBasinSpec
       SyntaxScoringSpec
@@ -552,6 +619,7 @@ test-suite spec
     , containers
     , hashable
     , mtl
+    , parsec
     , split
     , tasty
     , tasty-hunit
@@ -585,6 +653,7 @@ benchmark baselines
     , criterion
     , hashable
     , mtl
+    , parsec
     , split
     , unordered-containers
     , vector

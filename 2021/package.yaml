@@ -47,6 +47,7 @@ dependencies:
   - containers
   - hashable
   - mtl
+  - parsec
   - split
   - Stack
   - unordered-containers
@@ -102,6 +103,10 @@ executables:
 
   day12:
     main:                Day12/main.hs
+    source-dirs:         src
+
+  day13:
+    main:                Day13/main.hs
     source-dirs:         src
 
 tests:
