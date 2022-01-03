@@ -1,7 +1,12 @@
+import           Data.Maybe                 ( listToMaybe )
 import qualified System.Environment as Env
---import           Text.Printf                ( printf )
+import           Text.Printf                ( printf )
 
-import           Day13.Origami              ( Fold, Point, parseInstructions )
+import           Day13.Origami              ( Fold
+                                            , Point
+                                            , parseInstructions
+                                            , runFold
+                                            )
 
 -- | Day 13: Transparent Origami
 -- You reach another volcanically active part of the cave. It would be nice if
@@ -152,7 +157,10 @@ import           Day13.Origami              ( Fold, Point, parseInstructions )
 -- How many dots are visible after completing just the first fold instruction
 -- on your transparent paper?
 part1 :: [Point] -> [Fold] -> IO ()
-part1 _ _ = fail "not implemented"
+part1 points folds
+  | Just f <- listToMaybe folds =
+      printf "Number of dots visible after one fold = %d.\n" . length $ runFold f points
+  | otherwise                   = fail "No folds."
 
 
 main :: IO ()
