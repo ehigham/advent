@@ -108,6 +108,8 @@ executables:
   day13:
     main:                Day13/main.hs
     source-dirs:         src
+    dependencies:
+      - monad-loops
 
 tests:
   spec:

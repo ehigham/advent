@@ -256,6 +256,7 @@ executable day13
     , base >=4.7 && <5
     , containers
     , hashable
+    , monad-loops
     , mtl
     , parsec
     , split

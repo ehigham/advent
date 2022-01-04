@@ -1,6 +1,6 @@
 module Day13.Origami (
-        Point ( P, unP )
-    ,   Fold ( FoldX, FoldY )
+        Fold ( FoldX, FoldY )
+    ,   Point
     ,   parseInstructions
     ,   runFold
     ) where
@@ -8,24 +8,21 @@ module Day13.Origami (
 
 import Control.Arrow                 ( first, second )
 import Data.Functor                  ( (<&>) )
-import Data.List                     ( partition, sort, union )
+import Data.List                     ( partition, union )
 import Text.Parsec                   ( ParseError, eof, parse )
 import Text.Parsec.Char              ( char, digit, newline, string )
 import Text.Parsec.String            ( Parser )
 import Text.ParserCombinators.Parsec ( choice, sepEndBy, many1 )
 
 
-newtype Point = P { unP :: (Int, Int) }
-    deriving newtype (Eq, Ord)
-    deriving newtype    Show
-
+type Point = (Int, Int)
 
 data Fold = FoldX Int | FoldY Int
     deriving stock (Eq, Show)
 
 
 parseInstructions :: String -> Either ParseError ([Point], [Fold])
-parseInstructions = (first sort <$>) . parse (instructions <* eof) ""
+parseInstructions = parse (instructions <* eof) ""
   where
     instructions = do
         points <- point `sepEndBy` newline
@@ -37,7 +34,7 @@ parseInstructions = (first sort <$>) . parse (instructions <* eof) ""
         x <- natural
         _ <- char ','
         y <- natural
-        return $ P (x, y)
+        return (x, y)
 
     fold = do
         _ <- string "fold along "
@@ -54,11 +51,11 @@ parseInstructions = (first sort <$>) . parse (instructions <* eof) ""
     natural = many1 digit <&> read
 
 
-runFold :: Fold -> [Point] -> [Point]
-runFold fold = map P . sort . foldAlong fold . map unP
+runFold :: [Point] -> Fold -> [Point]
+runFold points = go
   where
-    foldAlong (FoldX k) ps = let (hi, lo) = partition ((> k) . fst) ps in
+    go (FoldX k) = let (hi, lo) = partition ((> k) . fst) points in
         union lo (first (2 * k -) <$> hi)
 
-    foldAlong (FoldY k) ps = let (hi, lo) = partition ((> k) . snd) ps in
+    go (FoldY k) = let (hi, lo) = partition ((> k) . snd) points in
         union lo (second (2 * k -) <$> hi)

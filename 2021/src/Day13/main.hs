@@ -1,3 +1,8 @@
+import           Control.Arrow              ( (***), first )
+import           Control.Monad.Loops        ( whileM_ )
+import           Control.Monad.State        ( State, gets, modify, runState )
+import           Control.Monad.Writer       ( WriterT, tell, runWriterT )
+import           Data.List                  ( sortBy )
 import           Data.Maybe                 ( listToMaybe )
 import qualified System.Environment as Env
 import           Text.Printf                ( printf )
@@ -159,8 +164,44 @@ import           Day13.Origami              ( Fold
 part1 :: [Point] -> [Fold] -> IO ()
 part1 points folds
   | Just f <- listToMaybe folds =
-      printf "Number of dots visible after one fold = %d.\n" . length $ runFold f points
+      printf "Number of dots visible after one fold = %d.\n" . length $ runFold points f
   | otherwise                   = fail "No folds."
+
+
+-- | Part Two
+-- Finish folding the transparent paper according to the instructions. The
+-- manual says the code is always eight capital letters.
+--
+-- What code do you use to activate the infrared thermal imaging camera system?
+part2 :: [Point] -> [Fold] -> IO ()
+part2 points folds = putStrLn "" >> putStr image >> putStrLn ""
+  where
+    image = runPrinter
+          . traverse printPoint
+          . sortBy columnMajorOrder
+          . foldl runFold points
+          $ folds
+
+    columnMajorOrder (x1, y1) (x2, y2) =
+      case compare y1 y2 of
+        EQ    -> compare x1 x2
+        other -> other
+
+runPrinter :: WriterT String (State Point) a -> String
+runPrinter p = let ((_, output), _) = runState (runWriterT p) (0, 0) in
+    output
+
+printPoint (x, y) = do
+    whileM_ (gets ((y >) . snd)) $ do
+        modify (const 0 *** succ)
+        tell "\n"
+
+    whileM_ (gets ((x >) . fst)) $ do
+        modify (first succ)
+        tell " "
+
+    modify (first succ)
+    tell "#"
 
 
 main :: IO ()
@@ -169,6 +210,7 @@ main = do
     contents <- readFile input
     (points, folds) <- rightOrFail (parseInstructions contents)
     putStr "Part 1: " >> part1 points folds
+    putStr "Part 2: " >> part2 points folds
   where
     rightOrFail (Right x) = return x
     rightOrFail (Left err) = fail (show err)
