@@ -182,13 +182,13 @@ part2 points folds = putStrLn "" >> putStr image >> putStrLn ""
           $ foldl runFold points folds
 
     columnMajorOrder (x1, y1) (x2, y2) =
-      case compare y1 y2 of
-        EQ    -> compare x1 x2
-        other -> other
+        case compare y1 y2 of
+            EQ    -> compare x1 x2
+            other -> other
 
     runPrinter :: WriterT String (State Point) a -> String
     runPrinter p =
-      let ((_, output), _) = runState (runWriterT p) (0, 0) in output
+        let ((_, output), _) = runState (runWriterT p) (0, 0) in output
 
     printPoint (x, y) = do
         whileM_ (gets ((y >) . snd)) $ do
