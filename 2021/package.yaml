@@ -111,6 +111,10 @@ executables:
     dependencies:
       - monad-loops
 
+  day14:
+    main:                Day14/main.hs
+    source-dirs:         src
+
 tests:
   spec:
     main:                Spec.hs

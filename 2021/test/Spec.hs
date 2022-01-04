@@ -11,6 +11,7 @@ import qualified SyntaxScoringSpec     ( tests )
 import qualified OctopusSpec           ( tests )
 import qualified CavesSpec             ( tests )
 import qualified OrigamiSpec           ( tests )
+import qualified PolymerizationSpec    ( tests )
 
 main :: IO ()
 main = defaultMain $ testGroup "unit tests"
@@ -25,4 +26,5 @@ main = defaultMain $ testGroup "unit tests"
     , OctopusSpec.tests
     , CavesSpec.tests
     , OrigamiSpec.tests
+    , PolymerizationSpec.tests
     ]
