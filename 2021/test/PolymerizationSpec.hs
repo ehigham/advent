@@ -1,6 +1,5 @@
 module PolymerizationSpec ( tests ) where
 
-import           Control.Applicative
 import qualified Data.HashMap.Strict as M
 import qualified Data.List           as L
 import           Test.Tasty
@@ -8,9 +7,11 @@ import           Test.Tasty.HUnit
 
 import           Day14.Polymerization
 
+
 tests :: TestTree
 tests = testGroup "Polymerization (Day14)"
     [   testParsePoylmerFomula
+    ,   testBigramCounts
     ,   testInsert
     ]
 
@@ -28,21 +29,25 @@ testParsePoylmerFomula = testGroup "formula parser"
     ]
 
 
+testBigramCounts = testGroup "test bigramCounts"
+    [    testCase "empty"     $ bigramCounts ""    @?= M.empty
+    ,    testCase "singleton" $ bigramCounts "A"   @?= M.empty
+    ,    testCase "bigram"    $ bigramCounts "AB"  @?= M.singleton "AB" 1
+    ,    testCase "trigram"   $ bigramCounts "ABC" @?= M.fromList [("AB", 1), ("BC", 1)]
+    ,    testCase "duplicate" $ bigramCounts "AAA" @?= M.fromList [("AA", 2)]
+    ]
+
+
 testInsert = withResource readExample ignore $ \getPolymerFormula ->
-    testGroup "test insert"
-        [   testCase "step 5" $ do
-                Right PolymerFormula {..} <- getPolymerFormula
-                let chain = (!! 5) $ iterate (insert insertionRules) template
-                assertEqual "length" 97 (length chain)
-        ,   testCase "step 10" $ do
-                Right PolymerFormula {..} <- getPolymerFormula
-                let chain = (!! 10) $ iterate (insert insertionRules) template
-                assertEqual "length" 3073 (length chain)
-                assertEqual "counts" [('B', 1749), ('C', 298), ('H', 161), ('N', 865)]
-                    . map (liftA2 (,) head length)
-                    . L.group
-                    $ L.sort chain
-        ]
+    testCase "test insert" $ do
+        Right PolymerFormula {..} <- getPolymerFormula
+        assertEqual "" [('B', 1749), ('C', 298), ('H', 161), ('N', 865)]
+                $ L.sort
+                . M.toList
+                . elemCounts template
+                . (!! 10)
+                . L.iterate (insert insertionRules)
+                $ bigramCounts template
   where
     readExample = parsePolymerFormula <$> readFile "data/Day14/example"
 

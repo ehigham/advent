@@ -42,6 +42,7 @@ library
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -56,6 +57,7 @@ library
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -83,6 +85,7 @@ executable day1
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -97,6 +100,7 @@ executable day1
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -124,6 +128,7 @@ executable day10
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -138,6 +143,7 @@ executable day10
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -165,6 +171,7 @@ executable day11
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -179,6 +186,7 @@ executable day11
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -206,6 +214,7 @@ executable day12
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -220,6 +229,7 @@ executable day12
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -247,6 +257,7 @@ executable day13
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -261,6 +272,7 @@ executable day13
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , monad-loops
     , mtl
@@ -289,6 +301,7 @@ executable day14
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -303,6 +316,7 @@ executable day14
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -330,6 +344,7 @@ executable day2
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -344,6 +359,7 @@ executable day2
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -371,6 +387,7 @@ executable day3
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -385,6 +402,7 @@ executable day3
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -412,6 +430,7 @@ executable day4
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -426,6 +445,7 @@ executable day4
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -453,6 +473,7 @@ executable day5
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -467,6 +488,7 @@ executable day5
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -494,6 +516,7 @@ executable day6
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -508,6 +531,7 @@ executable day6
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -535,6 +559,7 @@ executable day7
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -549,6 +574,7 @@ executable day7
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -576,6 +602,7 @@ executable day8
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -590,6 +617,7 @@ executable day8
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -617,6 +645,7 @@ executable day9
   hs-source-dirs:
       src
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -631,6 +660,7 @@ executable day9
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -659,6 +689,7 @@ test-suite spec
   hs-source-dirs:
       test
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -674,6 +705,7 @@ test-suite spec
     , array
     , base >=4.7 && <5
     , containers
+    , deepseq
     , hashable
     , mtl
     , parsec
@@ -692,6 +724,7 @@ benchmark baselines
   hs-source-dirs:
       bench
   default-extensions:
+      DeriveGeneric
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
@@ -708,6 +741,7 @@ benchmark baselines
     , base >=4.7 && <5
     , containers
     , criterion
+    , deepseq
     , hashable
     , mtl
     , parsec

@@ -32,6 +32,7 @@ ghc-options:
   - -O2
 
 default-extensions:
+  - DeriveGeneric
   - DerivingStrategies
   - GeneralizedNewtypeDeriving
   - FlexibleContexts
@@ -45,6 +46,7 @@ dependencies:
   - base >= 4.7 && < 5
   - Boolean
   - containers
+  - deepseq
   - hashable
   - mtl
   - parsec

@@ -1,16 +1,23 @@
 import Criterion.Main
-import Data.Functor      ( (<&>) )
-import Data.List.Split   ( splitOn )
-import Day6.Lanternfish  ( Lanternfish, simulate )
-import Day12.Caves       ( CaveSystem
-                         , consCaveSystem
-                         , findPaths
-                         , visitingOneSmallCaveTwice
-                         )
+import Data.Either          ( rights )
+import Data.Functor         ( (<&>) )
+import Data.List.Split      ( splitOn )
+import Day6.Lanternfish     ( Lanternfish, simulate )
+import Day12.Caves          ( CaveSystem
+                            , consCaveSystem
+                            , findPaths
+                            , visitingOneSmallCaveTwice
+                            )
+import Day14.Polymerization ( PolymerFormula (..)
+                            , bigramCounts
+                            , elemCounts
+                            , parsePolymerFormula
+                            , insert
+                            )
 
 
 main :: IO ()
-main = defaultMain [day6, day12]
+main = defaultMain [day6, day12, day14]
 
 
 day6 :: Benchmark
@@ -38,3 +45,20 @@ day12 = bgroup "day12" $ map mkbench [ "example"
     setup :: String -> IO CaveSystem
     setup filename = let inputFile = "data/Day12/" ++ filename in
                 readFile inputFile <&> lines <&> map read <&> consCaveSystem
+
+
+day14 :: Benchmark
+day14 = bgroup "day14" $ map mkbench [ "example", "input" ]
+  where
+    mkbench :: String -> Benchmark
+    mkbench name = env (setup name) $ bench name . nf runReprunPolymerization
+
+    runReprunPolymerization PolymerFormula{..} =
+      elemCounts template
+      . (!! 40)
+      . iterate (insert insertionRules)
+      $ bigramCounts template
+
+    setup :: String -> IO PolymerFormula
+    setup filename = let inputFile = "data/Day14/" ++ filename in
+                readFile inputFile <&> (head . rights . (:[]) . parsePolymerFormula)

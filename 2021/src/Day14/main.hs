@@ -1,11 +1,12 @@
-import           Control.Applicative        ( liftA2 )
-import           Data.List                  ( group, sort )
-import qualified System.Environment as Env
+import qualified System.Environment  as Env
 import           Text.Printf                ( printf )
 
 import           Day14.Polymerization       ( PolymerFormula (..)
-                                            , parsePolymerFormula
+                                            , bigramCounts
+                                            , differenceOfMceAndLceCounts
+                                            , elemCounts
                                             , insert
+                                            , parsePolymerFormula
                                             )
 
 
@@ -91,18 +92,12 @@ import           Day14.Polymerization       ( PolymerFormula (..)
 part1 :: PolymerFormula -> IO ()
 part1 PolymerFormula{..} =
     printf "N(most common elem) - N(least common elem) = %d.\n"
-        . diffMostAndLeastCommonElementCounts
+        . differenceOfMceAndLceCounts
+        . elemCounts template
         . (!! 10)
-        $ iterate (insert insertionRules) template
+        . iterate (insert insertionRules)
+        $ bigramCounts template
 
-
-diffMostAndLeastCommonElementCounts :: [Char] -> Int
-diffMostAndLeastCommonElementCounts =
-    liftA2 subtract head last
-    . sort
-    . map length
-    . group
-    . sort
 
 -- | Part Two
 -- The resulting polymer isn't nearly strong enough to reinforce the submarine.
@@ -120,9 +115,11 @@ diffMostAndLeastCommonElementCounts =
 part2 :: PolymerFormula -> IO ()
 part2 PolymerFormula{..} =
     printf "N(most common elem) - N(least common elem) = %d.\n"
-        . diffMostAndLeastCommonElementCounts
+        . differenceOfMceAndLceCounts
+        . elemCounts template
         . (!! 40)
-        $ iterate (insert insertionRules) template
+        . iterate (insert insertionRules)
+        $ bigramCounts template
 
 
 main :: IO ()
