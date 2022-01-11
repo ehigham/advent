@@ -95,7 +95,7 @@ part1 PolymerFormula{..} =
         . differenceOfMceAndLceCounts
         . elemCounts template
         . (!! 10)
-        . iterate (insert insertionRules)
+        . iterate (insert productions)
         $ bigramCounts template
 
 
@@ -118,7 +118,7 @@ part2 PolymerFormula{..} =
         . differenceOfMceAndLceCounts
         . elemCounts template
         . (!! 40)
-        . iterate (insert insertionRules)
+        . iterate (insert productions)
         $ bigramCounts template
 
 

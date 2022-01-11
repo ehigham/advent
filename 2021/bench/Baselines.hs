@@ -56,7 +56,7 @@ day14 = bgroup "day14" $ map mkbench [ "example", "input" ]
     runReprunPolymerization PolymerFormula{..} =
       elemCounts template
       . (!! 40)
-      . iterate (insert insertionRules)
+      . iterate (insert productions)
       $ bigramCounts template
 
     setup :: String -> IO PolymerFormula

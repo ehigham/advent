@@ -25,7 +25,7 @@ testParsePoylmerFomula = testGroup "formula parser"
             (Right (PolymerFormula "AAA" M.empty))
     ,   testCase "rules" $ assertEqual ""
             (parsePolymerFormula "\n\nAA -> B\n")
-            (Right (PolymerFormula "" (M.singleton "AA" "B")))
+            (Right (PolymerFormula "" (M.singleton "AA" ["AB", "BA"])))
     ]
 
 
@@ -46,7 +46,7 @@ testInsert = withResource readExample ignore $ \getPolymerFormula ->
                 . M.toList
                 . elemCounts template
                 . (!! 10)
-                . L.iterate (insert insertionRules)
+                . L.iterate (insert productions)
                 $ bigramCounts template
   where
     readExample = parsePolymerFormula <$> readFile "data/Day14/example"

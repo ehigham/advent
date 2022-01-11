@@ -30,6 +30,7 @@ library
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -74,6 +75,7 @@ executable day1
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -117,6 +119,7 @@ executable day10
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -160,6 +163,7 @@ executable day11
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -203,6 +207,7 @@ executable day12
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -246,6 +251,7 @@ executable day13
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -290,6 +296,51 @@ executable day14
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
+      Day2.Dive
+      Day3.BinaryDiagnostics
+      Day4.Bingo
+      Day5.HydrothermalVents
+      Day6.Lanternfish
+      Day8.SegmentDisplay
+      Day9.SmokeBasin
+      Paths_advent2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      DeriveGeneric
+      DerivingStrategies
+      GeneralizedNewtypeDeriving
+      FlexibleContexts
+      LambdaCase
+      RankNTypes
+      RecordWildCards
+      TupleSections
+  ghc-options: -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-prepositive-qualified-module -Werror -O2
+  build-depends:
+      Boolean
+    , Stack
+    , array
+    , base >=4.7 && <5
+    , containers
+    , deepseq
+    , hashable
+    , mtl
+    , parsec
+    , split
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable day15
+  main-is: Day15/main.hs
+  other-modules:
+      Day10.SyntaxScoring
+      Day11.Octopus
+      Day12.Caves
+      Day13.Origami
+      Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -333,6 +384,7 @@ executable day2
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -376,6 +428,7 @@ executable day3
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -419,6 +472,7 @@ executable day4
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -462,6 +516,7 @@ executable day5
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -505,6 +560,7 @@ executable day6
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -548,6 +604,7 @@ executable day7
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -591,6 +648,7 @@ executable day8
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo
@@ -634,6 +692,7 @@ executable day9
       Day12.Caves
       Day13.Origami
       Day14.Polymerization
+      Day15.Chiton
       Day2.Dive
       Day3.BinaryDiagnostics
       Day4.Bingo

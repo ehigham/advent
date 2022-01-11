@@ -117,6 +117,10 @@ executables:
     main:                Day14/main.hs
     source-dirs:         src
 
+  day15:
+    main:                Day15/main.hs
+    source-dirs:         src
+
 tests:
   spec:
     main:                Spec.hs

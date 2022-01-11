@@ -1,5 +1,5 @@
 module Day14.Polymerization (
-            PolymerFormula ( PolymerFormula, template, insertionRules )
+            PolymerFormula ( PolymerFormula, template, productions )
         ,   bigramCounts
         ,   differenceOfMceAndLceCounts
         ,   elemCounts
@@ -12,18 +12,19 @@ import           Control.Applicative      ( liftA2 )
 import           Control.DeepSeq          ( NFData )
 import           Control.Monad            ( (>=>) )
 import qualified Data.HashMap.Strict as M
-import           Data.HashMap.Strict      ( HashMap, (!?) )
+import           Data.HashMap.Strict      ( HashMap )
+import           Data.Maybe               ( fromMaybe )
 import           Data.List                ( sort )
 import           GHC.Generics             ( Generic )
 import           Text.Parsec              ( ParseError, parse )
 import           Text.Parsec.Char         ( upper, newline, spaces, string )
-import           Text.Parsec.Combinator   ( count, eof, many1, manyTill, sepEndBy )
+import           Text.Parsec.Combinator   ( count, eof, manyTill, sepEndBy )
 import           Text.Parsec.String       ( Parser )
 
 
 data PolymerFormula = PolymerFormula {
         template :: String
-    ,   insertionRules :: HashMap String String
+    ,   productions :: HashMap String [String]
     }
         deriving stock (Eq, Show, Generic)
 
@@ -40,22 +41,24 @@ parsePolymerFormula = parse (formula <* eof) ""
         rules <- insertionRule `sepEndBy` newline
         return $ PolymerFormula template (M.fromList rules)
 
-    insertionRule ::  Parser (String, String)
+    insertionRule ::  Parser (String, [String])
     insertionRule = do
         a <- count 2 upper
         _ <- spaces >> string "->" >> spaces
-        (a,) <$> many1 upper
+        b <- upper
+        return (a, bigrams (between a b))
+
+    between s = (head s :) . (: tail s)
 
 
 bigramCounts :: String -> HashMap String Integer
 bigramCounts chain = M.fromListWith (+) ((, 1) <$> bigrams chain)
 
 
-insert :: HashMap String String -> HashMap String Integer -> HashMap String Integer
+insert :: HashMap String [String] -> HashMap String Integer -> HashMap String Integer
 insert rules = M.fromListWith (+) . (M.toList >=> \(b, c) -> map (, c) (produce b))
   where
-    produce = liftA2 maybe return ((bigrams .) . between) <*> (rules !?)
-    between s = (head s :) . (++ tail s)
+    produce = liftA2 fromMaybe return (`M.lookup` rules)
 
 
 differenceOfMceAndLceCounts :: HashMap Char Integer -> Integer
