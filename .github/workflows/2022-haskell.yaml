@@ -1,0 +1,64 @@
+name: Advent 2021 Haskell CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/2022-haskell.yaml'
+      - '2022/**'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/2022-haskell.yaml'
+      - '2022/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Prepare Sources
+      uses: actions/checkout@v2
+
+    - name: Setup Hs
+      uses: haskell/actions/setup@v2
+      with:
+        ghc-version: '9.0.2'
+        enable-stack: true
+        stack-version: 'latest'
+
+    - name: Cache Stack Global Package DB
+      uses: actions/cache@v2
+      with:
+        path: ~/.stack
+        key: ${{ runner.os }}-stack-global-${{ hashFiles('**.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-stack-global
+
+    - name: Cache .stack-work
+      uses: actions/cache@v2
+      with:
+        path: 2021/.stack-work
+        key: ${{ runner.os }}-stack-work-${{ hashFiles('**.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-stack-work
+
+    - name: Install Dependencies
+      working-directory: 2022/
+      run: |
+       stack update
+       stack setup
+       stack install hlint
+
+    - name: HLint
+      working-directory: 2022/
+      run: hlint .
+
+    - name: Build
+      working-directory: 2022/
+      run: stack build
+
+    - name: Test
+      working-directory: 2022/
+      run: stack test

@@ -1,0 +1,83 @@
+name:                advent2022
+version:             0.1.0.0
+github:              "ehigham/advent"
+license:             MIT
+author:              "Edmund Higham"
+maintainer:          "edhigham@gmail.com"
+copyright:           "2021 Edmund Higham"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/ehigham/advent/blob/main/2021/README.md>
+
+ghc-options:
+- -Weverything
+- -Werror
+- -Wno-all-missed-specialisations
+- -Wno-implicit-prelude
+- -Wno-prepositive-qualified-module
+- -Wno-missing-import-lists
+- -Wno-missing-local-signatures
+- -Wno-missing-safe-haskell-mode
+- -Wno-unused-packages
+- -Wno-unsafe
+
+default-extensions:
+- DeriveAnyClass
+- DeriveGeneric
+- DerivingStrategies
+- GeneralizedNewtypeDeriving
+- FlexibleContexts
+- OverloadedStrings
+- LambdaCase
+- RankNTypes
+- RecordWildCards
+- ScopedTypeVariables
+- TupleSections
+
+dependencies:
+- base >= 4.7 && < 5
+- parsec
+
+library:
+  source-dirs: src
+
+executables:
+  day1:
+    main:                Day1/main.hs
+    source-dirs:         src
+
+tests:
+  spec:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+      - -Wno-all-missed-specialisations
+      - -Wno-unused-packages
+      - -threaded
+      - -with-rtsopts=-N
+    dependencies:
+      - advent2022
+      - tasty
+      - tasty-hunit
+
+benchmarks:
+  baselines:
+    main:                Baselines.hs
+    source-dirs:         bench
+    ghc-options:
+      - -Wno-unused-packages
+      - -threaded
+      - -with-rtsopts=-N
+    dependencies:
+      - advent2022
+      - criterion
