@@ -1,9 +1,10 @@
+module Advent.Day1 (main) where
+
 import Control.Applicative       ((<|>))
 import Control.Exception         (Exception, throw)
 import Control.Monad             (void)
 import Data.List                 (sortBy)
 import GHC.Generics              (Generic)
-import System.Environment as Env (getArgs)
 import Text.Parsec               (ParseError, parse)
 import Text.Parsec.Char          (digit, newline)
 import Text.Parsec.Combinator    (eof, many1, sepEndBy1)
@@ -108,9 +109,8 @@ part2 = printf "sum of top 3 most total calories = %d\n"
       . map sum
 
 
-main :: IO ()
-main = do
-    [inputFile] <- Env.getArgs
+main :: FilePath -> IO ()
+main inputFile = do
     contents <- readFile inputFile
     calories <- case parse p inputFile contents of
       Left err -> throw (ParseException err)

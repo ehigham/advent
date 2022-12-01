@@ -24,10 +24,9 @@ ghc-options:
 - -Werror
 - -Wno-all-missed-specialisations
 - -Wno-implicit-prelude
-- -Wno-prepositive-qualified-module
 - -Wno-missing-import-lists
 - -Wno-missing-local-signatures
-- -Wno-missing-safe-haskell-mode
+- -Wno-prepositive-qualified-module
 - -Wno-unused-packages
 - -Wno-unsafe
 
@@ -37,31 +36,32 @@ default-extensions:
 - DerivingStrategies
 - GeneralizedNewtypeDeriving
 - FlexibleContexts
-- OverloadedStrings
+- ImportQualifiedPost
 - LambdaCase
+- OverloadedStrings
 - RankNTypes
 - RecordWildCards
 - ScopedTypeVariables
+- Trustworthy
 - TupleSections
 
 dependencies:
 - base >= 4.7 && < 5
+- optparse-applicative
 - parsec
 
-library:
-  source-dirs: src
-
 executables:
-  day1:
-    main:                Day1/main.hs
+  advent2022:
+    main:                main.hs
     source-dirs:         src
+    ghc-options:
+    - -O2
 
 tests:
   spec:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
-      - -Wno-all-missed-specialisations
       - -Wno-unused-packages
       - -threaded
       - -with-rtsopts=-N
@@ -78,6 +78,7 @@ benchmarks:
       - -Wno-unused-packages
       - -threaded
       - -with-rtsopts=-N
+      - -O2
     dependencies:
       - advent2022
       - criterion

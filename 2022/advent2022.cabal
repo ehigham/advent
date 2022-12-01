@@ -23,8 +23,10 @@ source-repository head
   type: git
   location: https://github.com/ehigham/advent
 
-library
+executable advent2022
+  main-is: main.hs
   other-modules:
+      Advent.Day1
       Paths_advent2022
   hs-source-dirs:
       src
@@ -34,39 +36,18 @@ library
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
-      OverloadedStrings
+      ImportQualifiedPost
       LambdaCase
+      OverloadedStrings
       RankNTypes
       RecordWildCards
       ScopedTypeVariables
+      Trustworthy
       TupleSections
-  ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-missing-safe-haskell-mode -Wno-unused-packages -Wno-unsafe
+  ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-prepositive-qualified-module -Wno-unused-packages -Wno-unsafe -O2
   build-depends:
       base >=4.7 && <5
-    , parsec
-  default-language: Haskell2010
-
-executable day1
-  main-is: Day1/main.hs
-  other-modules:
-      Paths_advent2022
-  hs-source-dirs:
-      src
-  default-extensions:
-      DeriveAnyClass
-      DeriveGeneric
-      DerivingStrategies
-      GeneralizedNewtypeDeriving
-      FlexibleContexts
-      OverloadedStrings
-      LambdaCase
-      RankNTypes
-      RecordWildCards
-      ScopedTypeVariables
-      TupleSections
-  ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-missing-safe-haskell-mode -Wno-unused-packages -Wno-unsafe
-  build-depends:
-      base >=4.7 && <5
+    , optparse-applicative
     , parsec
   default-language: Haskell2010
 
@@ -83,16 +64,19 @@ test-suite spec
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
-      OverloadedStrings
+      ImportQualifiedPost
       LambdaCase
+      OverloadedStrings
       RankNTypes
       RecordWildCards
       ScopedTypeVariables
+      Trustworthy
       TupleSections
-  ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-missing-safe-haskell-mode -Wno-unused-packages -Wno-unsafe -Wno-all-missed-specialisations -Wno-unused-packages -threaded -with-rtsopts=-N
+  ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-prepositive-qualified-module -Wno-unused-packages -Wno-unsafe -Wno-unused-packages -threaded -with-rtsopts=-N
   build-depends:
       advent2022
     , base >=4.7 && <5
+    , optparse-applicative
     , parsec
     , tasty
     , tasty-hunit
@@ -111,16 +95,19 @@ benchmark baselines
       DerivingStrategies
       GeneralizedNewtypeDeriving
       FlexibleContexts
-      OverloadedStrings
+      ImportQualifiedPost
       LambdaCase
+      OverloadedStrings
       RankNTypes
       RecordWildCards
       ScopedTypeVariables
+      Trustworthy
       TupleSections
-  ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-missing-safe-haskell-mode -Wno-unused-packages -Wno-unsafe -Wno-unused-packages -threaded -with-rtsopts=-N
+  ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-prepositive-qualified-module -Wno-unused-packages -Wno-unsafe -Wno-unused-packages -threaded -with-rtsopts=-N -O2
   build-depends:
       advent2022
     , base >=4.7 && <5
     , criterion
+    , optparse-applicative
     , parsec
   default-language: Haskell2010
