@@ -1,4 +1,4 @@
-# Advent of Code 2021
+# Advent of Code 2022
 Solutions to [Advent of Code 2022](https://adventofcode.com/2022) in Haskell
 
 [![Advent 2022 Haskell CI](https://github.com/ehigham/advent/actions/workflows/2022-haskell.yaml/badge.svg)](https://github.com/ehigham/advent/actions/workflows/2022-haskell.yaml)
