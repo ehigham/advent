@@ -55,8 +55,10 @@ test-suite spec
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Advent.Day1
       Paths_advent2022
   hs-source-dirs:
+      src
       test
   default-extensions:
       DeriveAnyClass
@@ -74,8 +76,7 @@ test-suite spec
       TupleSections
   ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-prepositive-qualified-module -Wno-unused-packages -Wno-unsafe -Wno-unused-packages -threaded -with-rtsopts=-N
   build-depends:
-      advent2022
-    , base >=4.7 && <5
+      base >=4.7 && <5
     , optparse-applicative
     , parsec
     , tasty
@@ -86,8 +87,10 @@ benchmark baselines
   type: exitcode-stdio-1.0
   main-is: Baselines.hs
   other-modules:
+      Advent.Day1
       Paths_advent2022
   hs-source-dirs:
+      src
       bench
   default-extensions:
       DeriveAnyClass
@@ -105,8 +108,7 @@ benchmark baselines
       TupleSections
   ghc-options: -Weverything -Werror -Wno-all-missed-specialisations -Wno-implicit-prelude -Wno-missing-import-lists -Wno-missing-local-signatures -Wno-prepositive-qualified-module -Wno-unused-packages -Wno-unsafe -Wno-unused-packages -threaded -with-rtsopts=-N -O2
   build-depends:
-      advent2022
-    , base >=4.7 && <5
+      base >=4.7 && <5
     , criterion
     , optparse-applicative
     , parsec

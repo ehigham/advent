@@ -50,35 +50,32 @@ dependencies:
 - optparse-applicative
 - parsec
 
+source-dirs: src
+
 executables:
   advent2022:
     main:                main.hs
-    source-dirs:         src
-    ghc-options:
-    - -O2
+    ghc-options:         -O2
 
 tests:
   spec:
     main:                Spec.hs
     source-dirs:         test
+    dependencies:
+      - tasty
+      - tasty-hunit
     ghc-options:
       - -Wno-unused-packages
       - -threaded
       - -with-rtsopts=-N
-    dependencies:
-      - advent2022
-      - tasty
-      - tasty-hunit
 
 benchmarks:
   baselines:
     main:                Baselines.hs
     source-dirs:         bench
+    dependencies:        [criterion]
     ghc-options:
       - -Wno-unused-packages
       - -threaded
       - -with-rtsopts=-N
       - -O2
-    dependencies:
-      - advent2022
-      - criterion
