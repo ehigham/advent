@@ -1,3 +1,4 @@
+{-# LANGUAGE NoMonomorphismRestriction #-}
 module Advent.Day2 (main) where
 
 
@@ -125,13 +126,13 @@ data Sym = X | Y | Z
 
 
 score :: (Hand, Hand) -> Int
-score (elf, me) = rpsScore me + outcome ()
+score (elf, me) = rpsScore me + outcome
   where
     rpsScore Rock     = 1
     rpsScore Paper    = 2
     rpsScore Scissors = 3
 
-    outcome ()
+    outcome
         | elf `beats` me  = 0
         | elf == me       = 3
         | otherwise       = 6
@@ -147,14 +148,12 @@ inputParser = game `sepEndBy1` (void newline <|> eof)
   where
     game = (,) <$> hand <*> (space *> sym)
 
-    hand :: Parser Hand
     hand = choice
         [ Rock <$ char 'A'
         , Paper <$ char 'B'
         , Scissors <$ char 'C'
         ]
 
-    sym :: Parser Sym
     sym = choice
         [ X <$ char 'X'
         , Y <$ char 'Y'
