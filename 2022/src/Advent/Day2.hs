@@ -123,12 +123,15 @@ data Sym = X | Y | Z
 
 
 score :: (Hand, Hand) -> Int
-score (elf, me) = rpsScore me + outcome
+score (elf, me) = handScore me + outcome
   where
-    rpsScore Rock     = 1
-    rpsScore Paper    = 2
-    rpsScore Scissors = 3
+    handScore Rock     = 1
+    handScore Paper    = 2
+    handScore Scissors = 3
 
+    -- alternatively
+    -- >>> (3*) . fromEnum $ me `beats` elf
+    -- though I like how this reads :)
     outcome
         | elf `beats` me  = 0
         | elf == me       = 3
