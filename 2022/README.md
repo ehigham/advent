@@ -14,7 +14,7 @@ $ stack build
 
 Once built, you can run any of the challenges via
 ```bash
-$ stack exec advent2022 -- dayN data/dayN/input
+$ stack exec advent2022 -- dayN data/dayN
 ```
 where `N` is the day number (1 to 25)
 

@@ -1,15 +1,17 @@
 module Advent.Day1 (main) where
 
 import Control.Applicative       ((<|>))
-import Control.Exception         (Exception, throw)
+import Control.Exception         (throw)
 import Control.Monad             (void)
 import Data.List                 (sortBy)
 import GHC.Generics              (Generic)
-import Text.Parsec               (ParseError, parse)
+import Text.Parsec               (parse)
 import Text.Parsec.Char          (digit, newline)
 import Text.Parsec.Combinator    (eof, many1, sepEndBy1)
 import Text.Parsec.String        (Parser)
 import Text.Printf               (printf)
+
+import Advent.Share.ParsecUtils  (ParseException(..))
 
 
 -- Day 1: Calorie Counting
@@ -131,9 +133,3 @@ p = many1 calories `sepEndBy1` (void newline <|> eof)
   where
     calories :: Parser Calories
     calories = Calories . read <$> many1 digit <* newline
-
-
-newtype ParseException = ParseException ParseError
-      deriving newtype Show
-      deriving stock Generic
-      deriving anyclass Exception
