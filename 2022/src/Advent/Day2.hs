@@ -2,6 +2,7 @@ module Advent.Day2 (main) where
 
 
 import Control.Applicative    ((<|>))
+import Control.Arrow          (second)
 import Control.Exception      (throw)
 import Data.Functor           (void)
 import Data.Text.IO qualified as T
@@ -68,24 +69,62 @@ import Advent.Share.ParsecUtils  (ParseException(..))
 --
 -- What would your total score be if everything goes exactly according to your
 -- strategy guide?
-part1 :: [Round] -> IO ()
-part1 = printf "total score = %d\n"
+part1 :: [(Hand, Sym)] -> IO ()
+part1 = printf "total score using first strategy = %d\n"
       . sum
-      . map score
+      . map (score . second decodeSym)
+  where
+    decodeSym X = Rock
+    decodeSym Y = Paper
+    decodeSym Z = Scissors
 
--- |
-part2 :: [Round] -> IO ()
-part2 _ = printf "Not implemented\n"
 
+-- | The Elf finishes helping with the tent and sneaks back over to you.
+-- "Anyway, the second column says how the round needs to end: X means you need
+-- to lose, Y means you need to end the round in a draw, and Z means you need to
+-- win. Good luck!"
+--
+-- The total score is still calculated in the same way, but now you need to
+-- figure out what shape to choose so the round ends as indicated. The example
+-- above now goes like this:
+--
+-- - In the first round, your opponent will choose Rock (A), and you need the
+--   round to end in a draw (Y), so you also choose Rock. This gives you a score
+--   of 1 + 3 = 4.
+-- - In the second round, your opponent will choose Paper (B), and you choose
+--   Rock so you lose (X) with a score of 1 + 0 = 1.
+-- - In the third round, you will defeat your opponent's Scissors with Rock for
+--   a score of 1 + 6 = 7.
+--
+-- Now that you're correctly decrypting the ultra top secret strategy guide, you
+-- would get a total score of 12.
+--
+-- Following the Elf's instructions for the second column, what would your total
+-- score be if everything goes exactly according to your strategy guide?
+part2 :: [(Hand, Sym)] -> IO ()
+part2 = printf "total score using second strategy = %d\n"
+      . sum
+      . map (score . decodeSym)
+  where
+    decodeSym (hand, X) = (hand, prev hand)
+    decodeSym (hand, Y) = (hand, hand)
+    decodeSym (hand, Z) = (hand, next hand)
 
-type Round = (Hand, Hand)
+    next Rock = Paper
+    next hand = succ hand
 
+    prev Paper = Rock
+    prev hand = pred hand
 
 data Hand = Paper | Scissors | Rock
-    deriving stock (Show, Read, Eq, Ord)
+    deriving stock (Show, Read, Eq, Ord, Enum)
 
 
-score :: Round -> Int
+data Sym = X | Y | Z
+    deriving stock (Show, Read, Eq)
+
+
+score :: (Hand, Hand) -> Int
 score (elf, me) = rpsScore me + outcome ()
   where
     rpsScore Rock     = 1
@@ -103,22 +142,23 @@ score (elf, me) = rpsScore me + outcome ()
 
 
 
-inputParser :: Parser [Round]
-inputParser = play `sepEndBy1` (void newline <|> eof)
+inputParser :: Parser [(Hand, Sym)]
+inputParser = game `sepEndBy1` (void newline <|> eof)
   where
-    play = (,) <$> elf <*> (space *> me)
+    game = (,) <$> hand <*> (space *> sym)
 
-    elf, me :: Parser Hand
-    elf = choice
+    hand :: Parser Hand
+    hand = choice
         [ Rock <$ char 'A'
         , Paper <$ char 'B'
         , Scissors <$ char 'C'
         ]
 
-    me = choice
-        [ Rock <$ char 'X'
-        , Paper <$ char 'Y'
-        , Scissors <$ char 'Z'
+    sym :: Parser Sym
+    sym = choice
+        [ X <$ char 'X'
+        , Y <$ char 'Y'
+        , Z <$ char 'Z'
         ]
 
 
@@ -127,6 +167,6 @@ main inputFile = do
     contents <- T.readFile inputFile
     rounds <- case parse inputParser inputFile contents of
       Left err -> throw (ParseException err)
-      Right (calories :: [Round]) -> pure calories
+      Right (rounds :: [(Hand, Sym)]) -> pure rounds
     putStr "Part 1: "  >> part1 rounds
     putStr "Part 2: "  >> part2 rounds
