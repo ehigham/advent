@@ -107,15 +107,12 @@ part2 = printf "total score using second strategy = %d\n"
       . sum
       . map (score . decodeSym)
   where
-    decodeSym (hand, X) = (hand, prev hand)
+    decodeSym (hand, X) = (hand, wrap pred hand)
     decodeSym (hand, Y) = (hand, hand)
-    decodeSym (hand, Z) = (hand, next hand)
+    decodeSym (hand, Z) = (hand, wrap succ hand)
 
-    next Rock = Paper
-    next hand = succ hand
+    wrap next = toEnum . (`mod` 3) . next . fromEnum
 
-    prev Paper = Rock
-    prev hand = pred hand
 
 data Hand = Paper | Scissors | Rock
     deriving stock (Show, Read, Eq, Ord, Enum)
