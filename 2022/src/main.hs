@@ -2,9 +2,10 @@ import Options.Applicative
 
 import Control.Monad (join)
 
-
 import Advent.Day1 qualified as Day1
 import Advent.Day2 qualified as Day2
+import Advent.Day3 qualified as Day3
+
 
 main :: IO ()
 main = join $ execParser (info (dayN <**> helper) description)
@@ -16,6 +17,7 @@ main = join $ execParser (info (dayN <**> helper) description)
     dayN = subparser $ foldl1 (<>)
       [ mkCommand "day1" Day1.main
       , mkCommand "day2" Day2.main
+      , mkCommand "day3" Day3.main
       ]
 
     mkCommand name main' = command name
