@@ -29,6 +29,7 @@ executable advent2022
       Advent.Day1
       Advent.Day2
       Advent.Day3
+      Advent.Day4
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -51,6 +52,7 @@ executable advent2022
   build-depends:
       base >=4.7 && <5
     , containers
+    , data-interval
     , optparse-applicative
     , parsec
     , split
@@ -64,6 +66,7 @@ test-suite spec
       Advent.Day1
       Advent.Day2
       Advent.Day3
+      Advent.Day4
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -87,6 +90,7 @@ test-suite spec
   build-depends:
       base >=4.7 && <5
     , containers
+    , data-interval
     , optparse-applicative
     , parsec
     , split
@@ -102,6 +106,7 @@ benchmark baselines
       Advent.Day1
       Advent.Day2
       Advent.Day3
+      Advent.Day4
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -126,6 +131,7 @@ benchmark baselines
       base >=4.7 && <5
     , containers
     , criterion
+    , data-interval
     , optparse-applicative
     , parsec
     , split

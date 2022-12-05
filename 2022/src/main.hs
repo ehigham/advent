@@ -5,6 +5,7 @@ import Control.Monad (join)
 import Advent.Day1 qualified as Day1
 import Advent.Day2 qualified as Day2
 import Advent.Day3 qualified as Day3
+import Advent.Day4 qualified as Day4
 
 
 main :: IO ()
@@ -18,6 +19,7 @@ main = join $ execParser (info (dayN <**> helper) description)
       [ mkCommand "day1" Day1.main
       , mkCommand "day2" Day2.main
       , mkCommand "day3" Day3.main
+      , mkCommand "day4" Day4.main
       ]
 
     mkCommand name main' = command name
