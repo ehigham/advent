@@ -50,9 +50,11 @@ dependencies:
 - containers
 - data-interval
 - optparse-applicative
+- mtl
 - parsec
 - split
 - text
+- vector
 
 source-dirs: src
 
