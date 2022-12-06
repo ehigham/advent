@@ -112,7 +112,7 @@ import Advent.Share.ParsecUtils  (ParseException(..))
 -- After the rearrangement procedure completes, what crate ends up on top of
 -- each stack?
 part1 :: Configuration -> [Instruction] -> IO ()
-part1 = (printf "Top of stack = '%s'\n" .) . runInterpreter cm9000
+part1 = (printf "Top of stack (CM9000) = '%s'\n" .) . runInterpreter cm9000
   where
     cm9000 config Move{..} = replicateM_ quantity $ do
         stack <- Mut.read config (from - 1)
