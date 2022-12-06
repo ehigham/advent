@@ -2,13 +2,14 @@
 module Advent.Day5 (main) where
 
 import Control.Applicative       ((<|>))
-import Control.Monad.ST          (runST)
+import Control.Monad.ST          (ST, runST)
 import Control.Monad             (forM_, replicateM_)
 import Control.Exception         (throw)
 import Data.Maybe                (listToMaybe)
 import Data.Text.IO              qualified as T
 import Data.Vector               (Vector)
 import Data.Vector               qualified as V
+import Data.Vector.Mutable       (STVector)
 import Data.Vector.Mutable       qualified as Mut
 import Text.Parsec               (parse, try)
 import Text.Parsec.Char          ( char
@@ -111,22 +112,102 @@ import Advent.Share.ParsecUtils  (ParseException(..))
 -- After the rearrangement procedure completes, what crate ends up on top of
 -- each stack?
 part1 :: Configuration -> [Instruction] -> IO ()
-part1 config instrs = printf "Top of stack = '%s'\n" $ runST $ do
+part1 = (printf "Top of stack = '%s'\n" .) . runInterpreter cm9000
+  where
+    cm9000 config Move{..} = replicateM_ quantity $ do
+        stack <- Mut.read config (from - 1)
+        Mut.write config (from - 1) (tail stack)
+        Mut.modify config (head stack:) (to - 1)
+
+
+-- | Part Two
+-- As you watch the crane operator expertly rearrange the crates, you notice the
+-- process isn't following your prediction.
+--
+-- Some mud was covering the writing on the side of the crane, and you quickly
+-- wipe it away. The crane isn't a CrateMover 9000 - it's a CrateMover 9001.
+--
+-- The CrateMover 9001 is notable for many new and exciting features: air
+-- conditioning, leather seats, an extra cup holder, and the ability to pick up
+-- and move multiple crates at once.
+--
+-- Again considering the example above, the crates begin in the same
+-- configuration:
+--
+-- @
+--     [D]
+-- [N] [C]
+-- [Z] [M] [P]
+--  1   2   3
+-- @
+--
+-- Moving a single crate from stack 2 to stack 1 behaves the same as before:
+--
+-- @
+-- [D]
+-- [N] [C]
+-- [Z] [M] [P]
+--  1   2   3
+-- @
+--
+-- However, the action of moving three crates from stack 1 to stack 3 means that
+-- those three moved crates stay in the same order, resulting in this new
+-- configuration:
+--
+-- @
+--         [D]
+--         [N]
+--     [C] [Z]
+--     [M] [P]
+--  1   2   3
+-- @
+--
+-- Next, as both crates are moved from stack 2 to stack 1, they retain their
+-- order as well:
+--
+-- @
+--         [D]
+--         [N]
+-- [C]     [Z]
+-- [M]     [P]
+--  1   2   3
+-- @
+--
+-- Finally, a single crate is still moved from stack 1 to stack 2, but now it's
+-- crate C that gets moved:
+--
+-- @
+--         [D]
+--         [N]
+--         [Z]
+-- [M] [C] [P]
+--  1   2   3
+-- @
+--
+-- In this example, the CrateMover 9001 has put the crates in a totally
+-- different order: MCD.
+--
+-- Before the rearrangement process finishes, update your simulation so that the
+-- Elves know where they should stand to be ready to unload the final supplies.
+-- After the rearrangement procedure completes, what crate ends up on top of
+-- each stack?
+part2 :: Configuration -> [Instruction] -> IO ()
+part2 = (printf "Top of stack (CM9001) = '%s'\n" .) . runInterpreter cm9001
+  where
+    cm9001 config Move{..} = do
+        stack <- Mut.read config (from - 1)
+        let (crates, remainder) = splitAt quantity stack
+        Mut.write config (from - 1) remainder
+        Mut.modify config (crates ++) (to - 1)
+
+
+runInterpreter :: Interpreter -> Configuration -> [Instruction] -> String
+runInterpreter interpret config instrs = runST $ do
     config' <- V.thaw config
-
-    forM_ instrs $ \Move{..} -> replicateM_ quantity $ do
-        stack <- Mut.read config' (from - 1)
-        Mut.write config' (from - 1) (tail stack)
-        Mut.modify config' (head stack:) (to - 1)
-
+    forM_ instrs $ interpret config'
     Mut.foldr pop "" config'
   where
     pop stack tops = maybe tops ((:tops) . unCrate) (listToMaybe stack)
-
-
--- | Part 2
-part2 :: Configuration -> [Instruction] -> IO ()
-part2 _ _ = printf "not implemented\n"
 
 
 inputParser :: Parser (Configuration, [Instruction])
@@ -167,9 +248,9 @@ int :: Parser Int
 int = read <$> many1 digit
 
 
+type Interpreter = forall s. STConfiguration s -> Instruction -> ST s ()
+type STConfiguration s = STVector s (Stack Crate)
 type Configuration = Vector (Stack Crate)
-
-
 type Stack = []
 
 
@@ -188,8 +269,8 @@ data Instruction = Move
 main :: FilePath -> IO ()
 main inputFile = do
     contents <- T.readFile inputFile
-    (config, cmds) <- case parse inputParser inputFile contents of
+    (config, instrs) <- case parse inputParser inputFile contents of
       Left err -> throw (ParseException err)
       Right res  -> pure res
-    putStr "Part 1: "  >> part1 config cmds
-    putStr "Part 2: "  >> part2 config cmds
+    putStr "Part 1: "  >> part1 config instrs
+    putStr "Part 2: "  >> part2 config instrs
