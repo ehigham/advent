@@ -1,10 +1,12 @@
 module Advent.Day8 (main) where
 
-import Control.Applicative       (ZipList(ZipList, getZipList), getZipList)
+
 import Control.Exception         (throw)
 import Control.Monad.State       (evalState, get, modify')
 import Data.Char                 (digitToInt)
 import Data.List                 qualified as L
+import Data.List.NonEmpty        qualified as NE
+import Data.List.NonEmpty        (NonEmpty((:|)))
 import Data.Text.IO              qualified as T
 import Text.Parsec               (parse, many)
 import Text.Parsec.Text          (Parser)
@@ -66,25 +68,15 @@ import Advent.Share.ParsecUtils  (ParseException(..))
 --
 -- Consider your map; how many trees are visible from outside the grid?
 part1 :: [[Tree]] -> IO ()
-part1 trees = printf "Number of visible trees = %d\n"
-           . length
-           . filter id
-           . getZipList
-           $ (||) <$> ZipList (concat hs) <*> ZipList (concat vs)
+part1 = printf "Number of visible trees = %d\n"
+      . length
+      . filter id
+      . concat
+      . visibleTrees
+
   where
-    hs, vs :: [[Bool]]
-    hs = visible1d trees
-    vs = L.transpose . visible1d $ L.transpose trees
-
-
-visible1d :: [[Tree]] -> [[Bool]]
-visible1d = map go
-  where
-    go tree = getZipList
-            $ (||)
-           <$> ZipList (isVisible tree)
-           <*> ZipList (reverse (isVisible $ reverse tree))
-
+    visibleTrees :: [[Tree]] -> [[Bool]]
+    visibleTrees = bruteForce (||) isVisible
 
     isVisible :: [Tree] -> [Bool]
     isVisible = flip evalState (-1) . traverse (
@@ -154,8 +146,29 @@ visible1d = map go
 --
 -- Consider each tree on your map. What is the highest scenic score possible for
 -- any tree?
-part2 :: s -> IO ()
-part2 _ = printf "not implemented\n"
+part2 :: [[Tree]] -> IO ()
+part2 = printf "Greatest scenic score = %d\n"
+      . maximum
+      . concat
+      . scenicScore
+  where
+    scenicScore = bruteForce (*) score
+
+    score :: [Tree] -> [Int]
+    score = map (f . NE.fromList) . (L.init . L.tails)
+      where
+        f (Tree a :| ts) =
+            let (lo, rest) = L.span (\(Tree b) -> a > b) ts in
+                length lo + if null rest then 0 else 1
+
+
+bruteForce :: forall a. (a -> a -> a) -> ([Tree] -> [a]) -> [[Tree]] -> [[a]]
+bruteForce f g =
+    (zipWith (zipWith f) . apply1d)
+        <*> (L.transpose . apply1d . L.transpose)
+  where
+    apply1d :: [[Tree]] -> [[a]]
+    apply1d = map (zipWith f . g <*> (reverse . g . reverse))
 
 
 newtype Tree = Tree Int
