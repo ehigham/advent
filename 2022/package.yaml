@@ -34,10 +34,12 @@ default-extensions:
 - DeriveAnyClass
 - DeriveGeneric
 - DerivingStrategies
+- GADTSyntax
 - GeneralizedNewtypeDeriving
 - FlexibleContexts
 - ImportQualifiedPost
 - LambdaCase
+- NoMonomorphismRestriction
 - OverloadedStrings
 - RankNTypes
 - RecordWildCards
@@ -53,6 +55,7 @@ dependencies:
 - optparse-applicative
 - mtl
 - parsec
+- rev-state
 - split
 - text
 - vector

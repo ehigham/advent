@@ -32,6 +32,7 @@ executable advent2022
       Advent.Day4
       Advent.Day5
       Advent.Day6
+      Advent.Day7
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -40,10 +41,12 @@ executable advent2022
       DeriveAnyClass
       DeriveGeneric
       DerivingStrategies
+      GADTSyntax
       GeneralizedNewtypeDeriving
       FlexibleContexts
       ImportQualifiedPost
       LambdaCase
+      NoMonomorphismRestriction
       OverloadedStrings
       RankNTypes
       RecordWildCards
@@ -59,6 +62,7 @@ executable advent2022
     , mtl
     , optparse-applicative
     , parsec
+    , rev-state
     , split
     , text
     , vector
@@ -74,6 +78,7 @@ test-suite spec
       Advent.Day4
       Advent.Day5
       Advent.Day6
+      Advent.Day7
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -83,10 +88,12 @@ test-suite spec
       DeriveAnyClass
       DeriveGeneric
       DerivingStrategies
+      GADTSyntax
       GeneralizedNewtypeDeriving
       FlexibleContexts
       ImportQualifiedPost
       LambdaCase
+      NoMonomorphismRestriction
       OverloadedStrings
       RankNTypes
       RecordWildCards
@@ -102,6 +109,7 @@ test-suite spec
     , mtl
     , optparse-applicative
     , parsec
+    , rev-state
     , split
     , tasty
     , tasty-hunit
@@ -119,6 +127,7 @@ benchmark baselines
       Advent.Day4
       Advent.Day5
       Advent.Day6
+      Advent.Day7
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -128,10 +137,12 @@ benchmark baselines
       DeriveAnyClass
       DeriveGeneric
       DerivingStrategies
+      GADTSyntax
       GeneralizedNewtypeDeriving
       FlexibleContexts
       ImportQualifiedPost
       LambdaCase
+      NoMonomorphismRestriction
       OverloadedStrings
       RankNTypes
       RecordWildCards
@@ -148,6 +159,7 @@ benchmark baselines
     , mtl
     , optparse-applicative
     , parsec
+    , rev-state
     , split
     , text
     , vector
