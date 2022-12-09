@@ -5,6 +5,7 @@ import Control.Exception           (throw)
 import Control.Monad.RevState      qualified as R
 import Control.Monad.Trans         (lift)
 import Data.Function               (on)
+import Data.List                   (sort)
 import Data.Map.Strict             qualified as M
 import Data.Maybe                  (fromMaybe)
 import Data.Text.IO                qualified as T
@@ -130,16 +131,23 @@ import Advent.Share.ParsecUtils    (ParseException(..))
 -- Find all of the directories with a total size of at most 100000. What is the
 -- sum of the total sizes of those directories?
 part1 :: [File] -> IO ()
-part1 = printf "Sum of folder sizes > 100000 = %d\n"
+part1 = printf "Sum of folder sizes > 100000 bytes = %d\n"
       . sum
       . map bytes
       . filter (liftA2 (&&) isFolder ((<100000) . bytes))
-      . filter ((/= "/") . name)
+      . tail
 
 
 -- | Part 2
-part2 :: a -> IO ()
-part2 _ = printf "not implemented\n"
+part2 ::[File] -> IO ()
+part2 files =
+    let required = bytes (head files) - 40000000
+    in printf "Size of smallest folder greater than %d bytes = %d\n" required
+      . head
+      . dropWhile (< required)
+      . sort
+      . map bytes
+      $ files
 
 
 data File where
@@ -155,6 +163,7 @@ instance Eq File where
 mkFolder :: Text -> [File] -> File
 mkFolder path = liftA2 (Folder path) (foldl ((. bytes) . (+)) 0) id
 
+
 name :: File -> Text
 name (File n _) = n
 name (Folder n _ _) = n
@@ -164,13 +173,14 @@ bytes :: File -> Int
 bytes (File _ b) = b
 bytes (Folder _ b _) = b
 
+
 isFolder :: File -> Bool
 isFolder (Folder {}) = True
 isFolder _           = False
 
 
-inputParser :: Parsec Text [Text] [File]
-inputParser = mkPT $ \state ->
+parseFolders :: Parsec Text [Text] [File]
+parseFolders = mkPT $ \state ->
     let result = R.evalState (p state) M.empty in pure result
   where
     p state = do
@@ -215,7 +225,7 @@ inputParser = mkPT $ \state ->
 main :: FilePath -> IO ()
 main inputFile = do
     contents <- T.readFile inputFile
-    folders <- case runParser inputParser [] inputFile contents of
+    folders <- case runParser parseFolders [] inputFile contents of
         Left err -> throw (ParseException err)
         Right folders -> pure folders
     putStr "Part 1: "  >> part1 folders
