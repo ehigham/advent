@@ -9,12 +9,12 @@ import Text.Printf               (printf)
 import Advent.Share.ParsecUtils  (ParseException(..))
 
 -- | Part 1
-part1 :: [String] -> IO ()
+part1 :: a -> IO ()
 part1 _ = printf "not implemented\n"
 
 
 -- | Part 2
-part2 :: [String] -> IO ()
+part2 :: a -> IO ()
 part2 _ = printf "not implemented\n"
 
 
