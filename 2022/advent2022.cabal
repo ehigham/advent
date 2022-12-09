@@ -33,6 +33,7 @@ executable advent2022
       Advent.Day5
       Advent.Day6
       Advent.Day7
+      Advent.Day8
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -79,6 +80,7 @@ test-suite spec
       Advent.Day5
       Advent.Day6
       Advent.Day7
+      Advent.Day8
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
@@ -128,6 +130,7 @@ benchmark baselines
       Advent.Day5
       Advent.Day6
       Advent.Day7
+      Advent.Day8
       Advent.Share.ParsecUtils
       Paths_advent2022
   hs-source-dirs:
