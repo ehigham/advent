@@ -27,6 +27,7 @@ executable advent2022
   main-is: main.hs
   other-modules:
       Advent.Day1
+      Advent.Day10
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -75,6 +76,7 @@ test-suite spec
   main-is: Spec.hs
   other-modules:
       Advent.Day1
+      Advent.Day10
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -126,6 +128,7 @@ benchmark baselines
   main-is: Baselines.hs
   other-modules:
       Advent.Day1
+      Advent.Day10
       Advent.Day2
       Advent.Day3
       Advent.Day4
