@@ -157,8 +157,8 @@ part2 = printf "Greatest scenic score = %d\n"
     score :: [Tree] -> [Int]
     score = map (f . NE.fromList) . (L.init . L.tails)
       where
-        f (Tree a :| ts) =
-            let (lo, rest) = L.span (\(Tree b) -> a > b) ts in
+        f (a :| ts) =
+            let (lo, rest) = L.span  (a >) ts in
                 length lo + if null rest then 0 else 1
 
 
