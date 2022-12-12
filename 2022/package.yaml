@@ -32,6 +32,7 @@ ghc-options:
 
 default-extensions:
 - DeriveAnyClass
+- DeriveFunctor
 - DeriveGeneric
 - DerivingStrategies
 - GADTSyntax

@@ -28,6 +28,7 @@ executable advent2022
   other-modules:
       Advent.Day1
       Advent.Day10
+      Advent.Day11
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -42,6 +43,7 @@ executable advent2022
       src
   default-extensions:
       DeriveAnyClass
+      DeriveFunctor
       DeriveGeneric
       DerivingStrategies
       GADTSyntax
@@ -77,6 +79,7 @@ test-suite spec
   other-modules:
       Advent.Day1
       Advent.Day10
+      Advent.Day11
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -92,6 +95,7 @@ test-suite spec
       test
   default-extensions:
       DeriveAnyClass
+      DeriveFunctor
       DeriveGeneric
       DerivingStrategies
       GADTSyntax
@@ -129,6 +133,7 @@ benchmark baselines
   other-modules:
       Advent.Day1
       Advent.Day10
+      Advent.Day11
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -144,6 +149,7 @@ benchmark baselines
       bench
   default-extensions:
       DeriveAnyClass
+      DeriveFunctor
       DeriveGeneric
       DerivingStrategies
       GADTSyntax
