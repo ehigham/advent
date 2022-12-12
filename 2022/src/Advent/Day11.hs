@@ -4,7 +4,9 @@ import Control.Applicative       ((<|>), liftA2)
 import Control.Exception         (throw)
 import Control.Monad             (forM_, foldM)
 import Control.Monad.ST          (ST, runST)
-import Data.List                 (sortBy)
+import Data.Bool                 (bool)
+import Data.Foldable             (toList)
+import Data.List                 (sortBy, sortOn)
 import Data.STRef                ( STRef
                                  , newSTRef
                                  , readSTRef
@@ -314,60 +316,159 @@ import Advent.Share.ParsecUtils  (ParseException(..))
 -- stuff-slinging simian shenanigans?
 part1 :: Vector Monkey -> IO ()
 part1 = printf "Level of monkey business after 20 rounds = %d \n"
-      . product
-      . take 2
-      . sortBy (flip compare)
-      . V.toList
-      . monkeyBusiness
-
-
-monkeyBusiness :: Vector Monkey -> Vector Int
-monkeyBusiness monkeys = runST $ do
-    monkeys' <- mapM thaw monkeys
-    foldM
-        ((<$>) . V.zipWith (+))
-        (V.replicate (V.length monkeys') 0)
-        (replicate 20 (round monkeys'))
-
-
-round :: forall s. Vector (MMonkey s) -> ST s (Vector Int)
-round monkeys = mapM shenanigans monkeys
-  where
-    shenanigans :: MMonkey s -> ST s Int
-    shenanigans Monkey{..} = do
-        items' <- readSTRef items
-        writeSTRef items Empty
-        forM_ items' (inspect op test ifTrue ifFalse)
-        return (length items')
-
-    inspect :: (WorryLevel -> WorryLevel)
-            -> (WorryLevel -> Bool)
-            -> Int
-            -> Int
-            -> WorryLevel
-            -> ST s ()
-    inspect op test ifTrue ifFalse item = throwTo nextMonkey
-      where
-        throwTo monkey = modifySTRef' (items monkey) (|> item')
-        nextMonkey = monkeys ! if test item' then ifTrue else ifFalse
-        item' = Level (unLevel (op item) `quot` 3)
+      . monkeyBusiness 20 (Level . (`quot` 3) . unLevel)
 
 
 -- | Part 2
-part2 :: a -> IO ()
-part2 _ = printf "not implemented\n"
+-- You're worried you might not ever get your items back. So worried, in fact,
+-- that your relief that a monkey's inspection didn't damage an item no longer
+-- causes your worry level to be divided by three.
+--
+-- Unfortunately, that relief was all that was keeping your worry levels from
+-- reaching ridiculous levels. You'll need to find another way to keep your
+-- worry levels manageable.
+--
+-- At this rate, you might be putting up with these monkeys for a very long time
+-- - possibly 10000 rounds!
+--
+-- With these new rules, you can still figure out the monkey business after
+-- 10000 rounds. Using the same example above:
+--
+-- @
+-- == After round 1 ==
+-- Monkey 0 inspected items 2 times.
+-- Monkey 1 inspected items 4 times.
+-- Monkey 2 inspected items 3 times.
+-- Monkey 3 inspected items 6 times.
+--
+-- == After round 20 ==
+-- Monkey 0 inspected items 99 times.
+-- Monkey 1 inspected items 97 times.
+-- Monkey 2 inspected items 8 times.
+-- Monkey 3 inspected items 103 times.
+--
+-- == After round 1000 ==
+-- Monkey 0 inspected items 5204 times.
+-- Monkey 1 inspected items 4792 times.
+-- Monkey 2 inspected items 199 times.
+-- Monkey 3 inspected items 5192 times.
+--
+-- == After round 2000 ==
+-- Monkey 0 inspected items 10419 times.
+-- Monkey 1 inspected items 9577 times.
+-- Monkey 2 inspected items 392 times.
+-- Monkey 3 inspected items 10391 times.
+--
+-- == After round 3000 ==
+-- Monkey 0 inspected items 15638 times.
+-- Monkey 1 inspected items 14358 times.
+-- Monkey 2 inspected items 587 times.
+-- Monkey 3 inspected items 15593 times.
+--
+-- == After round 4000 ==
+-- Monkey 0 inspected items 20858 times.
+-- Monkey 1 inspected items 19138 times.
+-- Monkey 2 inspected items 780 times.
+-- Monkey 3 inspected items 20797 times.
+--
+-- == After round 5000 ==
+-- Monkey 0 inspected items 26075 times.
+-- Monkey 1 inspected items 23921 times.
+-- Monkey 2 inspected items 974 times.
+-- Monkey 3 inspected items 26000 times.
+--
+-- == After round 6000 ==
+-- Monkey 0 inspected items 31294 times.
+-- Monkey 1 inspected items 28702 times.
+-- Monkey 2 inspected items 1165 times.
+-- Monkey 3 inspected items 31204 times.
+--
+-- == After round 7000 ==
+-- Monkey 0 inspected items 36508 times.
+-- Monkey 1 inspected items 33488 times.
+-- Monkey 2 inspected items 1360 times.
+-- Monkey 3 inspected items 36400 times.
+--
+-- == After round 8000 ==
+-- Monkey 0 inspected items 41728 times.
+-- Monkey 1 inspected items 38268 times.
+-- Monkey 2 inspected items 1553 times.
+-- Monkey 3 inspected items 41606 times.
+--
+-- == After round 9000 ==
+-- Monkey 0 inspected items 46945 times.
+-- Monkey 1 inspected items 43051 times.
+-- Monkey 2 inspected items 1746 times.
+-- Monkey 3 inspected items 46807 times.
+--
+-- == After round 10000 ==
+-- Monkey 0 inspected items 52166 times.
+-- Monkey 1 inspected items 47830 times.
+-- Monkey 2 inspected items 1938 times.
+-- Monkey 3 inspected items 52013 times.
+-- @
+--
+-- After 10000 rounds, the two most active monkeys inspected items 52166 and
+-- 52013 times. Multiplying these together, the level of monkey business in this
+-- situation is now 2713310158.
+--
+-- Worry levels are no longer divided by three after each item is inspected;
+-- you'll need to find another way to keep your worry levels manageable.
+-- Starting again from the initial state in your puzzle input, what is the level
+-- of monkey business after 10000 rounds?
+part2 :: Vector Monkey -> IO ()
+part2 = printf "Level of monkey business after 10000 rounds = %d \n"
+      . liftA2 (monkeyBusiness 10000) modLcm id
+  where
+    modLcm :: Vector Monkey -> WorryLevel -> WorryLevel
+    modLcm monkeys =
+        let l = foldl ((. unLevel . test) . (*)) 1 monkeys in
+            Level . (`mod` l) . unLevel
+
+
+monkeyBusiness :: Int
+               -> (WorryLevel -> WorryLevel)
+               -> Vector Monkey
+               -> Int
+monkeyBusiness nRounds relief monkeys = runST $ do
+    monkeys' <- mapM thaw monkeys
+    scores <- foldM ((<$>) . V.zipWith (+))
+                (V.replicate (V.length monkeys') 0)
+                (replicate nRounds (round relief monkeys'))
+    return . product . take 2 . sortBy (flip compare) $ V.toList scores
+
+
+round :: forall s. (WorryLevel -> WorryLevel)
+      -> Vector (MutableMonkey s)
+      -> ST s (Vector Int)
+round relief monkeys = mapM shenanigans monkeys
+  where
+    shenanigans :: MutableMonkey s -> ST s Int
+    shenanigans Monkey{..} = do
+        items' <- toList <$> readSTRef items
+        writeSTRef items Empty
+
+        forM_ items' $ \item ->
+            let x = relief $ op item
+            in x `throwTo` (monkeys ! nextMonkey (x `isDivisibleBy` test))
+
+        return (length items')
+
+    isDivisibleBy (Level x) (Level y) = x `mod` y == 0
+
+    throwTo :: WorryLevel -> MutableMonkey s -> ST s ()
+    throwTo item monkey = modifySTRef' (items monkey) (|> item)
 
 
 inputParser :: Parser (Vector Monkey)
-inputParser = V.fromList <$> monkey `sepEndBy1` spaces
+inputParser = V.fromList . sortOn index <$> monkey `sepEndBy1` spaces
   where
     monkey =
         Monkey <$> (string "Monkey " *> integral <* char ':' <* newline)
                <*> startingItems
                <*> operation
                <*> predicate
-               <*> consequent
-               <*> alternative
+               <*> (flip bool <$> ifTrue <*> ifFalse)
 
     startingItems :: Parser (Seq WorryLevel)
     startingItems = do
@@ -386,16 +487,16 @@ inputParser = V.fromList <$> monkey `sepEndBy1` spaces
         term = (id <$ string "old") <|> (const <$> integral)
         op = choice [(*) <$ char '*', (+) <$ char '+']
 
-    predicate :: Parser (WorryLevel -> Bool)
+    predicate :: Parser WorryLevel
     predicate = do
         _ <- string "  Test: divisible by "
         n <- integral
         _ <- newline
-        return $ (== 0) . (`mod` n) . unLevel
+        return n
 
-    consequent, alternative :: Parser Int
-    consequent  = string "    If true: throw to monkey " *> integral <* newline
-    alternative = string "    If false: throw to monkey " *> integral <* newline
+    ifTrue, ifFalse :: Parser Int
+    ifTrue  = string "    If true: throw to monkey " *> integral <* newline
+    ifFalse = string "    If false: throw to monkey " *> integral <* newline
 
     integral :: Read a => Parser a
     integral = read <$> many1 digit
@@ -409,22 +510,21 @@ data Monkey' s = Monkey
     { index :: Int
     , items :: s
     , op :: WorryLevel -> WorryLevel
-    , test :: WorryLevel -> Bool
-    , ifTrue :: Int
-    , ifFalse :: Int
+    , test :: WorryLevel
+    , nextMonkey :: Bool -> Int
     }
   deriving stock Functor
 
 
-type Monkey = Monkey' (Seq WorryLevel)
-type MMonkey s = Monkey' (STRef s (Seq WorryLevel))
+type Monkey      = Monkey' (Seq WorryLevel)
+type MutableMonkey s = Monkey' (STRef s (Seq WorryLevel))
 
 
 instance Show s => Show (Monkey' s) where
     show Monkey{..} = "Monkey " ++ show index ++ " Items: " ++ show items
 
 
-thaw :: forall s. Monkey -> ST s (MMonkey s)
+thaw :: forall s. Monkey -> ST s (MutableMonkey s)
 thaw monkey = do
     stItems <- newSTRef (items monkey)
     return $ stItems <$ monkey
