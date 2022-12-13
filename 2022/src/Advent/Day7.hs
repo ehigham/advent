@@ -14,7 +14,7 @@ import Data.Text                   (Text)
 import Text.Parsec          hiding ((<|>))
 import Text.Printf                 (printf)
 
-import Advent.Share.ParsecUtils    (ParseException(..))
+import Advent.Share.ParsecUtils    (ParseException(..), runInnerPT)
 
 
 -- Day 7: No Space Left On Device
@@ -181,14 +181,9 @@ isFolder _           = False
 
 parseFolders :: Parsec Text [Text] [File]
 parseFolders = mkPT $ \state ->
-    let result = R.evalState (p state) M.empty in pure result
+    let result = R.evalState (runInnerPT (concat <$> many command) state) M.empty
+    in pure result
   where
-    p state = do
-        consumed <- runParsecT (concat <$> many command) state
-        case consumed of
-            Consumed fa -> Consumed . pure <$> fa
-            Empty fa    -> Empty . pure <$> fa
-
     command = string "$ " *> choice
         [ string "cd" *> spaces *> filename >>= ([] <$) . cd
         , string "ls" *> spaces *> (pure <$> ls)

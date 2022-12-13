@@ -54,8 +54,11 @@ dependencies:
 - data-interval
 - extra
 - optparse-applicative
+- matrix
+- monad-loops
 - mtl
 - parsec
+- pqueue
 - rev-state
 - split
 - text

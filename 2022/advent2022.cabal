@@ -29,6 +29,7 @@ executable advent2022
       Advent.Day1
       Advent.Day10
       Advent.Day11
+      Advent.Day12
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -64,9 +65,12 @@ executable advent2022
     , containers
     , data-interval
     , extra
+    , matrix
+    , monad-loops
     , mtl
     , optparse-applicative
     , parsec
+    , pqueue
     , rev-state
     , split
     , text
@@ -80,6 +84,7 @@ test-suite spec
       Advent.Day1
       Advent.Day10
       Advent.Day11
+      Advent.Day12
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -116,9 +121,12 @@ test-suite spec
     , containers
     , data-interval
     , extra
+    , matrix
+    , monad-loops
     , mtl
     , optparse-applicative
     , parsec
+    , pqueue
     , rev-state
     , split
     , tasty
@@ -134,6 +142,7 @@ benchmark baselines
       Advent.Day1
       Advent.Day10
       Advent.Day11
+      Advent.Day12
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -171,9 +180,12 @@ benchmark baselines
     , criterion
     , data-interval
     , extra
+    , matrix
+    , monad-loops
     , mtl
     , optparse-applicative
     , parsec
+    , pqueue
     , rev-state
     , split
     , text
