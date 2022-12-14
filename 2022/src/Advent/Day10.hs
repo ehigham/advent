@@ -402,7 +402,7 @@ part1 = printf "Sum of signal strengths = %d\n"
 -- your CRT?
 part2 :: [Instruction] -> IO ()
 part2 = (putStrLn "CRT Output:" <*)
-      . mapM print
+      . mapM putStrLn
       . runDisplay
       . runMachine
 
