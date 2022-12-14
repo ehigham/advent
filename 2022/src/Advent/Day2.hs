@@ -1,4 +1,4 @@
-module Advent.Day2 (main) where
+module Advent.Day2 (desc, main) where
 
 import Control.Applicative       ((<|>))
 import Control.Arrow             (second)
@@ -10,7 +10,8 @@ import Text.Printf               (printf)
 
 import Advent.Share.ParsecUtils  (parseFile)
 
---- Day 2: Rock Paper Scissors ---
+desc :: String
+desc = "Day 2: Rock Paper Scissors"
 
 -- | Part 1
 --

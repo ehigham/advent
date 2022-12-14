@@ -1,4 +1,4 @@
-module Advent.Day9 (main) where
+module Advent.Day9 (desc, main) where
 
 import Control.Arrow             (first, second)
 import Control.Monad.RWS         (RWS, evalRWS, get, put, tell)
@@ -11,6 +11,9 @@ import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
 import Advent.Share.ParsecUtils  (parseFile, num)
+
+desc :: String
+desc = "Day 9: Rope Bridge"
 
 
 -- | Part 1

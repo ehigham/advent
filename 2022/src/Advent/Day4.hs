@@ -1,4 +1,4 @@
-module Advent.Day4 (main) where
+module Advent.Day4 (desc, main) where
 
 import Control.Applicative       ((<|>))
 import Data.Functor              (void)
@@ -17,7 +17,9 @@ import Text.Printf               (printf)
 import Advent.Share.ParsecUtils  (parseFile, num)
 
 
--- Day 3: Camp Cleanup
+desc :: String
+desc = "Day 3: Camp Cleanup"
+
 
 -- | Part 1
 --

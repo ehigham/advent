@@ -1,4 +1,4 @@
-module Advent.Day12 (main) where
+module Advent.Day12 (desc, main) where
 
 import Control.Applicative       (liftA2, liftA3)
 import Control.Monad             (guard, join)
@@ -20,7 +20,8 @@ import Text.Printf               (printf)
 import Advent.Share.ParsecUtils  (parseFile)
 
 
---- Day 12: Hill Climbing Algorithm ---
+desc :: String
+desc = "Day 12: Hill Climbing Algorithm"
 
 -- | Part 1
 --

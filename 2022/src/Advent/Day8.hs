@@ -1,4 +1,4 @@
-module Advent.Day8 (main) where
+module Advent.Day8 (desc, main) where
 
 import Control.Monad.State       (evalState, get, modify')
 import Data.List                 qualified as L
@@ -13,7 +13,8 @@ import Text.Printf               (printf)
 import Advent.Share.ParsecUtils  (parseFile, num)
 
 
---- Day 8: Treetop Tree House ---
+desc :: String
+desc = "Day 8: Treetop Tree House"
 
 -- | Part 1
 --

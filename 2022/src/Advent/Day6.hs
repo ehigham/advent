@@ -1,4 +1,4 @@
-module Advent.Day6 (main) where
+module Advent.Day6 (desc, main) where
 
 import Control.Monad.Extra       (whileM)
 import Control.Monad.ST          (runST)
@@ -11,7 +11,8 @@ import Data.Text                 (Text)
 import Text.Printf               (printf)
 
 
---- Day 6: Tuning Trouble --
+desc :: String
+desc = "Day 6: Tuning Trouble"
 
 -- | Part 1
 --

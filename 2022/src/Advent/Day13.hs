@@ -1,4 +1,4 @@
-module Advent.Day13 (main) where
+module Advent.Day13 (desc, main) where
 
 import Control.Applicative       ((<|>))
 import Data.Either.Extra         (fromRight')
@@ -13,8 +13,8 @@ import Text.Printf               (printf)
 
 import Advent.Share.ParsecUtils  (parseFile)
 
-
---- Day 13: Distress Signal ---
+desc :: String
+desc = "Day 13: Distress Signal"
 
 -- | Part 1
 --

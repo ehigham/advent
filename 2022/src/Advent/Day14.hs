@@ -1,4 +1,4 @@
-module Advent.DayN (desc, main) where
+module Advent.Day14 (desc, main) where
 
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
@@ -6,7 +6,7 @@ import Text.Printf               (printf)
 import Advent.Share.ParsecUtils  (parseFile)
 
 desc :: String
-desc = "Day N: "
+desc = "Day 14: "
 
 -- | Part 1
 part1 :: a -> IO ()

@@ -1,4 +1,4 @@
-module Advent.Day3 (main) where
+module Advent.Day3 (desc, main) where
 
 import Control.Applicative       ((<|>))
 import Control.Arrow             ((***))
@@ -15,7 +15,8 @@ import Text.Printf               (printf)
 import Advent.Share.ParsecUtils  (parseFile)
 
 
---- Day 3: Rucksack Reorganization ---
+desc :: String
+desc = "Day 3: Rucksack Reorganization"
 
 -- | Part 1
 --

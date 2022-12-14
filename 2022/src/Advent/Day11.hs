@@ -1,4 +1,4 @@
-module Advent.Day11 (main) where
+module Advent.Day11 (desc, main) where
 
 import Control.Applicative       ((<|>), liftA2)
 import Control.Monad             (forM_, foldM)
@@ -24,7 +24,8 @@ import Text.Printf               (printf)
 
 import Advent.Share.ParsecUtils  (parseFile, num)
 
---- Day 11: Monkey in the Middle ---
+desc :: String
+desc = "Day 11: Monkey in the Middle"
 
 -- | Part 1
 --

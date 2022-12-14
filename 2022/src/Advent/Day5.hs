@@ -1,4 +1,4 @@
-module Advent.Day5 (main) where
+module Advent.Day5 (desc, main) where
 
 import Control.Applicative       ((<|>))
 import Control.Monad.ST          (ST, runST)
@@ -22,7 +22,8 @@ import Text.Printf               (printf)
 
 import Advent.Share.ParsecUtils  (parseFile, num)
 
---- Day 5: Supply Stacks ---
+desc :: String
+desc = "Day 5: Supply Stacks"
 
 -- | Part1
 --

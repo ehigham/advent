@@ -1,4 +1,4 @@
-module Advent.Day1 (main) where
+module Advent.Day1 (desc, main) where
 
 import Control.Applicative       ((<|>))
 import Control.Monad             (void)
@@ -12,7 +12,8 @@ import Text.Printf               (printf)
 import Advent.Share.ParsecUtils  (parseFile, num)
 
 
---- Day 1: Calorie Counting ---
+desc :: String
+desc = "Day 1: Calorie Counting"
 
 -- | Part 1
 --

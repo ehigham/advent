@@ -1,4 +1,4 @@
-module Advent.Day10 (main) where
+module Advent.Day10 (desc, main) where
 
 import Control.Monad.RWS         (execRWS, get, modify', tell)
 import Data.Functor              (($>))
@@ -10,6 +10,9 @@ import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
 import Advent.Share.ParsecUtils  (parseFile, num)
+
+desc :: String
+desc = "Day 10: Cathode-Ray Tube"
 
 -- | Part 1
 --

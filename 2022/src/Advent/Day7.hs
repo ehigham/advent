@@ -1,4 +1,4 @@
-module Advent.Day7 (main) where
+module Advent.Day7 (desc, main) where
 
 import Control.Applicative         ((<|>), liftA2)
 import Control.Monad.RevState      qualified as R
@@ -15,7 +15,8 @@ import Text.Printf                 (printf)
 import Advent.Share.ParsecUtils    (parseFileS, num, runInnerPT)
 
 
---- Day 7: No Space Left On Device ---
+desc :: String
+desc = "Day 7: No Space Left On Device"
 
 -- | Part 1
 --
