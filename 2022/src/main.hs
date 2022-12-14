@@ -18,7 +18,6 @@ import Advent.Day13 qualified as Day13
 import Advent.Day14 qualified as Day14
 
 
-
 days :: [(String, String, FilePath -> IO ())]
 days = [ ( "day1",   Day1.desc,  Day1.main)
        , ( "day2",   Day2.desc,  Day2.main)
@@ -59,3 +58,4 @@ main = join $ execParser (info (commands <**> helper) description)
     runall = forM_ days $ \(day, desc, main') -> do
         putStrLn $ "--- " ++ desc ++ " ---"
         main' $ "data/" ++ day
+        putStrLn ""
