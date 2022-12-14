@@ -1,7 +1,6 @@
 module Advent.Day12 (main) where
 
 import Control.Applicative       (liftA2, liftA3)
-import Control.Exception         (throw)
 import Control.Monad             (guard, join)
 import Control.Monad.Extra       (unlessM)
 import Control.Monad.Loops       (whileJust', whileM_)
@@ -11,16 +10,14 @@ import Data.List                 (sort)
 import Data.PQueue.Min           qualified as MinQ
 import Data.Map.Strict           qualified as Map
 import Data.STRef                (newSTRef, readSTRef, modifySTRef', writeSTRef)
-import Data.Text.IO              qualified as T
 import Data.Matrix               (Matrix)
 import Data.Matrix               qualified as Mat
-import Text.Parsec               (parse)
 import Text.Parsec.Char          (letter, newline)
 import Text.Parsec.Combinator    (many1, sepEndBy1)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile)
 
 
 --- Day 12: Hill Climbing Algorithm ---
@@ -236,9 +233,6 @@ instance Enum Elevation where
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    elevations <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right elevations  -> pure elevations
-    putStr "Part 1: "  >> part1 elevations
-    putStr "Part 2: "  >> part2 elevations
+    elevations <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 elevations
+    putStr "Part 2: " >> part2 elevations

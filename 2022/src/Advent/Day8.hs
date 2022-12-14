@@ -1,23 +1,19 @@
 module Advent.Day8 (main) where
 
-
-import Control.Exception         (throw)
 import Control.Monad.State       (evalState, get, modify')
-import Data.Char                 (digitToInt)
 import Data.List                 qualified as L
 import Data.List.NonEmpty        qualified as NE
 import Data.List.NonEmpty        (NonEmpty((:|)))
-import Data.Text.IO              qualified as T
-import Text.Parsec               (parse, many)
+import Text.Parsec               (many)
 import Text.Parsec.Text          (Parser)
-import Text.Parsec.Char          (digit, spaces)
+import Text.Parsec.Char          (spaces)
 import Text.Parsec.Combinator    (many1)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile, num)
 
 
--- Day 8: Treetop Tree House
+--- Day 8: Treetop Tree House ---
 
 -- | Part 1
 --
@@ -178,14 +174,11 @@ newtype Tree = Tree Int
 inputParser :: Parser [[Tree]]
 inputParser = many row
   where
-    row = many1 (Tree . digitToInt <$> digit) <* spaces
+    row = many1 (Tree <$> num) <* spaces
 
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    rounds <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right rounds  -> pure rounds
-    putStr "Part 1: "  >> part1 rounds
-    putStr "Part 2: "  >> part2 rounds
+    rounds <- parseFile  inputParser inputFile
+    putStr "Part 1: " >> part1 rounds
+    putStr "Part 2: " >> part2 rounds

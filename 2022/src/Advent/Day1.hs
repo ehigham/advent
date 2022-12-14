@@ -1,22 +1,22 @@
 module Advent.Day1 (main) where
 
 import Control.Applicative       ((<|>))
-import Control.Exception         (throw)
 import Control.Monad             (void)
 import Data.List                 (sortBy)
 import GHC.Generics              (Generic)
-import Text.Parsec               (parse)
-import Text.Parsec.Char          (digit, newline)
+import Text.Parsec.Char          (newline)
 import Text.Parsec.Combinator    (eof, many1, sepEndBy1)
-import Text.Parsec.String        (Parser)
+import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile, num)
 
 
--- Day 1: Calorie Counting
+--- Day 1: Calorie Counting ---
 
--- | Santa's reindeer typically eat regular reindeer food, but they need a lot
+-- | Part 1
+--
+-- Santa's reindeer typically eat regular reindeer food, but they need a lot
 -- of magical energy to deliver presents on Christmas. For that, their favorite
 -- snack is a special type of star fruit that only grows deep in the jungle. The
 -- Elves have brought you on their annual expedition to the grove where the
@@ -88,6 +88,7 @@ part1 = printf "most total calories = %d\n"
 
 
 -- | Part 2
+--
 -- By the time you calculate the answer to the Elves' question, they've already
 -- realized that the Elf carrying the most Calories of food might eventually run
 -- out of snacks.
@@ -112,17 +113,6 @@ part2 = printf "sum of top 3 most total calories = %d\n"
       . sortBy (flip compare)
       . map sum
 
-
-main :: FilePath -> IO ()
-main inputFile = do
-    contents <- readFile inputFile
-    calories <- case parse p inputFile contents of
-      Left err -> throw (ParseException err)
-      Right (calories :: [[Calories]]) -> pure calories
-    putStr "Part 1: "  >> part1 calories
-    putStr "Part 2: "  >> part2 calories
-
-
 newtype Calories = Calories { unCalories :: Int }
   deriving newtype (Show, Read, Eq, Ord, Num)
   deriving stock   (Generic)
@@ -132,4 +122,11 @@ p :: Parser [[Calories]]
 p = many1 calories `sepEndBy1` (void newline <|> eof)
   where
     calories :: Parser Calories
-    calories = Calories . read <$> many1 digit <* newline
+    calories = Calories <$> num <* newline
+
+
+main :: FilePath -> IO ()
+main inputFile = do
+    calories <- parseFile p inputFile
+    putStr "Part 1: " >> part1 calories
+    putStr "Part 2: " >> part2 calories

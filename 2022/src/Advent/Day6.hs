@@ -1,18 +1,20 @@
 module Advent.Day6 (main) where
 
+import Control.Monad.Extra       (whileM)
+import Control.Monad.ST          (runST)
 import Data.STRef                (modifySTRef', newSTRef, readSTRef)
+import Data.Foldable             qualified as S
 import Data.Set                  qualified as S
 import Data.Text.IO              qualified as T
 import Data.Text                 qualified as T
 import Data.Text                 (Text)
 import Text.Printf               (printf)
-import Control.Monad.Extra       (whileM)
-import Control.Monad.ST          (runST)
-import qualified Data.Foldable as S
 
 
+--- Day 6: Tuning Trouble --
 
--- | Day 6: Tuning Trouble
+-- | Part 1
+--
 -- The preparations are finally complete; you and the Elves leave camp on foot
 -- and begin to make your way toward the star fruit grove.
 --
@@ -73,6 +75,7 @@ part1 = printf "First marker after character %d\n"
 
 
 -- | Part 2
+--
 -- Your device's communication system is correctly detecting packets, but still
 -- isn't working. It looks like it also needs to look for messages.
 --
@@ -111,5 +114,5 @@ findMarker len text = runST $ do
 main :: FilePath -> IO ()
 main inputFile = do
     contents <- T.readFile inputFile
-    putStr "Part 1: "  >> part1 contents
-    putStr "Part 2: "  >> part2 contents
+    putStr "Part 1: " >> part1 contents
+    putStr "Part 2: " >> part2 contents

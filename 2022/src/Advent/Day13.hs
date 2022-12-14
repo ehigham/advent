@@ -1,19 +1,17 @@
 module Advent.Day13 (main) where
 
 import Control.Applicative       ((<|>))
-import Control.Exception         (throw)
 import Data.Either.Extra         (fromRight')
 import Data.Function             (on)
 import Data.List                 (elemIndex, sort)
 import Data.Maybe                (fromJust)
-import Data.Text.IO              qualified as T
 import Text.Parsec               (parse)
 import Text.Parsec.Text          (Parser)
 import Text.Parsec.Char          (char, digit, newline, spaces)
 import Text.Parsec.Combinator    (between, many1, sepBy, sepEndBy)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile)
 
 
 --- Day 13: Distress Signal ---
@@ -265,9 +263,6 @@ inputParser = ((,) <$> packet <*> (newline *> packet)) `sepEndBy` spaces
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    packets <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right packets  -> pure packets
-    putStr "Part 1: "  >> part1 packets
-    putStr "Part 2: "  >> part2 packets
+    packets <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 packets
+    putStr "Part 2: " >> part2 packets

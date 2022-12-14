@@ -1,12 +1,9 @@
 module Advent.DayN (main) where
 
-import Control.Exception         (throw)
-import Data.Text.IO              qualified as T
-import Text.Parsec               (parse)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile)
 
 -- | Part 1
 part1 :: a -> IO ()
@@ -24,9 +21,6 @@ inputParser = return []
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    rounds <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right rounds  -> pure rounds
-    putStr "Part 1: "  >> part1 rounds
-    putStr "Part 2: "  >> part2 rounds
+    input <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 input
+    putStr "Part 2: " >> part2 input

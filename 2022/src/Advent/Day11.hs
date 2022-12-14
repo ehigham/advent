@@ -1,7 +1,6 @@
 module Advent.Day11 (main) where
 
 import Control.Applicative       ((<|>), liftA2)
-import Control.Exception         (throw)
 import Control.Monad             (forM_, foldM)
 import Control.Monad.ST          (ST, runST)
 import Data.Bool                 (bool)
@@ -15,19 +14,17 @@ import Data.STRef                ( STRef
                                  )
 import Data.Sequence             ((|>), Seq, Seq(Empty))
 import Data.Sequence             qualified as S
-import Data.Text.IO              qualified as T
 import Data.Vector               (Vector, (!))
 import Data.Vector               qualified as  V
 import Prelude            hiding (round)
-import Text.Parsec               (parse)
-import Text.Parsec.Char          (char, digit, newline, space, spaces, string)
-import Text.Parsec.Combinator    (choice, many1, sepEndBy1)
+import Text.Parsec.Char          (char, newline, space, spaces, string)
+import Text.Parsec.Combinator    (choice, sepEndBy1)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile, num)
 
--- Day 11: Monkey in the Middle
+--- Day 11: Monkey in the Middle ---
 
 -- | Part 1
 --
@@ -464,7 +461,7 @@ inputParser :: Parser (Vector Monkey)
 inputParser = V.fromList . sortOn index <$> monkey `sepEndBy1` spaces
   where
     monkey =
-        Monkey <$> (string "Monkey " *> integral <* char ':' <* newline)
+        Monkey <$> (string "Monkey " *> num <* char ':' <* newline)
                <*> startingItems
                <*> operation
                <*> predicate
@@ -473,7 +470,7 @@ inputParser = V.fromList . sortOn index <$> monkey `sepEndBy1` spaces
     startingItems :: Parser (Seq WorryLevel)
     startingItems = do
         _ <- string "  Starting items: "
-        levels <- integral `sepEndBy1` string ", "
+        levels <- num `sepEndBy1` string ", "
         _ <- newline
         return . S.fromList $ Level <$> levels
 
@@ -484,22 +481,20 @@ inputParser = V.fromList . sortOn index <$> monkey `sepEndBy1` spaces
         f <- space *> op <* space
         liftA2 f x <$> (term <* newline)
       where
-        term = (id <$ string "old") <|> (const <$> integral)
+        term = (id <$ string "old") <|> (const <$> num)
         op = choice [(*) <$ char '*', (+) <$ char '+']
 
     predicate :: Parser WorryLevel
     predicate = do
         _ <- string "  Test: divisible by "
-        n <- integral
+        n <- num
         _ <- newline
         return n
 
     ifTrue, ifFalse :: Parser Int
-    ifTrue  = string "    If true: throw to monkey " *> integral <* newline
-    ifFalse = string "    If false: throw to monkey " *> integral <* newline
+    ifTrue  = string "    If true: throw to monkey " *> num <* newline
+    ifFalse = string "    If false: throw to monkey " *> num <* newline
 
-    integral :: Read a => Parser a
-    integral = read <$> many1 digit
 
 
 newtype WorryLevel = Level { unLevel :: Integer }
@@ -532,9 +527,6 @@ thaw monkey = do
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    monkeys <- case parse inputParser inputFile contents of
-        Left err -> throw (ParseException err)
-        Right ms -> pure ms
-    putStr "Part 1: "  >> part1 monkeys
-    putStr "Part 2: "  >> part2 monkeys
+    monkeys <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 monkeys
+    putStr "Part 2: " >> part2 monkeys

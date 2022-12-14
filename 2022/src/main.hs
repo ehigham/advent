@@ -15,6 +15,7 @@ import Advent.Day10 qualified as Day10
 import Advent.Day11 qualified as Day11
 import Advent.Day12 qualified as Day12
 import Advent.Day13 qualified as Day13
+import Advent.Day14 qualified as Day14
 
 
 main :: IO ()
@@ -38,6 +39,7 @@ main = join $ execParser (info (dayN <**> helper) description)
       , mkCommand "day11" Day11.main
       , mkCommand "day12" Day12.main
       , mkCommand "day13" Day13.main
+      , mkCommand "day14" Day14.main
       ]
 
     mkCommand name main' = command name

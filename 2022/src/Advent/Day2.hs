@@ -1,23 +1,20 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
 module Advent.Day2 (main) where
 
+import Control.Applicative       ((<|>))
+import Control.Arrow             (second)
+import Data.Functor              (void)
+import Text.Parsec.Char          (char, newline, space)
+import Text.Parsec.Combinator    (choice, sepEndBy1, eof)
+import Text.Parsec.Text          (Parser)
+import Text.Printf               (printf)
 
-import Control.Applicative    ((<|>))
-import Control.Arrow          (second)
-import Control.Exception      (throw)
-import Data.Functor           (void)
-import Data.Text.IO qualified as T
-import Text.Parsec            (parse)
-import Text.Parsec.Char       (char, newline, space)
-import Text.Parsec.Combinator (choice, sepEndBy1, eof)
-import Text.Parsec.Text       (Parser)
-import Text.Printf            (printf)
+import Advent.Share.ParsecUtils  (parseFile)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+--- Day 2: Rock Paper Scissors ---
 
--- Day 2: Rock Paper Scissors
-
--- | The Elves begin to set up camp on the beach. To decide whose tent gets to
+-- | Part 1
+--
+-- The Elves begin to set up camp on the beach. To decide whose tent gets to
 -- be closest to the snack storage, a giant Rock Paper Scissors tournament is
 -- already in progress.
 --
@@ -80,7 +77,9 @@ part1 = printf "total score using first strategy = %d\n"
     decodeSym Z = Scissors
 
 
--- | The Elf finishes helping with the tent and sneaks back over to you.
+-- | Part 2
+--
+-- The Elf finishes helping with the tent and sneaks back over to you.
 -- "Anyway, the second column says how the round needs to end: X means you need
 -- to lose, Y means you need to end the round in a draw, and Z means you need to
 -- win. Good luck!"
@@ -163,9 +162,6 @@ inputParser = game `sepEndBy1` (void newline <|> eof)
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    rounds <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right (rounds :: [(Hand, Sym)]) -> pure rounds
-    putStr "Part 1: "  >> part1 rounds
-    putStr "Part 2: "  >> part2 rounds
+    rounds <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 rounds
+    putStr "Part 2: " >> part2 rounds

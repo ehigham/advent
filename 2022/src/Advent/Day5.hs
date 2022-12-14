@@ -1,17 +1,14 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
 module Advent.Day5 (main) where
 
 import Control.Applicative       ((<|>))
 import Control.Monad.ST          (ST, runST)
 import Control.Monad             (forM_, replicateM_)
-import Control.Exception         (throw)
 import Data.Maybe                (listToMaybe)
-import Data.Text.IO              qualified as T
 import Data.Vector               (Vector)
 import Data.Vector               qualified as V
 import Data.Vector.Mutable       (STVector)
 import Data.Vector.Mutable       qualified as Mut
-import Text.Parsec               (parse, try)
+import Text.Parsec               (try)
 import Text.Parsec.Char          ( char
                                  , digit
                                  , letter
@@ -23,9 +20,12 @@ import Text.Parsec.Combinator    (eof, many1, sepBy1, sepEndBy1)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile, num)
 
--- | Day 5: Supply Stacks
+--- Day 5: Supply Stacks ---
+
+-- | Part1
+--
 -- The expedition can depart as soon as the final supplies have been unloaded
 -- from the ships. Supplies are stored in stacks of marked crates, but because
 -- the needed supplies are buried under many other crates, the crates need to be
@@ -120,7 +120,8 @@ part1 = (printf "Top of stack (CM9000) = '%s'\n" .) . runInterpreter cm9000
         Mut.modify config (head stack:) (to - 1)
 
 
--- | Part Two
+-- | Part 2
+--
 -- As you watch the crane operator expertly rearrange the crates, you notice the
 -- process isn't following your prediction.
 --
@@ -235,17 +236,13 @@ layer = ((Just <$> crate) <|> (Nothing <$ blank)) `sepBy1` char ' '
 
 
 bases :: Parser [Stack Crate]
-bases = char ' ' *> ([] <$ int) `sepEndBy1` spaces
+bases = char ' ' *> ([] <$ many1 digit) `sepEndBy1` spaces
 
 instr :: Parser Instruction
 instr = Move
-     <$> (string "move " *> int)
-     <*> (string " from " *> int)
-     <*> (string " to " *> int)
-
-
-int :: Parser Int
-int = read <$> many1 digit
+     <$> (string "move " *> num)
+     <*> (string " from " *> num)
+     <*> (string " to " *> num)
 
 
 type Interpreter = forall s. STConfiguration s -> Instruction -> ST s ()
@@ -268,9 +265,6 @@ data Instruction = Move
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    (config, instrs) <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right res  -> pure res
-    putStr "Part 1: "  >> part1 config instrs
-    putStr "Part 2: "  >> part2 config instrs
+    (config, instrs) <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 config instrs
+    putStr "Part 2: " >> part2 config instrs

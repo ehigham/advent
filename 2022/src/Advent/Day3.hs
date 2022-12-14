@@ -1,27 +1,25 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
 module Advent.Day3 (main) where
 
 import Control.Applicative       ((<|>))
 import Control.Arrow             ((***))
-import Control.Exception         (throw)
 import Control.Monad             (join)
 import Data.Char                 (isLower, ord)
 import Data.Functor              (void)
 import Data.List.Split           (chunksOf)
 import Data.Set                  qualified as S
-import Data.Text.IO              qualified as T
-import Text.Parsec               (parse)
 import Text.Parsec.Text          (Parser)
 import Text.Parsec.Char          (letter, newline)
 import Text.Parsec.Combinator    (eof, many1, sepEndBy1)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile)
 
 
--- Day 3: Rucksack Reorganization
+--- Day 3: Rucksack Reorganization ---
 
--- | One Elf has the important job of loading all of the rucksacks with supplies
+-- | Part 1
+--
+-- One Elf has the important job of loading all of the rucksacks with supplies
 -- for the jungle journey. Unfortunately, that Elf didn't quite follow the
 -- packing instructions, and so a few items now need to be rearranged.
 --
@@ -91,7 +89,8 @@ part1 = printf "Sum of priorities of common item types = %d\n"
     compartments = splitAt =<< (`quot` 2) . length
 
 
--- | Part Two
+-- | Part 2
+--
 -- As you finish identifying the misplaced items, the Elves come to you with
 -- another issue.
 --
@@ -155,9 +154,6 @@ inputParser = many1 letter `sepEndBy1` (void newline <|> eof)
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    rounds <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right (rounds :: [[Char]]) -> pure rounds
-    putStr "Part 1: "  >> part1 rounds
-    putStr "Part 2: "  >> part2 rounds
+    rounds <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 rounds
+    putStr "Part 2: " >> part2 rounds

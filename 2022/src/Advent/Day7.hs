@@ -1,25 +1,25 @@
 module Advent.Day7 (main) where
 
 import Control.Applicative         ((<|>), liftA2)
-import Control.Exception           (throw)
 import Control.Monad.RevState      qualified as R
 import Control.Monad.Trans         (lift)
 import Data.Function               (on)
 import Data.List                   (sort)
 import Data.Map.Strict             qualified as M
 import Data.Maybe                  (fromMaybe)
-import Data.Text.IO                qualified as T
 import Data.Text                   qualified as T
 import Data.Text                   (Text)
 import Text.Parsec          hiding ((<|>))
 import Text.Printf                 (printf)
 
-import Advent.Share.ParsecUtils    (ParseException(..), runInnerPT)
+import Advent.Share.ParsecUtils    (parseFileS, num, runInnerPT)
 
 
--- Day 7: No Space Left On Device
+--- Day 7: No Space Left On Device ---
 
--- | You can hear birds chirping and raindrops hitting leaves as the expedition
+-- | Part 1
+--
+-- You can hear birds chirping and raindrops hitting leaves as the expedition
 -- proceeds. Occasionally, you can even hear much louder sounds in the distance;
 -- how big do the animals get out here, anyway?
 --
@@ -139,6 +139,32 @@ part1 = printf "Sum of folder sizes > 100000 bytes = %d\n"
 
 
 -- | Part 2
+--
+-- Now, you're ready to choose a directory to delete.
+--
+-- The total disk space available to the filesystem is 70000000. To run the
+-- update, you need unused space of at least 30000000. You need to find a
+-- directory you can delete that will free up enough space to run the update.
+--
+-- In the example above, the total size of the outermost directory (and thus the
+-- total amount of used space) is 48381165; this means that the size of the
+-- unused space must currently be 21618835, which isn't quite the 30000000
+-- required by the update. Therefore, the update still requires a directory with
+-- total size of at least 8381165 to be deleted before it can run.
+--
+-- To achieve this, you have the following options:
+--
+-- - Delete directory e, which would increase unused space by 584.
+-- - Delete directory a, which would increase unused space by 94853.
+-- - Delete directory d, which would increase unused space by 24933642.
+-- - Delete directory /, which would increase unused space by 48381165.
+--
+-- Directories e and a are both too small; deleting them would not free up
+-- enough space. However, directories d and / are both big enough! Between
+-- these, choose the smallest: d, increasing unused space by 24933642.
+--
+-- Find the smallest directory that, if deleted, would free up enough space on
+-- the filesystem to run the update. What is the total size of that directory?
 part2 ::[File] -> IO ()
 part2 files =
     let required = bytes (head files) - 40000000
@@ -206,7 +232,7 @@ parseFolders = mkPT $ \state ->
         return $ mkFolder path (fromMaybe [] files)
 
     file path = flip File
-        <$> (read <$> manyTill digit space)
+        <$> (num <* space)
         <*> (mkPath path <$> filename)
 
     filename = T.pack <$> manyTill anyChar newline
@@ -219,9 +245,6 @@ parseFolders = mkPT $ \state ->
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    folders <- case runParser parseFolders [] inputFile contents of
-        Left err -> throw (ParseException err)
-        Right folders -> pure folders
-    putStr "Part 1: "  >> part1 folders
-    putStr "Part 2: "  >> part2 folders
+    folders <- parseFileS parseFolders [] inputFile
+    putStr "Part 1: " >> part1 folders
+    putStr "Part 2: " >> part2 folders

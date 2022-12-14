@@ -1,19 +1,16 @@
 module Advent.Day9 (main) where
 
 import Control.Arrow             (first, second)
-import Control.Exception         (throw)
 import Control.Monad.RWS         (RWS, evalRWS, get, put, tell)
 import Control.Monad             (replicateM_)
-import Data.Either               qualified as E
 import Data.Set                  qualified as S
-import Data.Text.IO              qualified as T
 import Prelude            hiding (Left, Right)
-import Text.Parsec               (choice, parse, many, sepEndBy)
-import Text.Parsec.Char          (char, digit, spaces)
+import Text.Parsec               (choice, sepEndBy)
+import Text.Parsec.Char          (char, spaces)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile, num)
 
 
 -- | Part 1
@@ -801,7 +798,7 @@ type Point = (Int, Int)
 
 
 inputParser :: Parser [(Direction, Int)]
-inputParser = ((,) <$> direction <*> (spaces *> step)) `sepEndBy` spaces
+inputParser = ((,) <$> direction <*> (spaces *> num)) `sepEndBy` spaces
   where
     direction = choice
       [ Up    <$ char 'U'
@@ -810,14 +807,8 @@ inputParser = ((,) <$> direction <*> (spaces *> step)) `sepEndBy` spaces
       , Right <$ char 'R'
       ]
 
-    step = read <$> many digit
-
-
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    rounds <- case parse inputParser inputFile contents of
-      E.Left err -> throw (ParseException err)
-      E.Right rounds  -> pure rounds
-    putStr "Part 1: "  >> part1 rounds
-    putStr "Part 2: "  >> part2 rounds
+    rounds <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 rounds
+    putStr "Part 2: " >> part2 rounds

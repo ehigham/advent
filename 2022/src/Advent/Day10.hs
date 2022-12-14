@@ -1,16 +1,15 @@
 module Advent.Day10 (main) where
 
-import Control.Exception         (throw)
 import Control.Monad.RWS         (execRWS, get, modify', tell)
 import Data.Functor              (($>))
 import Data.List.Split           (chunksOf)
-import Data.Text.IO              qualified as T
-import Text.Parsec               (parse, choice, sepEndBy, many1, optionMaybe)
-import Text.Parsec.Char          (digit, spaces, string)
+import Data.Maybe                (isJust)
+import Text.Parsec               (choice, sepEndBy, optionMaybe)
+import Text.Parsec.Char          (spaces, string)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile, num)
 
 -- | Part 1
 --
@@ -443,8 +442,7 @@ inputParser = instr `sepEndBy` spaces
 
     int = do
       sign <- optionMaybe (string "-")
-      digits <- many1 digit
-      return . read $ maybe digits (<> digits) sign
+      (if isJust sign then negate else id) <$> num
 
 
 data Instruction where
@@ -455,9 +453,6 @@ data Instruction where
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    rounds <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right rounds  -> pure rounds
-    putStr "Part 1: "  >> part1 rounds
-    putStr "Part 2: "  >> part2 rounds
+    rounds <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 rounds
+    putStr "Part 2: " >> part2 rounds

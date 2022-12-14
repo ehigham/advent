@@ -1,8 +1,6 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
 module Advent.Day4 (main) where
 
 import Control.Applicative       ((<|>))
-import Control.Exception         (throw)
 import Data.Functor              (void)
 import Data.Interval             ( Extended(Finite)
                                  , Interval
@@ -11,19 +9,19 @@ import Data.Interval             ( Extended(Finite)
                                  , isSubsetOf
                                  , width
                                  )
-import Data.Text.IO              qualified as T
-import Text.Parsec               (parse)
 import Text.Parsec.Text          (Parser)
-import Text.Parsec.Char          (char, digit, newline)
-import Text.Parsec.Combinator    (eof, sepEndBy1, many1)
+import Text.Parsec.Char          (char, newline)
+import Text.Parsec.Combinator    (eof, sepEndBy1)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (ParseException(..))
+import Advent.Share.ParsecUtils  (parseFile, num)
 
 
 -- Day 3: Camp Cleanup
 
--- | Space needs to be cleared before the last supplies can be unloaded from the
+-- | Part 1
+--
+-- Space needs to be cleared before the last supplies can be unloaded from the
 -- ships, and so several Elves have been assigned the job of cleaning up
 -- sections of the camp. Every section has a unique ID number, and each Elf is
 -- assigned a range of section IDs.
@@ -98,7 +96,8 @@ part1 = printf "Number of assignments where one is a subset of the other = %d\n"
             smaller `isSubsetOf` larger
 
 
--- | Part Two
+-- | Part 2
+--
 -- It seems like there is still quite a bit of duplicate work planned. Instead,
 -- the Elves would like to know the number of pairs that overlap at all.
 --
@@ -128,17 +127,14 @@ inputParser = pair `sepEndBy1` (void newline <|> eof)
     pair = (,) <$> interval <*> (char ',' *> interval)
 
     interval = do
-        start <- read <$> many1 digit
+        start <- num
         _ <- char '-'
-        end <- read <$> many1 digit
+        end <- num
         return $ Finite start <=..<= Finite end
 
 
 main :: FilePath -> IO ()
 main inputFile = do
-    contents <- T.readFile inputFile
-    rounds <- case parse inputParser inputFile contents of
-      Left err -> throw (ParseException err)
-      Right rounds  -> pure rounds
-    putStr "Part 1: "  >> part1 rounds
-    putStr "Part 2: "  >> part2 rounds
+    rounds <- parseFile inputParser inputFile
+    putStr "Part 1: " >> part1 rounds
+    putStr "Part 2: " >> part2 rounds
