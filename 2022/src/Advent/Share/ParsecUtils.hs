@@ -2,21 +2,22 @@ module Advent.Share.ParsecUtils
       ( ParseException(..)
       , num
       , parseFile
-      , parseFileS
-      , runInnerPT
+      , parseFileT
+      , xformParsecT
       ) where
 
-import Control.Exception            (Exception, throwIO)
+import Control.Exception            (Exception, throw)
+import Control.Monad.Identity       (runIdentity)
 import GHC.Generics                 (Generic)
 import Text.Parsec                  ( Consumed(Empty,Consumed)
                                     , ParseError
                                     , ParsecT
                                     , Parsec
-                                    , Reply
-                                    , State
                                     , Stream
+                                    , Reply
+                                    , mkPT
                                     , runParsecT
-                                    , runP
+                                    , runPT
                                     )
 import Text.Parsec.Char             (digit)
 import Text.Parsec.Combinator       (many1)
@@ -29,27 +30,34 @@ newtype ParseException = ParseException ParseError
       deriving anyclass Exception
 
 
-runInnerPT :: (Monad m, Applicative f)
-  => ParsecT s u m a
-  -> State s u
-  -> m (Consumed (f (Reply s u a)))
-runInnerPT parser state = do
-      consumed <- runParsecT parser state
-      case consumed of
+xformParsecT :: (Monad m, Monad f)
+             => (f (Consumed (m (Reply s u a))) -> m (Consumed (m (Reply s u b))))
+             -> ParsecT s u f a
+             -> ParsecT s u m b
+xformParsecT mapK parser = mkPT (mapK . runInnerPT)
+  where
+    runInnerPT state = do
+        consumed <- runParsecT parser state
+        case consumed of
             Consumed fa -> Consumed . pure <$> fa
             Empty fa    -> Empty . pure <$> fa
 
 
-parseFile :: Parsec Text () a -> FilePath -> IO a
-parseFile parser = parseFileS parser ()
+parseFile :: Parsec Text s a -> s -> FilePath -> IO a
+parseFile = (((runIdentity <$>) .) .) . parseFileT
 
 
-parseFileS :: Parsec Text u a -> u -> FilePath -> IO a
-parseFileS parser state filepath = do
-      contents <- T.readFile filepath
-      case runP parser state filepath contents of
-            Left err     -> throwIO (ParseException err)
-            Right result -> pure result
+parseFileT :: (Monad m, Traversable m)
+    => ParsecT Text u m a
+    -> u
+    -> FilePath
+    -> IO (m a)
+parseFileT parser state filepath = do
+    contents <- T.readFile filepath
+    traverse inspect $ runPT parser state filepath contents
+  where
+    inspect (Left err) = throw (ParseException err)
+    inspect (Right a)  = pure a
 
 
 num :: (Num a, Stream s m Char) => ParsecT s u m a

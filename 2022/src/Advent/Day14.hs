@@ -1,11 +1,20 @@
 module Advent.Day14 (desc, main) where
 
-import Text.Parsec.Text          (Parser)
+import Control.Monad.Loops       (whileM_)
+import Control.Monad.Extra       (whenM)
+import Control.Monad.ST          (ST, runST)
+import Control.Monad.State       (modify', runStateT)
+import Data.List                 (find, sort)
+import Data.Maybe                qualified as Maybe
+import Data.Set                  (Set)
+import Data.Set                  qualified as S
+import Data.STRef                (newSTRef, modifySTRef', readSTRef, writeSTRef)
 import Text.Parsec.Char          (char, string, newline)
 import Text.Parsec.Combinator    (many1, sepEndBy)
+import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (parseFile, num)
+import Advent.Share.ParsecUtils  (parseFile, num, xformParsecT)
 
 desc :: String
 desc = "Day 14: Regolith Reservoir"
@@ -181,8 +190,43 @@ desc = "Day 14: Regolith Reservoir"
 --
 -- Using your scan, simulate the falling sand. How many units of sand come to
 -- rest before sand starts flowing into the abyss below?
-part1 :: a -> IO ()
-part1 _ = printf "not implemented\n"
+part1 :: Int -> [Path] -> IO ()
+part1 xmin paths =
+    printf "Number of units of sand before overflow =%d\n"
+        $ runST $ simulate (collect paths)
+  where
+    simulate :: forall s. Set Point -> ST s Int
+    simulate obstructions = do
+        occupied <- newSTRef obstructions
+        total <- newSTRef 0
+
+        grain <- newSTRef start
+        lastPos <- newSTRef (0,0)
+        whileM_ (notFallingIntoTheAbyss grain) $ do
+
+            p' <- readSTRef lastPos
+
+            whenM ((p' ==) <$> readSTRef grain) $ do
+                writeSTRef grain start
+                modifySTRef' total succ
+                modifySTRef' occupied (S.insert p')
+
+            p <- readSTRef grain
+            writeSTRef lastPos p
+
+            occupied' <- readSTRef occupied
+            writeSTRef grain (nextPos occupied' p)
+
+        readSTRef total
+
+    start = (500, 0)
+
+    nextPos obstructions (x, y) =
+        Maybe.fromMaybe (x, y) $ find
+            (`S.notMember` obstructions)
+            [(x+1, k) | k <- [y, y-1, y+1]]
+
+    notFallingIntoTheAbyss = ((xmin >) . fst <$>) . readSTRef
 
 
 -- | Part 2
@@ -190,27 +234,41 @@ part2 :: a -> IO ()
 part2 _ = printf "not implemented\n"
 
 
+collect :: [Path] -> Set Point
+collect = S.fromList . sort . foldMap (walk . unPath)
+  where
+    walk (p:q:ps) =
+        let { (x1, y1) = p; (x2, y2) = q } in
+            [ (u, v)
+            | u <- [(min x1 x2)..(max x1 x2)]
+            , v <- [(min y1 y2)..(max y1 y2)]
+            ] <> walk (q:ps)
+    walk _ = []
+
 type Point = (Int, Int)
 
-newtype Path = Path [Point]
+newtype Path = Path { unPath :: [Point] }
   deriving newtype (Eq, Show, Semigroup)
 
 
-inputParser :: Parser [Path]
-inputParser = line `sepEndBy` newline
+inputParser :: Parser ([Path], Int)
+inputParser = flip xformParsecT (line `sepEndBy` newline) $ \mconsumed -> do
+    (consumed, sEnd) <- runStateT mconsumed 0
+    return $ (fmap . fmap . fmap) (,sEnd) consumed
   where
-    line :: Parser Path
     line = do
         p <- point
         ps <- many1 (string " -> " *> point)
         return $ Path (p:ps)
 
-    point :: Parser Point
-    point = (,) <$> num <*> (char ',' *> num)
+    point = do
+        p@(x, _) <- (,) <$> num <*> (char ',' *> num)
+        modify' (max x)
+        return p
 
 
 main :: FilePath -> IO ()
 main inputFile = do
-    input <- parseFile inputParser inputFile
-    putStr "Part 1: " >> part1 input
-    putStr "Part 2: " >> part2 input
+    (path, xmin) <- parseFile inputParser () inputFile
+    putStr "Part 1: " >> part1 xmin path
+    putStr "Part 2: " >> part2 path

@@ -155,6 +155,6 @@ inputParser = many1 letter `sepEndBy1` (void newline <|> eof)
 
 main :: FilePath -> IO ()
 main inputFile = do
-    rounds <- parseFile inputParser inputFile
-    putStr "Part 1: " >> part1 rounds
-    putStr "Part 2: " >> part2 rounds
+    input <- parseFile inputParser () inputFile
+    putStr "Part 1: " >> part1 input
+    putStr "Part 2: " >> part2 input

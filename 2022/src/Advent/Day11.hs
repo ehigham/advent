@@ -528,6 +528,6 @@ thaw monkey = do
 
 main :: FilePath -> IO ()
 main inputFile = do
-    monkeys <- parseFile inputParser inputFile
+    monkeys <- parseFile inputParser () inputFile
     putStr "Part 1: " >> part1 monkeys
     putStr "Part 2: " >> part2 monkeys

@@ -12,7 +12,7 @@ import Data.Text                   (Text)
 import Text.Parsec          hiding ((<|>))
 import Text.Printf                 (printf)
 
-import Advent.Share.ParsecUtils    (parseFileS, num, runInnerPT)
+import Advent.Share.ParsecUtils    (parseFile, num, xformParsecT)
 
 
 desc :: String
@@ -207,9 +207,10 @@ isFolder _           = False
 
 
 parseFolders :: Parsec Text [Text] [File]
-parseFolders = mkPT $ \state ->
-    let result = R.evalState (runInnerPT (concat <$> many command) state) M.empty
-    in pure result
+parseFolders =
+    xformParsecT
+        (`R.evalStateT` M.empty)
+        (concat <$> many command)
   where
     command = string "$ " *> choice
         [ string "cd" *> spaces *> filename >>= ([] <$) . cd
@@ -246,6 +247,6 @@ parseFolders = mkPT $ \state ->
 
 main :: FilePath -> IO ()
 main inputFile = do
-    folders <- parseFileS parseFolders [] inputFile
+    folders <- parseFile parseFolders [] inputFile
     putStr "Part 1: " >> part1 folders
     putStr "Part 2: " >> part2 folders

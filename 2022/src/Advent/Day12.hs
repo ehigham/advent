@@ -234,6 +234,6 @@ instance Enum Elevation where
 
 main :: FilePath -> IO ()
 main inputFile = do
-    elevations <- parseFile inputParser inputFile
+    elevations <- parseFile inputParser () inputFile
     putStr "Part 1: " >> part1 elevations
     putStr "Part 2: " >> part2 elevations

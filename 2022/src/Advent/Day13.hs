@@ -263,6 +263,6 @@ inputParser = ((,) <$> packet <*> (newline *> packet)) `sepEndBy` spaces
 
 main :: FilePath -> IO ()
 main inputFile = do
-    packets <- parseFile inputParser inputFile
+    packets <- parseFile inputParser () inputFile
     putStr "Part 1: " >> part1 packets
     putStr "Part 2: " >> part2 packets

@@ -266,6 +266,6 @@ data Instruction = Move
 
 main :: FilePath -> IO ()
 main inputFile = do
-    (config, instrs) <- parseFile inputParser inputFile
+    (config, instrs) <- parseFile inputParser () inputFile
     putStr "Part 1: " >> part1 config instrs
     putStr "Part 2: " >> part2 config instrs

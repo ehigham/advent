@@ -128,6 +128,6 @@ p = many1 calories `sepEndBy1` (void newline <|> eof)
 
 main :: FilePath -> IO ()
 main inputFile = do
-    calories <- parseFile p inputFile
+    calories <- parseFile p () inputFile
     putStr "Part 1: " >> part1 calories
     putStr "Part 2: " >> part2 calories
