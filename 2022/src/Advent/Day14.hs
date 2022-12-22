@@ -1,6 +1,7 @@
 module Advent.Day14 (desc, main) where
 
-import Control.Monad.Extra       (ifM, whileM)
+import Control.Monad.Extra       (whileM)
+import Control.Monad.Loops       (untilM_)
 import Control.Monad.ST          (ST, runST)
 import Control.Monad.State       (modify', runStateT)
 import Data.List                 (find, sort)
@@ -191,52 +192,100 @@ desc = "Day 14: Regolith Reservoir"
 -- rest before sand starts flowing into the abyss below?
 part1 :: Int -> [Path] -> IO ()
 part1 ymax paths =
-    printf "Number of units of sand before overflow = %d\n" $
-        runST $ simulate (collect paths)
+    printf "Number of units of sand before falling into the abyss = %d\n" .
+        pred $ runST $ simulate maxBound isFallingIntoTheAbyss paths
   where
-    simulate :: forall s. Set Point -> ST s Int
-    simulate obstructions = do
-        occupied <- newSTRef obstructions
-        total <- newSTRef 0
-
-        grain <- newSTRef start
-
-        whileM $
-            ifM (fallingIntoTheAbyss <$> readSTRef grain)
-                (pure False)
-                $ do
-                    writeSTRef grain start
-                    occupied' <- readSTRef occupied
-
-                    whileM $ do
-                        prev <- readSTRef grain
-                        let now = nextPos occupied' prev
-                        writeSTRef grain now
-                        return $ now /= prev && not (fallingIntoTheAbyss now)
-
-                    p <- readSTRef grain
-                    if fallingIntoTheAbyss p
-                        then return False
-                        else do
-                            modifySTRef' occupied (S.insert p)
-                            modifySTRef' total succ
-                            return True
-
-        readSTRef total
-
-    start = (500, 0) :: Point
-
-    nextPos obstructions (x, y) =
-        Maybe.fromMaybe (x, y) $ find
-            (`S.notMember` obstructions)
-            [(x + k, y + 1) | k <- [0, -1, 1]]
-
-    fallingIntoTheAbyss (_, y) = y >= ymax
+    isFallingIntoTheAbyss (_, y) = y >= ymax
 
 
 -- | Part 2
-part2 :: a -> IO ()
-part2 _ = printf "not implemented\n"
+-- You realize you misread the scan. There isn't an endless void at the bottom
+-- of the scan - there's floor, and you're standing on it!
+--
+-- You don't have time to scan the floor, so assume the floor is an infinite
+-- horizontal line with a y coordinate equal to two plus the highest y
+-- coordinate of any point in your scan.
+--
+-- In the example above, the highest y coordinate of any point is 9, and so the
+-- floor is at y=11. (This is as if your scan contained one extra rock path like
+-- -infinity,11 -> infinity,11.) With the added floor, the example above now
+-- looks like this:
+--
+-- @
+--         ...........+........
+--         ....................
+--         ....................
+--         ....................
+--         .........#...##.....
+--         .........#...#......
+--         .......###...#......
+--         .............#......
+--         .............#......
+--         .....#########......
+--         ....................
+--  <- etc #################### etc ->
+-- @
+--
+-- To find somewhere safe to stand, you'll need to simulate falling sand until
+-- a unit of sand comes to rest at 500,0, blocking the source entirely and
+-- stopping the flow of sand into the cave. In the example above, the situation
+-- finally looks like this after 93 units of sand come to rest:
+--
+-- @
+-- ............o............
+-- ...........ooo...........
+-- ..........ooooo..........
+-- .........ooooooo.........
+-- ........oo#ooo##o........
+-- .......ooo#ooo#ooo.......
+-- ......oo###ooo#oooo......
+-- .....oooo.oooo#ooooo.....
+-- ....oooooooooo#oooooo....
+-- ...ooo#########ooooooo...
+-- ..ooooo.......ooooooooo..
+-- #########################
+-- @
+--
+-- Using your scan, simulate the falling sand until the source of the sand
+-- becomes blocked. How many units of sand come to rest?
+part2 :: Int -> [Path] -> IO ()
+part2 ymax paths =
+    printf "Number of units of sand before source is blocked = %d\n" $
+        runST $ simulate (ymax + 2) isBlocked paths
+  where
+    isBlocked = (start ==)
+
+
+simulate :: forall s. Int -> (Point -> Bool) -> [Path] -> ST s Int
+simulate ymax stop paths = do
+    occupied <- newSTRef (collect paths)
+    total <- newSTRef 0
+    grain <- newSTRef start
+
+    flip untilM_ (stop <$> readSTRef grain) $ do
+        writeSTRef grain start
+        occupied' <- readSTRef occupied
+
+        whileM $ do
+            prev <- readSTRef grain
+            let now = nextPos occupied' prev
+            writeSTRef grain now
+            return $ now /= prev && (not . stop) now
+
+        p <- readSTRef grain
+        modifySTRef' occupied (S.insert p)
+        modifySTRef' total succ
+
+    readSTRef total
+  where
+    nextPos obstructions (x, y) =
+        Maybe.fromMaybe (x, y) $ find
+            (`S.notMember` obstructions)
+            [(x + k, y + 1) | y + 1 < ymax, k <- [0, -1, 1]]
+
+
+start :: Point
+start = (500, 0)
 
 
 collect :: [Path] -> Set Point
@@ -250,7 +299,9 @@ collect = S.fromList . sort . foldMap (walk . unPath)
             ] <> walk (q:ps)
     walk _ = []
 
+
 type Point = (Int, Int)
+
 
 newtype Path = Path { unPath :: [Point] }
   deriving newtype (Eq, Show, Semigroup)
@@ -276,4 +327,4 @@ main :: FilePath -> IO ()
 main inputFile = do
     (path, ymax) <- parseFile inputParser () inputFile
     putStr "Part 1: " >> part1 ymax path
-    putStr "Part 2: " >> part2 path
+    putStr "Part 2: " >> part2 ymax path
