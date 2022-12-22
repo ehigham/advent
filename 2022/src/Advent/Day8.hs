@@ -1,16 +1,18 @@
 module Advent.Day8 (desc, main) where
 
+
 import Control.Monad.State       (evalState, get, modify')
+import Data.Char                 (digitToInt)
 import Data.List                 qualified as L
 import Data.List.NonEmpty        qualified as NE
 import Data.List.NonEmpty        (NonEmpty((:|)))
 import Text.Parsec               (many)
 import Text.Parsec.Text          (Parser)
-import Text.Parsec.Char          (spaces)
+import Text.Parsec.Char          (digit, spaces)
 import Text.Parsec.Combinator    (many1)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (parseFile, num)
+import Advent.Share.ParsecUtils  (parseFile)
 
 
 desc :: String
@@ -155,7 +157,7 @@ part2 = printf "Greatest scenic score = %d\n"
     score = map (f . NE.fromList) . (L.init . L.tails)
       where
         f (a :| ts) =
-            let (lo, rest) = L.span  (a >) ts in
+            let (lo, rest) = L.span (a >) ts in
                 length lo + if null rest then 0 else 1
 
 
@@ -175,7 +177,7 @@ newtype Tree = Tree Int
 inputParser :: Parser [[Tree]]
 inputParser = many row
   where
-    row = many1 (Tree <$> num) <* spaces
+    row = many1 (Tree . digitToInt <$> digit) <* spaces
 
 
 main :: FilePath -> IO ()
