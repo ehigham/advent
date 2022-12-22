@@ -24,6 +24,6 @@ inputParser = return []
 
 main :: FilePath -> IO ()
 main inputFile = do
-    input <- parseFile inputParser inputFile
+    input <- parseFile inputParser () inputFile
     putStr "Part 1: " >> part1 input
     putStr "Part 2: " >> part2 input
