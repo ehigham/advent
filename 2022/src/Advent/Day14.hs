@@ -1,7 +1,6 @@
 module Advent.Day14 (desc, main) where
 
-import Control.Monad.Loops       (whileM_)
-import Control.Monad.Extra       (whenM)
+import Control.Monad.Extra       (ifM, whileM)
 import Control.Monad.ST          (ST, runST)
 import Control.Monad.State       (modify', runStateT)
 import Data.List                 (find, sort)
@@ -191,9 +190,9 @@ desc = "Day 14: Regolith Reservoir"
 -- Using your scan, simulate the falling sand. How many units of sand come to
 -- rest before sand starts flowing into the abyss below?
 part1 :: Int -> [Path] -> IO ()
-part1 xmin paths =
-    printf "Number of units of sand before overflow =%d\n"
-        $ runST $ simulate (collect paths)
+part1 ymax paths =
+    printf "Number of units of sand before overflow = %d\n" $
+        runST $ simulate (collect paths)
   where
     simulate :: forall s. Set Point -> ST s Int
     simulate obstructions = do
@@ -201,32 +200,38 @@ part1 xmin paths =
         total <- newSTRef 0
 
         grain <- newSTRef start
-        lastPos <- newSTRef (0,0)
-        whileM_ (notFallingIntoTheAbyss grain) $ do
 
-            p' <- readSTRef lastPos
+        whileM $
+            ifM (fallingIntoTheAbyss <$> readSTRef grain)
+                (pure False)
+                $ do
+                    writeSTRef grain start
+                    occupied' <- readSTRef occupied
 
-            whenM ((p' ==) <$> readSTRef grain) $ do
-                writeSTRef grain start
-                modifySTRef' total succ
-                modifySTRef' occupied (S.insert p')
+                    whileM $ do
+                        prev <- readSTRef grain
+                        let now = nextPos occupied' prev
+                        writeSTRef grain now
+                        return $ now /= prev && not (fallingIntoTheAbyss now)
 
-            p <- readSTRef grain
-            writeSTRef lastPos p
-
-            occupied' <- readSTRef occupied
-            writeSTRef grain (nextPos occupied' p)
+                    p <- readSTRef grain
+                    if fallingIntoTheAbyss p
+                        then return False
+                        else do
+                            modifySTRef' occupied (S.insert p)
+                            modifySTRef' total succ
+                            return True
 
         readSTRef total
 
-    start = (500, 0)
+    start = (500, 0) :: Point
 
     nextPos obstructions (x, y) =
         Maybe.fromMaybe (x, y) $ find
             (`S.notMember` obstructions)
-            [(x+1, k) | k <- [y, y-1, y+1]]
+            [(x + k, y + 1) | k <- [0, -1, 1]]
 
-    notFallingIntoTheAbyss = ((xmin >) . fst <$>) . readSTRef
+    fallingIntoTheAbyss (_, y) = y >= ymax
 
 
 -- | Part 2
@@ -262,13 +267,13 @@ inputParser = flip xformParsecT (line `sepEndBy` newline) $ \mconsumed -> do
         return $ Path (p:ps)
 
     point = do
-        p@(x, _) <- (,) <$> num <*> (char ',' *> num)
-        modify' (max x)
+        p@(_, y) <- (,) <$> num <*> (char ',' *> num)
+        modify' (max y)
         return p
 
 
 main :: FilePath -> IO ()
 main inputFile = do
-    (path, xmin) <- parseFile inputParser () inputFile
-    putStr "Part 1: " >> part1 xmin path
+    (path, ymax) <- parseFile inputParser () inputFile
+    putStr "Part 1: " >> part1 ymax path
     putStr "Part 2: " >> part2 path
