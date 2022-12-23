@@ -3,18 +3,18 @@ module Advent.Day14 (desc, main) where
 import Control.Monad.Extra       (whileM)
 import Control.Monad.Loops       (untilM_)
 import Control.Monad.ST          (ST, runST)
-import Control.Monad.State       (modify', runStateT)
 import Data.List                 (find, sort)
 import Data.Maybe                qualified as Maybe
 import Data.Set                  (Set)
 import Data.Set                  qualified as S
 import Data.STRef                (newSTRef, modifySTRef', readSTRef, writeSTRef)
+import Text.Parsec               (getState, modifyState)
 import Text.Parsec.Char          (char, string, newline)
 import Text.Parsec.Combinator    (many1, sepEndBy)
-import Text.Parsec.Text          (Parser)
+import Text.Parsec.Text          (GenParser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (parseFile, num, xformParsecT)
+import Advent.Share.ParsecUtils  (num, pairwise, parseFile)
 
 desc :: String
 desc = "Day 14: Regolith Reservoir"
@@ -307,10 +307,8 @@ newtype Path = Path { unPath :: [Point] }
   deriving newtype (Eq, Show, Semigroup)
 
 
-inputParser :: Parser ([Path], Int)
-inputParser = flip xformParsecT (line `sepEndBy` newline) $ \mconsumed -> do
-    (consumed, sEnd) <- runStateT mconsumed 0
-    return $ (fmap . fmap . fmap) (,sEnd) consumed
+inputParser :: GenParser Int ([Path], Int)
+inputParser = (,) <$> (line `sepEndBy` newline) <*> getState
   where
     line = do
         p <- point
@@ -318,13 +316,13 @@ inputParser = flip xformParsecT (line `sepEndBy` newline) $ \mconsumed -> do
         return $ Path (p:ps)
 
     point = do
-        p@(_, y) <- (,) <$> num <*> (char ',' *> num)
-        modify' (max y)
+        p@(_, y) <- pairwise (,) num (char ',') num
+        modifyState (max y)
         return p
 
 
 main :: FilePath -> IO ()
 main inputFile = do
-    (path, ymax) <- parseFile inputParser () inputFile
+    (path, ymax) <- parseFile inputParser 0 inputFile
     putStr "Part 1: " >> part1 ymax path
     putStr "Part 2: " >> part2 ymax path

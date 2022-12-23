@@ -1,6 +1,8 @@
 module Advent.Share.ParsecUtils
       ( ParseException(..)
+      , int
       , num
+      , pairwise
       , parseFile
       , parseFileT
       , xformParsecT
@@ -8,6 +10,9 @@ module Advent.Share.ParsecUtils
 
 import Control.Exception            (Exception, throw)
 import Control.Monad.Identity       (runIdentity)
+import Data.Maybe                   (isJust)
+import Data.Text                    (Text)
+import Data.Text.IO                 qualified as T
 import GHC.Generics                 (Generic)
 import Text.Parsec                  ( Consumed(Empty,Consumed)
                                     , ParseError
@@ -19,28 +24,26 @@ import Text.Parsec                  ( Consumed(Empty,Consumed)
                                     , runParsecT
                                     , runPT
                                     )
-import Text.Parsec.Char             (digit)
-import Text.Parsec.Combinator       (many1)
-import Data.Text                    (Text)
-import Data.Text.IO                 qualified as T
+import Text.Parsec.Char             (char, digit)
+import Text.Parsec.Combinator       (many1, optionMaybe)
 
 newtype ParseException = ParseException ParseError
       deriving newtype (Show, Eq)
       deriving stock Generic
       deriving anyclass Exception
 
+int :: Stream s m Char => ParsecT s u m Int
+int = do
+    sign <- optionMaybe (char '-')
+    (if isJust sign then negate else id) <$> num
 
-xformParsecT :: (Monad m, Monad f)
-             => (f (Consumed (m (Reply s u a))) -> m (Consumed (m (Reply s u b))))
-             -> ParsecT s u f a
-             -> ParsecT s u m b
-xformParsecT mapK parser = mkPT (mapK . runInnerPT)
-  where
-    runInnerPT state = do
-        consumed <- runParsecT parser state
-        case consumed of
-            Consumed fa -> Consumed . pure <$> fa
-            Empty fa    -> Empty . pure <$> fa
+
+num :: (Num a, Stream s m Char) => ParsecT s u m a
+num = fromInteger . read <$> many1 digit
+
+
+pairwise :: Applicative f => (a -> b -> c) -> f a -> f s -> f b -> f c
+pairwise f fa fs fb = const . f <$> fa <*> fs <*> fb
 
 
 parseFile :: Parsec Text s a -> s -> FilePath -> IO a
@@ -60,5 +63,14 @@ parseFileT parser state filepath = do
     inspect (Right a)  = pure a
 
 
-num :: (Num a, Stream s m Char) => ParsecT s u m a
-num = fromInteger . read <$> many1 digit
+xformParsecT :: (Monad m, Monad f)
+             => (f (Consumed (m (Reply s u a))) -> m (Consumed (m (Reply s u b))))
+             -> ParsecT s u f a
+             -> ParsecT s u m b
+xformParsecT mapK parser = mkPT (mapK . runInnerPT)
+  where
+    runInnerPT state = do
+        consumed <- runParsecT parser state
+        case consumed of
+            Consumed fa -> Consumed . pure <$> fa
+            Empty fa    -> Empty . pure <$> fa

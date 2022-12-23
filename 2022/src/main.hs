@@ -16,6 +16,7 @@ import Advent.Day11 qualified as Day11
 import Advent.Day12 qualified as Day12
 import Advent.Day13 qualified as Day13
 import Advent.Day14 qualified as Day14
+import Advent.Day15 qualified as Day15
 
 
 days :: [(String, String, FilePath -> IO ())]
@@ -33,6 +34,7 @@ days = [ ( "day1",   Day1.desc,  Day1.main)
        , ("day12",  Day12.desc, Day12.main)
        , ("day13",  Day13.desc, Day13.main)
        , ("day14",  Day14.desc, Day14.main)
+       , ("day15",  Day15.desc, Day15.main)
        ]
 
 

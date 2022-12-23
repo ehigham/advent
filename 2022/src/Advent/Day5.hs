@@ -16,7 +16,7 @@ import Text.Parsec.Char          ( char
                                  , string
                                  , newline
                                  )
-import Text.Parsec.Combinator    (eof, many1, sepBy1, sepEndBy1)
+import Text.Parsec.Combinator    (between, eof, many1, sepBy1, sepEndBy1)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
@@ -232,7 +232,7 @@ inputParser = (,) <$> config <*> instructions <* eof
 layer :: Parser [Maybe Crate]
 layer = ((Just <$> crate) <|> (Nothing <$ blank)) `sepBy1` char ' '
   where
-    crate = char '[' *> (Crate <$> letter) <* char ']'
+    crate = Crate <$> between (char '[') (char ']') letter
     blank = try (string "   ")
 
 

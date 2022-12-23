@@ -486,11 +486,7 @@ inputParser = V.fromList . sortOn index <$> monkey `sepEndBy1` spaces
         op = choice [(*) <$ char '*', (+) <$ char '+']
 
     predicate :: Parser WorryLevel
-    predicate = do
-        _ <- string "  Test: divisible by "
-        n <- num
-        _ <- newline
-        return n
+    predicate = string "  Test: divisible by " *> num <* newline
 
     ifTrue, ifFalse :: Parser Int
     ifTrue  = string "    If true: throw to monkey " *> num <* newline

@@ -3,13 +3,12 @@ module Advent.Day10 (desc, main) where
 import Control.Monad.RWS         (execRWS, get, modify', tell)
 import Data.Functor              (($>))
 import Data.List.Split           (chunksOf)
-import Data.Maybe                (isJust)
-import Text.Parsec               (choice, sepEndBy, optionMaybe)
+import Text.Parsec               (choice, sepEndBy)
 import Text.Parsec.Char          (spaces, string)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (parseFile, num)
+import Advent.Share.ParsecUtils  (int, parseFile)
 
 desc :: String
 desc = "Day 10: Cathode-Ray Tube"
@@ -442,10 +441,6 @@ inputParser = instr `sepEndBy` spaces
       [ string "noop" <* spaces $> Noop
       , string "addx" <* spaces *> (AddX <$> int)
       ]
-
-    int = do
-      sign <- optionMaybe (string "-")
-      (if isJust sign then negate else id) <$> num
 
 
 data Instruction where

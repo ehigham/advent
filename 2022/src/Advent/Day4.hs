@@ -1,7 +1,5 @@
 module Advent.Day4 (desc, main) where
 
-import Control.Applicative       ((<|>))
-import Data.Functor              (void)
 import Data.Interval             ( Extended(Finite)
                                  , Interval
                                  , (<=..<=)
@@ -10,11 +8,11 @@ import Data.Interval             ( Extended(Finite)
                                  , width
                                  )
 import Text.Parsec.Text          (Parser)
-import Text.Parsec.Char          (char, newline)
-import Text.Parsec.Combinator    (eof, sepEndBy1)
+import Text.Parsec.Char          (char, spaces)
+import Text.Parsec.Combinator    (sepEndBy)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (parseFile, num)
+import Advent.Share.ParsecUtils  (num, pairwise, parseFile)
 
 
 desc :: String
@@ -124,15 +122,10 @@ part2 = printf "Number of overlapping assignments = %d\n"
 
 
 inputParser :: Parser [(Interval Int, Interval Int)]
-inputParser = pair `sepEndBy1` (void newline <|> eof)
+inputParser = pair `sepEndBy` spaces
   where
-    pair = (,) <$> interval <*> (char ',' *> interval)
-
-    interval = do
-        start <- num
-        _ <- char '-'
-        end <- num
-        return $ Finite start <=..<= Finite end
+    pair = pairwise (,) interval (char ',') interval
+    interval = pairwise ((. Finite) . (<=..<=) . Finite) num (char '-') num
 
 
 main :: FilePath -> IO ()

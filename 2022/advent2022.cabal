@@ -32,6 +32,7 @@ executable advent2022
       Advent.Day12
       Advent.Day13
       Advent.Day14
+      Advent.Day15
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -89,6 +90,7 @@ test-suite spec
       Advent.Day12
       Advent.Day13
       Advent.Day14
+      Advent.Day15
       Advent.Day2
       Advent.Day3
       Advent.Day4
@@ -149,6 +151,7 @@ benchmark baselines
       Advent.Day12
       Advent.Day13
       Advent.Day14
+      Advent.Day15
       Advent.Day2
       Advent.Day3
       Advent.Day4

@@ -12,7 +12,7 @@ import Data.Text                   (Text)
 import Text.Parsec          hiding ((<|>))
 import Text.Printf                 (printf)
 
-import Advent.Share.ParsecUtils    (parseFile, num, xformParsecT)
+import Advent.Share.ParsecUtils    (num, pairwise, parseFile, xformParsecT)
 
 
 desc :: String
@@ -233,9 +233,7 @@ parseFolders =
         files <- lift $ R.gets (M.lookup path)
         return $ mkFolder path (fromMaybe [] files)
 
-    file path = flip File
-        <$> (num <* space)
-        <*> (mkPath path <$> filename)
+    file path = pairwise (flip File) num space (mkPath path <$> filename)
 
     filename = T.pack <$> manyTill anyChar newline
 

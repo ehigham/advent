@@ -8,7 +8,7 @@ import Text.Parsec.Combinator    (choice, sepEndBy1, eof)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (parseFile)
+import Advent.Share.ParsecUtils  (pairwise, parseFile)
 
 desc :: String
 desc = "Day 2: Rock Paper Scissors"
@@ -146,7 +146,7 @@ score (elf, me) = handScore me + outcome
 inputParser :: Parser [(Hand, Sym)]
 inputParser = game `sepEndBy1` (void newline <|> eof)
   where
-    game = (,) <$> hand <*> (space *> sym)
+    game = pairwise (,) hand space sym
 
     hand = choice
         [ Rock <$ char 'A'

@@ -10,7 +10,7 @@ import Text.Parsec.Char          (char, spaces)
 import Text.Parsec.Text          (Parser)
 import Text.Printf               (printf)
 
-import Advent.Share.ParsecUtils  (parseFile, num)
+import Advent.Share.ParsecUtils  (num, pairwise, parseFile)
 
 desc :: String
 desc = "Day 9: Rope Bridge"
@@ -801,7 +801,7 @@ type Point = (Int, Int)
 
 
 inputParser :: Parser [(Direction, Int)]
-inputParser = ((,) <$> direction <*> (spaces *> num)) `sepEndBy` spaces
+inputParser = pairwise (,) direction spaces num `sepEndBy` spaces
   where
     direction = choice
       [ Up    <$ char 'U'
