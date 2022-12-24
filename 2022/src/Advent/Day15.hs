@@ -1,5 +1,7 @@
-module Advent.Day15 (desc, main, manhattan) where
+module Advent.Day15 (desc, main) where
 
+import Data.Set                  (Set)
+import Data.Set                  qualified as S
 import Text.Parsec.Char          (newline, string)
 import Text.Parsec.Combinator    (sepEndBy)
 import Text.Parsec.Text          (Parser)
@@ -147,19 +149,31 @@ desc = "Day 15: Beacon Exclusion Zone"
 -- Consult the report from the sensors you just deployed. In the row where
 -- y=2000000, how many positions cannot contain a beacon?
 part1 :: [(Point, Point)] -> IO ()
-part1 _ = printf "not implemented\n"
+part1 = printf "Number of positions at y=2000000 that cannot contain a beacon = %d\n"
+    . length
+    . foldMap (uncurry (coverage 2000000))
 
 
 -- | Part 2
 part2 :: a -> IO ()
 part2 _ = printf "not implemented\n"
 
-
 type Point = (Int, Int)
+
+coverage :: Int -> Point -> Point -> Set Point
+coverage y sensor beacon =
+    S.fromList
+        [ p
+        | r <- [negate width..width]
+        , let p = (fst sensor + r, y)
+        , p /= beacon
+        ]
+  where
+    width = manhattan sensor beacon - abs (snd sensor - y)
 
 
 manhattan :: Point -> Point -> Int
-manhattan x y = abs (fst x - fst y) + abs (snd x + snd y)
+manhattan p q = abs (fst p - fst q) + abs (snd p - snd q)
 
 
 inputParser :: Parser [(Point, Point)]
